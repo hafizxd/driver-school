@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->tinyInteger('role')->default(1);
             $table->string('avatar')->nullable();
-            $table->text('alamat');
-            $table->text('fcm_token');
+            $table->text('alamat')->nullable();
+            $table->text('fcm_token')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
