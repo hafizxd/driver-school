@@ -58,7 +58,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            @foreach($Users as $Key => $User)
+                                                <tr>
+                                                    <th scope="row">{{ ++$Key }}</th>
+                                                    <td>{{ $User->name }}</td>
+                                                    <td>{{ $User->email }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-dark" style="width: 120px;">Info</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -75,7 +84,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            @foreach($UsersBlocked as $Key => $User)
+                                                <tr>
+                                                    <th scope="row">{{ ++$Key }}</th>
+                                                    <td>{{ $User->name }}</td>
+                                                    <td>{{ $User->email }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-dark" style="width: 120px;">Info</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -124,7 +142,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            @foreach($Drivers as $Key =>  $Driver)
+                                                <tr>
+                                                    <th scope="row">{{ ++$Key }}</th>
+                                                    <td>{{ $Driver->name }}</td>
+                                                    <td>{{ $Driver->email }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-dark" style="width: 120px;">Info</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -141,7 +168,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            @foreach($DriversBlocked as $Key =>  $Driver)
+                                                <tr>
+                                                    <th scope="row">{{ ++$Key }}</th>
+                                                    <td>{{ $Driver->name }}</td>
+                                                    <td>{{ $Driver->email }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-dark" style="width: 120px;">Info</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

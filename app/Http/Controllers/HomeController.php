@@ -16,6 +16,12 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home');
+        $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->get();
+        $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->get();
+
+        $Drivers = Driver::where('role', 2)->orderBy('created_at', 'DESC')->get();
+        $DriversBlocked = Driver::where('role', 0)->orderBy('created_at', 'DESC')->get();
+        
+        return view('home')->with(compact('Users', 'UsersBlocked', 'Drivers', 'DriversBlocked'));
     }
 }

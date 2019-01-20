@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//User
+Route::post('/user/register', 'UserController@store');
+Route::get('/user/login', 'UserController@login');
+
+
+//Driver
+Route::post('/driver/register', 'DriverController@store');
+Route::get('/driver/login', 'DriverController@login');
