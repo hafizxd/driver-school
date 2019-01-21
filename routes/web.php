@@ -17,6 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/pelanggan', 'UserController@index');
+    Route::get('/pelanggan/{id}', 'UserController@show');
+
+    Route::get('/supir', 'DriverController@index');
+    Route::get('/supir/{id}', 'DriverController@show');
+});
