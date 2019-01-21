@@ -48,29 +48,21 @@
                             <div class="tab-content">
                                 {{-- Pengguna --}}
                                 <div class="tab-pane show active" id="pegguna-tab" role="tabpanel" aria-labelledby="pegguna-tab">
-                                    <table class="table table-striped table-condensed">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th scope="col" width="3%">#</th>
-                                                <th scope="col" width="11%">Avatar</th>
-                                                <th scope="col" width="25%">Nama</th>
-                                                <th scope="col" width="25%">E-mail</th>
-                                                <th scope="col" width="25%">Phone</th>
-                                                <th scope="col" width="11%">Action</th>
+                                                <th scope="col" width="10%">#</th>
+                                                <th scope="col" width="40%">Nama</th>
+                                                <th scope="col" width="30%">E-mail</th>
+                                                <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($Users as $Key => $User)
                                                 <tr>
                                                     <th scope="row">{{ ++$Key }}</th>
-                                                    @if(!empty($User->avatar))
-                                                      <td><img src="{{asset('storage/blog/' . $User->avatar)}}" style="max-height:34px;max-width:100%;"></td>
-                                                    @else
-                                                      <td>-</td>
-                                                    @endif
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
-                                                    <td>{{ $User->phone }}</td>
                                                     <td>
                                                         <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
@@ -82,34 +74,21 @@
 
                                 {{-- Blokir --}}
                                 <div class="tab-pane" id="blokirPengguna-tab">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                {{--<th scope="col" width="10%">#</th>
+                                                <th scope="col" width="10%">#</th>
                                                 <th scope="col" width="40%">Nama</th>
                                                 <th scope="col" width="30%">E-mail</th>
-                                                <th scope="col" width="20%">Action</th>--}}
-
-                                                <th scope="col" width="3%">#</th>
-                                                <th scope="col" width="11%">Avatar</th>
-                                                <th scope="col" width="25%">Nama</th>
-                                                <th scope="col" width="25%">E-mail</th>
-                                                <th scope="col" width="25%">Phone</th>
-                                                <th scope="col" width="11%">Action</th>
+                                                <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($UsersBlocked as $Key => $User)
                                                 <tr>
                                                     <th scope="row">{{ ++$Key }}</th>
-                                                    @if(!empty($User->avatar))
-                                                      <td><img src="{{asset('storage/blog/' . $User->avatar)}}" style="width:50%;"></td>
-                                                    @else
-                                                      <td>-</td>
-                                                    @endif
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
-                                                    <td>{{ $User->phone }}</td>
                                                     <td>
                                                         <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
@@ -153,29 +132,21 @@
                             <div class="tab-content">
                                 {{-- Supir --}}
                                 <div class="tab-pane show active" id="supir-tab" role="tabpanel" aria-labelledby="supir-tab">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                              <th scope="col" width="3%">#</th>
-                                              <th scope="col" width="11%">Avatar</th>
-                                              <th scope="col" width="25%">Nama</th>
-                                              <th scope="col" width="25%">E-mail</th>
-                                              <th scope="col" width="25%">Phone</th>
-                                              <th scope="col" width="11%">Action</th>
+                                                <th scope="col" width="10%">#</th>
+                                                <th scope="col" width="40%">Nama</th>
+                                                <th scope="col" width="30%">E-mail</th>
+                                                <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($Drivers as $Key =>  $Driver)
                                                 <tr>
                                                     <th scope="row">{{ ++$Key }}</th>
-                                                    @if(!empty($Driver->avatar))
-                                                      <td><img src="{{asset('storage/blog/' . $User->avatar)}}" style="width:50%;"></td>
-                                                    @else
-                                                      <td>-</td>
-                                                    @endif
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
-                                                    <td>{{ $Driver->phone }}</td>
                                                     <td>
                                                         <a href="#" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
@@ -187,29 +158,21 @@
 
                                 {{-- Blokir --}}
                                 <div class="tab-pane" id="blokirSupir-tab">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                              <th scope="col" width="3%">#</th>
-                                              <th scope="col" width="11%">Avatar</th>
-                                              <th scope="col" width="25%">Nama</th>
-                                              <th scope="col" width="25%">E-mail</th>
-                                              <th scope="col" width="25%">Phone</th>
-                                              <th scope="col" width="11%">Action</th>
+                                                <th scope="col" width="10%">#</th>
+                                                <th scope="col" width="40%">Nama</th>
+                                                <th scope="col" width="30%">E-mail</th>
+                                                <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($DriversBlocked as $Key =>  $Driver)
                                                 <tr>
                                                     <th scope="row">{{ ++$Key }}</th>
-                                                    @if(!empty($Driver->avatar))
-                                                      <td><img src="{{asset('storage/blog/' . $User->avatar)}}" style="width:50%;"></td>
-                                                    @else
-                                                      <td>-</td>
-                                                    @endif
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
-                                                    <td>{{ $Driver->phone }}</td>
                                                     <td>
                                                         <a href="#" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
