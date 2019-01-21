@@ -11,13 +11,13 @@ class UserController extends Controller
       $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->get();
       $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->get();
 
-      return view('customer')->with(compact('Users', 'UsersBlocked'));
+      return view('user')->with(compact('Users', 'UsersBlocked'));
     }
 
     public function show($id){
       $Users = User::where('id', $id)->first();
 
-      return view('profilecustomer')->with(compact('Users'));
+      return view('userinfo')->with(compact('Users'));
     }
 
     public function update(Request $request, $id){
