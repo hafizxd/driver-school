@@ -17,6 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/user', 'UserController@index')->name('user');
+    Route::put('/user/{id}/edit', 'UserController@update');
+    Route::get('/user/{id}', 'UserController@show');
+
+    Route::get('/customer', 'CustomerDriverController@indexcustomer')->name('customer');
+    Route::get('/customer/{id}', 'CustomerDriverController@showcustomer');
+
+    Route::get('/driver', 'CustomerDriverController@indexdriver')->name('driver');
+    Route::get('/driver/{id}', 'CustomerDriverController@showdriver');
+});
