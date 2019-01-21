@@ -72,7 +72,7 @@
                                                     <td>{{ $User->email }}</td>
                                                     <td>{{ $User->phone }}</td>
                                                     <td>
-                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -111,7 +111,7 @@
                                                     <td>{{ $User->email }}</td>
                                                     <td>{{ $User->phone }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -121,7 +121,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a style="font-weight:bold;font-size:23px;"  href="/customer">More</a>
+                            <a style="font-weight:bold;font-size:23px;"  href="/pelanggan">More</a>
                         </div>
                     </div>
                 </div>
@@ -221,7 +221,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a style="font-weight:bold;font-size:23px;"  href="#">More</a>
+                            <a style="font-weight:bold;font-size:23px;"  href="/supir">More</a>
                         </div>
                     </div>
                 </div>

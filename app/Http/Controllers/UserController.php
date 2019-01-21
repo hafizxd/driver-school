@@ -8,22 +8,16 @@ use App\User;
 class UserController extends Controller
 {
     public function index(Request $request){
-      $search_q = urlencode($request->input('search'));
-      if(!empty($search_q)){
-        $value = str_replace('+', ' ', $search_q);
-        $user = User::where('name', 'like', '%' . $value . '%')->get();
-      }else{
-        $user = User::all();
-        $value = "";
-      }
+      $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->get();
+      $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->get();
 
-      return view('user.user', ['user' => $user, 'value' => $value]);
+      return view('customer')->with(compact('Users', 'UsersBlocked'));
     }
 
     public function show($id){
-      $user = User::where('id', $id)->first();
+      $Users = User::where('id', $id)->first();
 
-      return view('user.profile', ['user' => $user]);
+      return view('profilecustomer')->with(compact('Users'));
     }
 
     public function update(Request $request, $id){
@@ -53,10 +47,6 @@ class UserController extends Controller
 
       return redirect(route ('user'));
     }
-
-
-
-
 
 
 
