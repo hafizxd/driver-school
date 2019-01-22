@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title') Pengguna | DriverSchool @endsection
+
 @section('content')
 <div class="container">
 
@@ -10,16 +12,17 @@
         <div class="tab-pane fade show active" id="users-tab" role="tabpanel" aria-labelledby="users-tab">
             <div class="row justify-content-center">
                 <div class="col-md-10">
+                  <a href="/home" class="btn btn-dark" style="margin-bottom:20px;">Beranda</a>
                     <div class="card">
                         <div class="card-header">
                             <h1>
-                                Pelanggan
+                                Pengguna
                             </h1>
                         </div>
                         <div class="card-body">
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#pegguna-tab" role="tab" aria-controls="pegguna-tab" aria-selected="true">Pelanggan</a>
+                                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#pegguna-tab" role="tab" aria-controls="pegguna-tab" aria-selected="true">Pengguna</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirPengguna-tab" role="tab" aria-controls="bookings-tab" aria-selected="false">Blokir</a>
@@ -52,7 +55,7 @@
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
                                                     <td>
-                                                        <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -84,7 +87,7 @@
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
                                                     <td>
-                                                        <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -94,6 +97,7 @@
                             </div>
                         </div>
                     </div>
+                    {{ $Users->links() }}
                 </div>
             </div>
         </div>

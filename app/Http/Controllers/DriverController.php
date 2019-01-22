@@ -14,11 +14,13 @@ class DriverController extends Controller
       return view('driver')->with(compact('Drivers', 'DriversBlocked'));
     }
 
+
     public function show($id){
       $Drivers = Driver::where('id', $id)->first();
 
-      return view('profiledriver')->with(compact('Drivers'));
+      return view('driverinfo')->with(compact('Drivers'));
     }
+
 
     public function login(Request $request){
         $user = Driver::where('email', $request->email)->where('role', 2)->first();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDriverIdToUsersTable extends Migration
+class AddOrderIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class AddDriverIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('driver_id')->unsigned()->nullable();
+            $table->integer('order_id')->unsigned()->nullable();
 
-            $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 

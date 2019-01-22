@@ -16,11 +16,11 @@ class HomeController extends Controller
 
     public function index()
     {
-        $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->paginate(4);
-        $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->paginate(4);
+        $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->paginate(5);
+        $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->paginate(5);
 
-        $Drivers = Driver::where('role', 2)->orderBy('created_at', 'DESC')->paginate(4);
-        $DriversBlocked = Driver::where('role', 0)->orderBy('created_at', 'DESC')->paginate(4);
+        $Drivers = Driver::where('role', 2)->orderBy('created_at', 'DESC')->paginate(5);
+        $DriversBlocked = Driver::where('role', 0)->orderBy('created_at', 'DESC')->paginate(5);
 
         return view('home')->with(compact('Users', 'UsersBlocked', 'Drivers', 'DriversBlocked'));
     }

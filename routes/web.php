@@ -21,9 +21,10 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::get('/pelanggan', 'UserController@index');
-    Route::get('/pelanggan/{id}', 'UserController@show');
+    Route::get('/user', 'UserController@index');
+    Route::get('/user/{id}', 'UserController@show')->name('userinfo');
+    Route::put('/user/{id}/edit', 'UserController@update');
 
-    Route::get('/supir', 'DriverController@index');
-    Route::get('/supir/{id}', 'DriverController@show');
+    Route::get('/driver', 'DriverController@index');
+    Route::get('/driver/{id}', 'DriverController@show');
 });
