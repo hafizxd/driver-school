@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-
+        
             {{-- List Navigation --}}
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
@@ -52,8 +52,8 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="10%">#</th>
-                                                <th scope="col" width="40%">Nama</th>
-                                                <th scope="col" width="30%">E-mail</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
                                                 <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
@@ -64,7 +64,7 @@
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
                                                     <td>
-                                                        <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -78,8 +78,8 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="10%">#</th>
-                                                <th scope="col" width="40%">Nama</th>
-                                                <th scope="col" width="30%">E-mail</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
                                                 <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
@@ -90,7 +90,7 @@
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
                                                     <td>
-                                                        <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/pelanggan/{{$User->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -136,8 +136,8 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="10%">#</th>
-                                                <th scope="col" width="40%">Nama</th>
-                                                <th scope="col" width="30%">E-mail</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
                                                 <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
@@ -148,7 +148,7 @@
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="#" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -162,8 +162,8 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="10%">#</th>
-                                                <th scope="col" width="40%">Nama</th>
-                                                <th scope="col" width="30%">E-mail</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
                                                 <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
@@ -174,7 +174,7 @@
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="#" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

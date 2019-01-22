@@ -11,13 +11,13 @@ class UserController extends Controller
       $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->get();
       $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->get();
 
-      return view('user')->with(compact('Users', 'UsersBlocked'));
+      return view('User')->with(compact('Users', 'UsersBlocked'));
     }
 
     public function show($id){
       $Users = User::where('id', $id)->first();
 
-      return view('userinfo')->with(compact('Users'));
+      return view('UserInfo')->with(compact('Users'));
     }
 
     public function update(Request $request, $id){
@@ -47,11 +47,6 @@ class UserController extends Controller
 
       return redirect(route ('user'));
     }
-
-
-
-
-
 
     public function store(Request $request){
         $user = new User;
