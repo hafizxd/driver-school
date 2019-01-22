@@ -11,13 +11,13 @@ class UserController extends Controller
       $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->Paginate(10);
       $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->Paginate(10);
 
-      return view('user')->with(compact('Users', 'UsersBlocked'));
+      return view('User')->with(compact('Users', 'UsersBlocked'));
     }
 
     public function show($id){
       $Users = User::where('id', $id)->first();
 
-      return view('userinfo')->with(compact('Users'));
+      return view('UserInfo')->with(compact('Users'));
     }
 
     public function update(Request $request, $id){
@@ -43,10 +43,9 @@ class UserController extends Controller
       return back();
     }
 
-
     public function store(Request $request){
         $user = new User;
-        $user->name = $request->email;
+        $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();

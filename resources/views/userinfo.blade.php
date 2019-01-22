@@ -9,7 +9,7 @@
           <a href="/home" class="btn btn-dark" style="margin-bottom:20px;">Beranda</a>
             <div class="card">
                 <div class="card-header">
-                  <a class="btn btn-danger" href="#" role="button">Block</a>
+                  <a class="btn btn-outline-danger" href="#" role="button">Block</a>
                 </div>
                 <div class="card-body">
                   <form action="/user/{{$Users->id}}/edit" method="post" enctype="multipart/form-data">

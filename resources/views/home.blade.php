@@ -50,13 +50,13 @@
                             <div class="tab-content">
                                 {{-- Pengguna --}}
                                 <div class="tab-pane show active" id="pegguna-tab" role="tabpanel" aria-labelledby="pegguna-tab">
-                                    <table class="table table-striped table-condensed">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                              <th scope="col" width="10%">#</th>
-                                              <th scope="col" width="35%">Nama</th>
-                                              <th scope="col" width="35%">E-mail</th>
-                                              <th scope="col" width="20%">Action</th>
+                                                <th scope="col" width="10%">#</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
+                                                <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -66,7 +66,7 @@
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
                                                     <td>
-                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -76,13 +76,13 @@
 
                                 {{-- Blokir --}}
                                 <div class="tab-pane" id="blokirPengguna-tab">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                              <th scope="col" width="10%">#</th>
-                                              <th scope="col" width="35%">Nama</th>
-                                              <th scope="col" width="35%">E-mail</th>
-                                              <th scope="col" width="20%">Action</th>
+                                                <th scope="col" width="10%">#</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
+                                                <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -92,7 +92,7 @@
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
                                                     <td>
-                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -134,13 +134,13 @@
                             <div class="tab-content">
                                 {{-- Supir --}}
                                 <div class="tab-pane show active" id="supir-tab" role="tabpanel" aria-labelledby="supir-tab">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                              <th scope="col" width="10%">#</th>
-                                              <th scope="col" width="35%">Nama</th>
-                                              <th scope="col" width="35%">E-mail</th>
-                                              <th scope="col" width="20%">Action</th>
+                                                <th scope="col" width="10%">#</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
+                                                <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -160,13 +160,13 @@
 
                                 {{-- Blokir --}}
                                 <div class="tab-pane" id="blokirSupir-tab">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                              <th scope="col" width="10%">#</th>
-                                              <th scope="col" width="35%">Nama</th>
-                                              <th scope="col" width="35%">E-mail</th>
-                                              <th scope="col" width="20%">Action</th>
+                                                <th scope="col" width="10%">#</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
+                                                <th scope="col" width="20%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
