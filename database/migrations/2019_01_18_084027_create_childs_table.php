@@ -15,9 +15,11 @@ class CreateChildsTable extends Migration
     {
         Schema::create('childs', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('user_id');
-            $table->string('nama');
+            $table->integer('user_id')->unsigned();
+            $table->string('name');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
