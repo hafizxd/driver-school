@@ -19,9 +19,13 @@ class CreateOrdersTable extends Migration
             $table->integer('driver_id');
             $table->tinyInteger('active')->default(1);
             $table->string('plan');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->text('start_date');
+            $table->text('end_date');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
         });
     }
 

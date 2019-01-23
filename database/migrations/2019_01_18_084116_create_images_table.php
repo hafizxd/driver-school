@@ -15,9 +15,11 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('driver_id');
+            $table->integer('driver_id')->unsigned();
             $table->string('images');
             $table->timestamps();
+
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
         });
     }
 

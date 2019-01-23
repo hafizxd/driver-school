@@ -1,15 +1,18 @@
 @extends('layouts.app')
 
+@section('title') Supir | DriverSchool @endsection
+
 @section('content')
 <div class="container">
 
     {{-- Wrapper Navigation Content --}}
     <div class="tab-content" id="pills-tabContent">
 
-        {{-- Content Pengguna --}}
+        {{-- Content Supir --}}
         <div class="tab-pane fade show active" id="drivers-tab" role="tabpanel" aria-labelledby="drivers-tab">
             <div class="row justify-content-center">
                 <div class="col-md-10">
+                  <a href="/home" class="btn btn-dark" style="margin-bottom:20px;">Beranda</a>
                     <div class="card">
                         <div class="card-header">
                             <h1>
@@ -28,7 +31,7 @@
                             <br>
 
                             <div class="tab-content">
-                                {{-- Pengguna --}}
+                                {{-- Supir --}}
                                 <div class="tab-pane show active" id="supir-tab" role="tabpanel" aria-labelledby="supir-tab">
                                     <table class="table table-striped table-condensed">
                                         <thead>
@@ -41,18 +44,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($Drivers as $Key => $User)
+                                            @foreach($Drivers as $Key => $Driver)
                                                 <tr>
                                                     <th scope="row">{{ ++$Key }}</th>
-                                                    @if(!empty($User->avatar))
-                                                      <td><img src="{{asset('storage/blog/' . $User->avatar)}}" style="max-height:34px;max-width:100%;"></td>
+                                                    @if(!empty($Driver->avatar))
+                                                      <td><img src="{{asset('storage/blog/' . $Driver->avatar)}}" style="max-height:34px;max-width:100%;"></td>
                                                     @else
                                                       <td>-</td>
                                                     @endif
-                                                    <td>{{ $User->name }}</td>
-                                                    <td>{{ $User->email }}</td>
+                                                    <td>{{ $Driver->name }}</td>
+                                                    <td>{{ $Driver->email }}</td>
                                                     <td>
-                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -73,18 +76,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($DriversBlocked as $Key => $User)
+                                            @foreach($DriversBlocked as $Key => $Driver)
                                                 <tr>
                                                     <th scope="row">{{ ++$Key }}</th>
-                                                    @if(!empty($User->avatar))
-                                                      <td><img src="{{asset('storage/blog/' . $User->avatar)}}" style="max-height:34px;max-width:100%;"></td>
+                                                    @if(!empty($Driver->avatar))
+                                                      <td><img src="{{asset('storage/blog/' . $Driver->avatar)}}" style="max-height:34px;max-width:100%;"></td>
                                                     @else
                                                       <td>-</td>
                                                     @endif
-                                                    <td>{{ $User->name }}</td>
-                                                    <td>{{ $User->email }}</td>
+                                                    <td>{{ $Driver->name }}</td>
+                                                    <td>{{ $Driver->email }}</td>
                                                     <td>
-                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/user/{{$Driver->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

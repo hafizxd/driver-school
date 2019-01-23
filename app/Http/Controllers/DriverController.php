@@ -15,12 +15,12 @@ class DriverController extends Controller
       return view('driver')->with(compact('Drivers', 'DriversBlocked'));
     }
 
+
     public function show($id){
       $Drivers = Driver::where('id', $id)->first();
 
-      return view('profiledriver')->with(compact('Drivers'));
+      return view('driverinfo')->with(compact('Drivers'));
     }
-
 
     /*
     
@@ -30,7 +30,6 @@ class DriverController extends Controller
 
     public function store(Request $request){
         $driver = Driver::where('email', $request->email)->get();
-
 
         if($driver->count() > 0){
             return response()->json([

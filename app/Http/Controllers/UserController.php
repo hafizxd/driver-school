@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(Request $request){
-      $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->get();
-      $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->get();
+      $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->Paginate(10);
+      $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->Paginate(10);
 
       return view('User')->with(compact('Users', 'UsersBlocked'));
     }
@@ -25,12 +25,6 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id){
-
-      $this->validate($request, [
-        'name'  => 'required',
-        'email' => 'required'
-      ]);
-
       if(!empty($request->avatar)){
         $this->validate($request, [
           'avatar' => 'mimes:jpg,jpeg,png'
@@ -43,13 +37,14 @@ class UserController extends Controller
       }
 
       User::findOrFail($id)->update([
+        'avatar' => $fileName,
         'name'   => $request->name,
         'email'  => $request->email,
-        'alamat' => $request->alamat,
-        'avatar' => $fileName
+        'wilayah'=> $request->wilayah,
+        'phone'  => $request->phone
       ]);
 
-      return redirect(route ('user'));
+      return back();
     }
 
     
