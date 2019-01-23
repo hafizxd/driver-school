@@ -19,7 +19,7 @@ class DriverController extends Controller
     public function show($id){
       $Drivers = Driver::where('id', $id)->first();
 
-      return view('driverinfo')->with(compact('Drivers'));
+      return view('driverInfo')->with(compact('Drivers'));
     }
 
     /*

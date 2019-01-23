@@ -21,7 +21,7 @@ class UserController extends Controller
     public function show($id){
       $Users = User::where('id', $id)->first();
 
-      return view('UserInfo')->with(compact('Users'));
+      return view('userInfo')->with(compact('Users'));
     }
 
     public function update(Request $request, $id){
