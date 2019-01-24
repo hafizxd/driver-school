@@ -18,7 +18,7 @@ class UserController extends Controller
       return view('User')->with(compact('Users', 'UsersBlocked'));
     }
 
-    public function show($id){
+    public function infoWeb($id){
       $Users = User::where('id', $id)->first();
 
       return view('userInfo')->with(compact('Users'));

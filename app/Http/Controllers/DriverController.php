@@ -16,10 +16,10 @@ class DriverController extends Controller
     }
 
 
-    public function show($id){
-      $Drivers = Driver::where('id', $id)->first();
+    public function infoWeb($id){
+      $Driver = Driver::where('id', $id)->first();
 
-      return view('driverInfo')->with(compact('Drivers'));
+      return view('driverInfo')->with(compact('Driver'));
     }
 
     /*

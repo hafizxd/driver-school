@@ -12,61 +12,55 @@
                         <a class="btn btn-danger" href="#" role="button">Block</a>
                     </div>
                     <div class="card-body">
-                        <form action="/driver/{{$Drivers->id}}/edit" method="post" enctype="multipart/form-data">
-                            @if(!empty($Drivers->avatar))
-                                <img src="{{asset('storage/blog/' . $Drivers->avatar)}}" alt="foto-profil" style="width:50%;margin:auto;margin-bottom:10px;display:block;">
-                            @endif
-                          <div class="form-group">
-                              <input name="avatar" type="file" class="from-control-file">
-                          </div>
-                          <div class="form-group">
+
+                        {!! Form::open(['url' => '/driver/update', 'method' => 'POST', 'files' => true]) !!}
+                        {{ Form::token() }}
+                            <input type="hidden" name="id" value="{{ $Driver->id }}">
+                            <center>
+                                <img class="img-thumbnail" src="{{ $Driver->avatar }}" alt="">
+                            </center>
+                            <br>
+                            <div class="form-group">
+                                <input name="avatar" type="file" class="form-control-file" accept="image/*" id="exampleFormControlFile1">
+                            </div>
+
+                            <div class="form-group">
                               <label>Nama</label>
-                              <input name="name" type="text" class="form-control" value="{{ $Drivers->name }}">
-                          </div>
-                          <div class="form-group">
-                              <label>E-mail</label>
-                              <input name="email" type="email" class="form-control" value="{{ $Drivers->email }}">
-                          </div>
-                          <div class="form-group">
-                              <label>Wilayah</label>
-                              <input name="wilayah" type="text" class="form-control" value="{{ $Drivers->alamat }}">
-                          </div>
-                          <div class="form-group">
-                              <label>Tipe Mobil</label>
-                              <input name="tipeMobil" type="text" class="form-control" value="{{ $Drivers->tipe_mobil }}">
-                          </div>
-                          <div class="form-group">
-                              <label>Max Penumpang</label>
-                              <input name="maxPenumpang" type="number" class="form-control" value="{{ $Drivers->max_penumpang }}">
-                          </div>
-                          <div class="form-group">
-                              <label>Gender Penumpang</label>
-                              <select class="form-control">
-                                  @if($Drivers->gender_penumpang == 'Campur')
-                                      <option>Campur</option>
-                                      <option>Laki-laki</option>
-                                      <option>Perempuan</option>
-                                  @elseif($Drivers->gender_penumpang == 'Laki-laki')
-                                      <option>Laki-laki</option>
-                                      <option>Perempuan</option>
-                                      <option>Campur</option>
-                                  @elseif($Drivers->gender_penumpang == 'Perempuan')
-                                      <option>Perempuan</option>
-                                      <option>Laki-laki</option>
-                                      <option>Campur</option>
-                                  @else
-                                      <option>-</option>
-                                  @endif
-                              </select>
-                          </div>
-                          <input class="btn btn-default" type="submit" name="submit" value="Edit" style="margin-top:20px;">
-                              {{ csrf_field() }}
-                          <input type="hidden" name="_method" value="PUT">
-                          <div class="form-group">
-                              <hr width="90%">
-                          </div>
-                        </form>
-                        <h3 style="margin-top:40px;">Foto Mobil</h3>
+                              <input name="name" type="text" class="form-control" value="{{ $Driver->name }}">
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <input name="email" type="email" class="form-control" value="{{ $Driver->email }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Wilayah</label>
+                                <input name="wilayah" type="text" class="form-control" value="{{ $Driver->alamat }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipe Mobil</label>
+                                <input name="tipeMobil" type="text" class="form-control" value="{{ $Driver->tipe_mobil }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Max Penumpang</label>
+                                <input name="maxPenumpang" type="number" class="form-control" value="{{ $Driver->max_penumpang }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Gender Penumpang</label>
+                                <select class="form-control" id="gender_penumpang">
+                                    <option @if($Driver->gender_penumpang == 'Campur') selected @endif>Campur</option>
+                                    <option @if($Driver->gender_penumpang == 'Laki-Laki') selected @endif>Laki-laki</option>
+                                    <option @if($Driver->gender_penumpang == 'Perempuan') selected @endif>Perempuan</option>
+                                </select>
+                            </div>
+
+                            <h3>foto mobil</h3>
+
+                            <div class="text-center">
+                                <a href="../" class="btn btn-danger">Batal</a>
+                                <button type="submit" class="btn btn-success">Simpan</button>
+                            </div>
+                        {!! Form::close() !!}
+
                   </div>
               </div>
           </div>
