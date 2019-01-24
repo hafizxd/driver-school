@@ -17,12 +17,13 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->nullable();
             $table->tinyInteger('role')->default(1);
             $table->string('avatar')->nullable();
-            $table->text('alamat')->nullable();
-            $table->integer('phone')->nullable();
+            $table->text('address')->nullable();
             $table->text('fcm_token')->nullable();
             $table->string('password');
+
             $table->rememberToken();
             $table->timestamps();
 

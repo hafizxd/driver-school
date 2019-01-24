@@ -17,16 +17,17 @@ class CreateDriversTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->nullable();
             $table->tinyInteger('role')->default(2);
-            $table->string('avatar');
-            $table->string('tipe_mobil');
-            $table->tinyInteger('max_penumpang');
-            $table->string('gender_penumpang');
-            $table->string('tujuan');
-            $table->string('alamat');
-            $table->integer('phone');
+            $table->string('avatar')->nullable();
+            $table->string('nopol')->nullable();
+            $table->string('tipe_mobil')->nullable();
+            $table->tinyInteger('max_penumpang')->nullable();
+            $table->string('gender_penumpang')->nullable();
+            $table->string('tujuan')->nullable();
+            $table->string('alamat')->nullable();
             $table->string('password');
-            $table->text('fcm_token');
+            $table->text('fcm_token')->nullable();
             $table->timestamps();
         });
     }

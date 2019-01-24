@@ -24,7 +24,7 @@ use Carbon\Carbon;
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark navbar-laravel bg-primary fixed-top">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'DriverSchool') }}

@@ -15,8 +15,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('driver_id')->unsigned();
+            $table->integer('user_id');
+            $table->integer('driver_id');
+            $table->tinyInteger('active')->default(1);
             $table->string('plan');
             $table->text('start_date');
             $table->text('end_date');

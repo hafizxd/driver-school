@@ -56,7 +56,7 @@
                                                 <th scope="col" width="10%">#</th>
                                                 <th scope="col" width="35%">Nama</th>
                                                 <th scope="col" width="35%">E-mail</th>
-                                                <th scope="col" width="20%">Action</th>
+                                                <th scope="col" width="20%">Telepon</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -65,9 +65,7 @@
                                                     <th scope="row">{{ ++$Key }}</th>
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
-                                                    <td>
-                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
-                                                    </td>
+                                                    <td>{{ $User->phone }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -82,7 +80,7 @@
                                                 <th scope="col" width="10%">#</th>
                                                 <th scope="col" width="35%">Nama</th>
                                                 <th scope="col" width="35%">E-mail</th>
-                                                <th scope="col" width="20%">Action</th>
+                                                <th scope="col" width="20%">Telepon</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -91,9 +89,7 @@
                                                     <th scope="row">{{ ++$Key }}</th>
                                                     <td>{{ $User->name }}</td>
                                                     <td>{{ $User->email }}</td>
-                                                    <td>
-                                                        <a href="/user/{{$User->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
-                                                    </td>
+                                                    <td>{{ $User->phone }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -140,7 +136,7 @@
                                                 <th scope="col" width="10%">#</th>
                                                 <th scope="col" width="35%">Nama</th>
                                                 <th scope="col" width="35%">E-mail</th>
-                                                <th scope="col" width="20%">Action</th>
+                                                <th scope="col" width="20%">Telepon</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -149,9 +145,7 @@
                                                     <th scope="row">{{ ++$Key }}</th>
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
-                                                    <td>
-                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
-                                                    </td>
+                                                    <td>{{ $Driver->phone }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -166,7 +160,7 @@
                                                 <th scope="col" width="10%">#</th>
                                                 <th scope="col" width="35%">Nama</th>
                                                 <th scope="col" width="35%">E-mail</th>
-                                                <th scope="col" width="20%">Action</th>
+                                                <th scope="col" width="20%">Telepon</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -175,9 +169,7 @@
                                                     <th scope="row">{{ ++$Key }}</th>
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
-                                                    <td>
-                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
-                                                    </td>
+                                                    <td>{{ $Driver->phone }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

@@ -19,9 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //User
 Route::post('/user/register', 'UserController@store');
-Route::get('/user/login', 'UserController@login');
+Route::post('/user/login', 'UserController@login');
+Route::post('/user/complete', 'UserController@complete');
+Route::post('/user', 'UserController@info');
 
 
 //Driver
 Route::post('/driver/register', 'DriverController@store');
-Route::get('/driver/login', 'DriverController@login');
+Route::post('/driver/login', 'DriverController@login');
+Route::post('/driver/complete', 'DriverController@complete');
+Route::post('/driver', 'DriverController@info');
+Route::get('/driver', 'DriverController@allDriver');

@@ -16,9 +16,7 @@ class CreateChildsTable extends Migration
         Schema::create('childs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('nama');
-            $table->string('sekolah');
-            $table->string('gender');
+            $table->string('name');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
