@@ -6,10 +6,10 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-10 mb-3">
-        <a class="btn btn-outline-dark" href="/home">Beranda</a> 
+        <a class="btn btn-outline-dark" href="/home">Beranda</a>
         <br>
         <br>
-        
+
         <div class="card">
             <div class="card-header">
                 <h1> Pengguna </h1>
@@ -43,7 +43,7 @@
                                         <th scope="row">{{ ++$Key }}</th>
                                         <td>
                                             @if(!empty($User->avatar))
-                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="foto profil">
+                                            <img class="img-thumbnail" width="50" src="{{asset('storage/blog/' . $User->avatar)}}" alt="foto profil">
                                             @else
                                                 <img class="img-thumbnail" width="50" src="{{ $User->avatar }}" alt="">
                                             @endif
