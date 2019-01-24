@@ -25,7 +25,7 @@
             <div class="tab-content">
                 {{-- Supir --}}
                 <div class="tab-pane show active" id="supir-tab" role="tabpanel" aria-labelledby="supir-tab">
-                    <table class="table table-striped table-condensed">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col" width="5%">#</th>
@@ -59,7 +59,7 @@
 
                 {{-- Blokir --}}
                 <div class="tab-pane" id="blokirSupir-tab">
-                    <table class="table table-striped table-condensed">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col" width="5%">#</th>

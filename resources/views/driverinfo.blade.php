@@ -6,14 +6,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <a href="/driver" class="btn btn-outline-dark" style="margin-bottom:20px;">Back</a>
+            <a href="/driver" class="btn btn-outline-dark" style="margin-bottom:20px;">Kembali</a>
                 <div class="card">
                     <div class="card-header">
                         <a class="btn btn-outline-danger" href="#" role="button">Block</a>
                     </div>
                     <div class="card-body">
 
-                        
+
                         {!! Form::open(['url' => '/driver/update', 'method' => 'POST', 'files' => true]) !!}
                         {{ Form::token() }}
                             <input type="hidden" name="id" value="{{ $Driver->id }}">
@@ -32,6 +32,10 @@
                             <div class="form-group">
                                 <label>E-mail</label>
                                 <input name="email" type="email" class="form-control" value="{{ $Driver->email }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat</label>
+                                <input name="alamat" type="text" class="form-control" value="{{ $Driver->alamat }}">
                             </div>
                             <div class="form-group">
                                 <label>Tipe Mobil</label>
@@ -69,7 +73,7 @@
 
 
                             <div class="text-center">
-                                <a href="../" class="btn btn-danger">Batal</a>
+                                <a href="/driver" class="btn btn-danger">Batal</a>
                                 <button type="submit" class="btn btn-success">Simpan</button>
                             </div>
                         {!! Form::close() !!}
