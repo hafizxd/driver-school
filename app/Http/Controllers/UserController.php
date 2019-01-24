@@ -25,7 +25,6 @@ class UserController extends Controller
     }
 
     public function update(Request $request){
-<<<<<<< HEAD
       if(!empty($request->avatar)){
         $fileName = time() . '.png';
         $request->file('avatar')->storeAs('public/blog/', $fileName);
@@ -41,22 +40,6 @@ class UserController extends Controller
         'alamat'=> $request->alamat,
         'phone'  => $request->phone
       ]);
-=======
-      $user = User::where('id', $request->id)->first();
-      $user->name = $request->name;
-      $user->email = $request->email;
-      $user->address = $request->alamat;
-      $user->phone = $request->phone;
-
-      if(!empty($request->avatar)){
-        $file     = $request->file('avatar');
-        $filename = $user->name.sha1(time()) . "." . $file->getClientOriginalExtension();
-        $request->file('avatar')->move("img/user", $filename);
-        $user->avatar = $filename;
-      }
-
-      $user->save();
->>>>>>> 4604c41260bbd2e0ed54992685a6447c65a99e6a
 
       return redirect()->back();
     }

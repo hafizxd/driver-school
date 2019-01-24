@@ -17,7 +17,7 @@
                   {{ Form::token() }}
                     <input type="hidden" name="id" value="{{ $User->id }}">
                     <center>
-                        <img class="img-thumbnail" src="/img/user/{{ $User->avatar }}" alt="">
+                        <img class="img-thumbnail" src="{{ asset('storage/blog/' . $User->avatar )}}" alt="">
                     </center>
                     <br>
                     <div class="form-group">
@@ -58,12 +58,12 @@
                           </tr>
                       </thead>
                       <tbody>
-                          @foreach($Users->childs as $Key => $Child)
+                          @foreach($User->childs as $Key => $Child)
                               <tr>
                                   <th scope="row">{{ ++$Key }}</th>
                                   <td>{{ $Child->nama }}</td>
                                   <td>
-                                      <a href="/user/{{$Users->id}}/child/{{$Child->id}}" class="btn btn-dark" style="width: 60px;">Info</a>
+                                      <a href="/user/{{$Child->id}}/child/{{$Child->id}}" class="btn btn-dark" style="width: 60px;">Info</a>
                                   </td>
                               </tr>
                           @endforeach
