@@ -12,12 +12,18 @@
                   <a class="btn btn-outline-danger" href="#" role="button">Block</a>
                 </div>
                 <div class="card-body">
-                  <form action="/user/{{$Users->id}}/edit" method="post" enctype="multipart/form-data">
-                      @if(!empty($Users->avatar))
-                        <img src="{{asset('storage/blog/' . $Users->avatar)}}" alt="foto-profil" style="width:50%;margin:auto;margin-bottom:10px;display:block;">
-                      @endif
-                    <div class="form-group">
-                      <input name="avatar" type="file" class="from-control-file">
+
+                  {!! Form::open(['url' => '/user/update', 'method' => 'POST', 'files' => true]) !!}
+                  {{ Form::token() }}
+                      <input type="hidden" name="id" value="{{ $Users->id }}">
+                      <div class="form-group">
+                        <center>
+                            @if(!empty($Users->avatar))
+                              <img src="{{asset('storage/blog/' . $Users->avatar)}}" alt="foto-profil" class="img-thumbnail">
+                            @endif
+                        </center>
+
+                      <input name="avatar" type="file" class="from-control-file" accept="image/*">
                     </div>
                     <div class="form-group">
                       <label>Nama</label>
@@ -28,8 +34,8 @@
                       <input name="email" type="email" class="form-control" value="{{ $Users->email }}">
                     </div>
                     <div class="form-group">
-                      <label>Wilayah</label>
-                      <input name="wilayah" type="text" class="form-control" value="{{ $Users->wilayah }}">
+                      <label>Alamat</label>
+                      <input name="alamat" type="text" class="form-control" value="{{ $Users->alamat }}">
                     </div>
                     <div class="form-group">
                       <label>Phone</label>
@@ -39,13 +45,14 @@
                       <label>Bergabung Pada</label>
                       <input name="date" type="text" class="form-control" value="{{ $Users->created_at->format('l, j F Y h:i A') }}" readonly>
                     </div>
-                    <input class="btn btn-outline-primary" type="submit" name="submit" value="Simpan" style="margin-top:20px;">
-                      {{ csrf_field() }}
-                    <input type="hidden" name="_method" value="PUT">
+                    <div class="text-center">
+                        <a href="../" class="btn btn-danger">Batal</a>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
                     <div class="form-group">
                       <hr width="90%">
                     </div>
-                  </form>
+                  {!! Form::close() !!}
 
                   <h3 style="text-align:center;margin-top:40px;">Anak</h3>
                   <table class="table table-hover">

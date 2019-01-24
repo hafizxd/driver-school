@@ -24,23 +24,20 @@ class UserController extends Controller
       return view('userInfo')->with(compact('Users'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
       if(!empty($request->avatar)){
-        $this->validate($request, [
-          'avatar' => 'mimes:jpg,jpeg,png'
-        ]);
         $fileName = time() . '.png';
         $request->file('avatar')->storeAs('public/blog/', $fileName);
       }else{
-        $file = User::where('id', $id)->first();
+        $file = User::where('id', $request->id)->first();
         $fileName = $file->avatar;
       }
 
-      User::findOrFail($id)->update([
+      User::findOrFail($request->id)->update([
         'avatar' => $fileName,
         'name'   => $request->name,
         'email'  => $request->email,
-        'wilayah'=> $request->wilayah,
+        'alamat'=> $request->alamat,
         'phone'  => $request->phone
       ]);
 

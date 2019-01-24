@@ -29,9 +29,5 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/driver', 'DriverController@index');
     Route::get('/driver/{id}', 'DriverController@infoWeb');
-    Route::put('/driver/{id}/edit', 'DriverController@update');
-
-    Route::post('/image/create/{id}', 'ImageController@store');
-    Route::get('/image/delete/{id}', 'ImageController@destroy');
-    Route::put('/image/edit/{id}', 'ImageController@update');
+    Route::post('/driver/update', 'DriverController@update');
 });

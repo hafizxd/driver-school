@@ -17,25 +17,30 @@ class DriverController extends Controller
 
 
     public function infoWeb($id){
-        $Drivers = Driver::where('id', $id)->first();
+        $Driver = Driver::where('id', $id)->first();
 
-        return view('driverInfo')->with(compact('Drivers'));
+        return view('driverinfo')->with(compact('Driver'));
     }
 
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
+        $Driver   = Driver::where('id', $request->id)->first();
+
         if(!empty($request->avatar)){
-            $this->validate($request, [
-              'avatar' => 'mimes:jpg,jpeg,png'
-            ]);
             $fileName = time() . '.png';
             $request->file('avatar')->storeAs('public/blog/', $fileName);
         } else {
-            $Driver   = Driver::where('id', $id)->first();
             $fileName = $Driver->avatar;
         }
 
-        Driver::findOrFail($id)->update([
+        if(!empty($request->image)){
+            $imageName = time() . 'img.png';
+            $request->file('image')->storeAs('public/blog/', $imageName);
+        } else {
+            $imageName = $Driver->image->images;
+        }
+
+        Driver::findOrFail($request->id)->update([
             'name'             => $request->name,
             'email'            => $request->email,
             'avatar'           => $fileName,
@@ -45,6 +50,10 @@ class DriverController extends Controller
             'tujuan'           => $request->tujuan,
             'alamat'           => $request->alamat,
             'phone'            => $request->phone
+        ]);
+
+        $Driver->image->update([
+          'images' => $imageName
         ]);
 
         return back();
