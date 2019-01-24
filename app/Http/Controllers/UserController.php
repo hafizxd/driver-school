@@ -19,32 +19,28 @@ class UserController extends Controller
     }
 
     public function infoWeb($id){
-      $Users = User::where('id', $id)->first();
+      $User = User::where('id', $id)->first();
 
-      return view('userInfo')->with(compact('Users'));
+      return view('userInfo')->with(compact('User'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
+      $user = User::where('id', $request->id)->first();
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->address = $request->alamat;
+      $user->phone = $request->phone;
+
       if(!empty($request->avatar)){
-        $this->validate($request, [
-          'avatar' => 'mimes:jpg,jpeg,png'
-        ]);
-        $fileName = time() . '.png';
-        $request->file('avatar')->storeAs('public/blog/', $fileName);
-      }else{
-        $file = User::where('id', $id)->first();
-        $fileName = $file->avatar;
+        $file     = $request->file('avatar');
+        $filename = $user->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+        $request->file('avatar')->move("img/user", $filename);
+        $user->avatar = $filename;
       }
 
-      User::findOrFail($id)->update([
-        'avatar' => $fileName,
-        'name'   => $request->name,
-        'email'  => $request->email,
-        'wilayah'=> $request->wilayah,
-        'phone'  => $request->phone
-      ]);
+      $user->save();
 
-      return back();
+      return redirect()->back();
     }
 
     

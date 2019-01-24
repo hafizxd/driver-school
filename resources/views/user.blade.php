@@ -43,7 +43,7 @@
                                         <th scope="row">{{ ++$Key }}</th>
                                         <td>
                                             @if(!empty($User->avatar))
-                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="foto profil">
+                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="">
                                             @else
                                                 <img class="img-thumbnail" width="50" src="{{ $User->avatar }}" alt="">
                                             @endif
@@ -77,7 +77,7 @@
                                         <th scope="row">{{ ++$Key }}</th>
                                         <td>
                                             @if(!empty($User->avatar))
-                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="foto profil">
+                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="">
                                             @else
                                                 <img class="img-thumbnail" width="50" src="{{ $User->avatar }}" alt="">
                                             @endif

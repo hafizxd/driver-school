@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <a href="/home" class="btn btn-dark" style="margin-bottom:20px;">Beranda</a>
+            <a href="/driver" class="btn btn-outline-dark" style="margin-bottom:20px;">Kembali</a>
                 <div class="card">
                     <div class="card-header">
                         <a class="btn btn-danger" href="#" role="button">Block</a>
@@ -17,7 +17,7 @@
                         {{ Form::token() }}
                             <input type="hidden" name="id" value="{{ $Driver->id }}">
                             <center>
-                                <img class="img-thumbnail" src="{{ $Driver->avatar }}" alt="">
+                                <img class="img-thumbnail" src="/img/driver/{{ $Driver->avatar }}" alt="">
                             </center>
                             <br>
                             <div class="form-group">
@@ -33,8 +33,8 @@
                                 <input name="email" type="email" class="form-control" value="{{ $Driver->email }}">
                             </div>
                             <div class="form-group">
-                                <label>Wilayah</label>
-                                <input name="wilayah" type="text" class="form-control" value="{{ $Driver->alamat }}">
+                                <label>Alamat</label>
+                                <input name="alamat" type="text" class="form-control" value="{{ $Driver->alamat }}">
                             </div>
                             <div class="form-group">
                                 <label>Tipe Mobil</label>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Gender Penumpang</label>
-                                <select class="form-control" id="gender_penumpang">
+                                <select class="form-control" id="gender_penumpang" name="gender_penumpang">
                                     <option @if($Driver->gender_penumpang == 'Campur') selected @endif>Campur</option>
                                     <option @if($Driver->gender_penumpang == 'Laki-Laki') selected @endif>Laki-laki</option>
                                     <option @if($Driver->gender_penumpang == 'Perempuan') selected @endif>Perempuan</option>
@@ -56,7 +56,7 @@
                             <h3>foto mobil</h3>
 
                             <div class="text-center">
-                                <a href="../" class="btn btn-danger">Batal</a>
+                                <a href="/driver" class="btn btn-danger">Batal</a>
                                 <button type="submit" class="btn btn-success">Simpan</button>
                             </div>
                         {!! Form::close() !!}

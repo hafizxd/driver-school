@@ -22,6 +22,29 @@ class DriverController extends Controller
       return view('driverInfo')->with(compact('Driver'));
     }
 
+    public function updateWeb(Request $request){
+        $driver = Driver::where('id', $request->id)->where('role', '2')->first();
+    
+        $driver->name = $request->name;
+        $driver->email = $request->email;
+        $driver->alamat = $request->alamat;
+        $driver->tipe_mobil = $request->tipeMobil;
+        $driver->max_penumpang = $request->maxPenumpang;
+        $driver->gender_penumpang = $request->gender_penumpang;
+
+        if(!empty($request->avatar)){
+            $file     = $request->file('avatar');
+            $filename = $driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+            $request->file('avatar')->move("img/driver", $filename);
+            $driver->avatar = $filename;
+        }
+
+        $driver->save();
+
+        return redirect()->back();
+
+    }
+
     /*
     
         ===== API =====
