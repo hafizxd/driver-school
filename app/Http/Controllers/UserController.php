@@ -43,6 +43,8 @@ class UserController extends Controller
       return back();
     }
 
+
+
     public function store(Request $request){
         $user = new User;
         $user->name = $request->name;

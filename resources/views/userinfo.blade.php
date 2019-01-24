@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-          <a href="/home" class="btn btn-dark" style="margin-bottom:20px;">Beranda</a>
+          <a href="/user" class="btn btn-outline-dark" style="margin-bottom:20px;">Back</a>
             <div class="card">
                 <div class="card-header">
                   <a class="btn btn-outline-danger" href="#" role="button">Block</a>
@@ -39,14 +39,35 @@
                       <label>Bergabung Pada</label>
                       <input name="date" type="text" class="form-control" value="{{ $Users->created_at->format('l, j F Y h:i A') }}" readonly>
                     </div>
-                    <input class="btn btn-default" type="submit" name="submit" value="Edit" style="margin-top:20px;">
+                    <input class="btn btn-outline-primary" type="submit" name="submit" value="Simpan" style="margin-top:20px;">
                       {{ csrf_field() }}
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-group">
                       <hr width="90%">
                     </div>
                   </form>
+
                   <h3 style="text-align:center;margin-top:40px;">Anak</h3>
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th scope="col" width="20%">#</th>
+                              <th scope="col" width="50%">Nama</th>
+                              <th scope="col" width="30%">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach($Users->childs as $Key => $Child)
+                              <tr>
+                                  <th scope="row">{{ ++$Key }}</th>
+                                  <td>{{ $Child->nama }}</td>
+                                  <td>
+                                      <a href="/user/{{$Users->id}}/child/{{$Child->id}}" class="btn btn-dark" style="width: 60px;">Info</a>
+                                  </td>
+                              </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
              </div>
          </div>
      </div>

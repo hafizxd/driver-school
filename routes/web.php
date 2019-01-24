@@ -21,10 +21,17 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/user/{user_id}/child/{id}', 'ChildController@show');
+
     Route::get('/user', 'UserController@index');
     Route::get('/user/{id}', 'UserController@show')->name('userinfo');
     Route::put('/user/{id}/edit', 'UserController@update');
 
     Route::get('/driver', 'DriverController@index');
     Route::get('/driver/{id}', 'DriverController@show');
+    Route::put('/driver/{id}/edit', 'DriverController@update');
+
+    Route::post('/image/create/{id}', 'ImageController@store');
+    Route::get('/image/delete/{id}', 'ImageController@destroy');
+    Route::put('/image/edit/{id}', 'ImageController@update');
 });

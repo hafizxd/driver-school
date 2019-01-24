@@ -80,4 +80,5 @@ use Carbon\Carbon;
         </main>
     </div>
 </body>
+@yield('js')
 </html>

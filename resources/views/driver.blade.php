@@ -12,7 +12,7 @@
         <div class="tab-pane fade show active" id="drivers-tab" role="tabpanel" aria-labelledby="drivers-tab">
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                  <a href="/home" class="btn btn-dark" style="margin-bottom:20px;">Beranda</a>
+                  <a href="/home" class="btn btn-outline-dark" style="margin-bottom:20px;">Beranda</a>
                     <div class="card">
                         <div class="card-header">
                             <h1>
@@ -55,7 +55,7 @@
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
                                                     <td>
-                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -87,7 +87,7 @@
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
                                                     <td>
-                                                        <a href="/user/{{$Driver->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/user/{{$Driver->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

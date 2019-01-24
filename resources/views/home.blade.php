@@ -150,7 +150,7 @@
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
                                                     <td>
-                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -176,7 +176,7 @@
                                                     <td>{{ $Driver->name }}</td>
                                                     <td>{{ $Driver->email }}</td>
                                                     <td>
-                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width:50px;height:24px;padding:0;">Info</a>
+                                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width: 120px;">Info</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
