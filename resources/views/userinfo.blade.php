@@ -17,7 +17,7 @@
                   {{ Form::token() }}
                     <input type="hidden" name="id" value="{{ $User->id }}">
                     <center>
-                        <img class="img-thumbnail" src="/img/user/{{ $User->avatar }}" alt="">
+                        <img class="img-thumbnail" src="{{ asset('storage/blog/' . $User->avatar )}}" alt="">
                     </center>
                     <br>
                     <div class="form-group">
@@ -63,6 +63,28 @@
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                   {!! Form::close() !!}
+
+                  <h3 style="text-align:center;margin-top:40px;">Anak</h3>
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th scope="col" width="20%">#</th>
+                              <th scope="col" width="50%">Nama</th>
+                              <th scope="col" width="30%">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach($User->childs as $Key => $Child)
+                              <tr>
+                                  <th scope="row">{{ ++$Key }}</th>
+                                  <td>{{ $Child->nama }}</td>
+                                  <td>
+                                      <a href="/user/{{$Child->id}}/child/{{$Child->id}}" class="btn btn-dark" style="width: 60px;">Info</a>
+                                  </td>
+                              </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
              </div>
          </div>
      </div>
