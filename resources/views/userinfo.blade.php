@@ -39,52 +39,21 @@
                       <label>Phone</label>
                       <input name="phone" type="number" class="form-control" value="{{ $User->phone }}">
                     </div>
-                    <div class="form-group">
-                      <label>Anak</label>
-                      <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col" width="20%">#</th>
-                                <th scope="col" width="50%">Nama</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($User->childs as $Key => $Child)
-                                <tr>
-                                    <th scope="row">{{ ++$Key }}</th>
-                                    <td>{{ $Child->nama }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                      </table>
-                    </div>
+
+                    @foreach($User->childs as $Key => $Child)
+                        <div class="form-group">
+                          <label>Nama Anak {{++$Key}}</label>
+                          <input name="child[{{++$Key}}]" type="text" class="form-control" value="{{ $Child->nama }}">
+                        </div>
+                    @endforeach
+
                     <div class="text-center">
                         <a href="../" class="btn btn-danger">Batal</a>
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                   {!! Form::close() !!}
 
-                  <h3 style="text-align:center;margin-top:40px;">Anak</h3>
-                  <table class="table table-hover">
-                      <thead>
-                          <tr>
-                              <th scope="col" width="20%">#</th>
-                              <th scope="col" width="50%">Nama</th>
-                              <th scope="col" width="30%">Action</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          @foreach($User->childs as $Key => $Child)
-                              <tr>
-                                  <th scope="row">{{ ++$Key }}</th>
-                                  <td>{{ $Child->nama }}</td>
-                                  <td>
-                                      <a href="/user/{{$Child->id}}/child/{{$Child->id}}" class="btn btn-dark" style="width: 60px;">Info</a>
-                                  </td>
-                              </tr>
-                          @endforeach
-                      </tbody>
-                  </table>
+
              </div>
          </div>
      </div>

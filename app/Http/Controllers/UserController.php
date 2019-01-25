@@ -7,6 +7,7 @@ use App\User;
 use App\Child;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 
 
 class UserController extends Controller
@@ -40,7 +41,22 @@ class UserController extends Controller
 
       $user->save();
 
-      return redirect()->back();
+      $User = User::where('id', $request->id)->first();
+      $Childs = Child::where('user_id', $User->id)->get();
+      $i = 0;
+      $n = 0;
+      foreach ($request->child as $Key => $Child) {
+          $n += 1;
+        for ($i; $i < $n; $i++) {
+          print($i);
+            // $Childs[1]->update([
+            //   'nama' => $Child
+            // ]);
+        }
+        $i += 1;
+      }
+
+    //  return redirect()->back();
     }
 
 
