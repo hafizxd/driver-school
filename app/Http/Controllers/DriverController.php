@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Driver;
+use App\Image   ;
 
 class DriverController extends Controller
 {
@@ -20,43 +21,6 @@ class DriverController extends Controller
         $Driver = Driver::where('id', $id)->first();
 
         return view('driverinfo')->with(compact('Driver'));
-    }
-
-
-    public function update(Request $request){
-        $Driver   = Driver::where('id', $request->id)->first();
-
-        if(!empty($request->avatar)){
-            $fileName = time() . '.png';
-            $request->file('avatar')->storeAs('public/blog/', $fileName);
-        } else {
-            $fileName = $Driver->avatar;
-        }
-
-        if(!empty($request->image)){
-            $imageName = time() . 'img.png';
-            $request->file('image')->storeAs('public/blog/', $imageName);
-        } else {
-            $imageName = $Driver->image->images;
-        }
-
-        Driver::findOrFail($request->id)->update([
-            'name'             => $request->name,
-            'email'            => $request->email,
-            'avatar'           => $fileName,
-            'tipe_mobil'       => $request->tipe_mobil,
-            'max_penumpang'    => $request->max_penumpang,
-            'gender_penumpang' => $request->gender_penumpang,
-            'tujuan'           => $request->tujuan,
-            'alamat'           => $request->alamat,
-            'phone'            => $request->phone
-        ]);
-
-        $Driver->image->update([
-          'images' => $imageName
-        ]);
-
-        return back();
     }
 
     public function updateWeb(Request $request){
@@ -103,6 +67,8 @@ class DriverController extends Controller
             $driver->nopol = $request->nopol;
             $driver->phone = $request->phone;
             $driver->tipe_mobil = $request->tipe_mobil;
+            
+            
 
             $file     = $request->file('avatar');
             $filename = $driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
@@ -140,11 +106,19 @@ class DriverController extends Controller
 
     public function complete(Request $request){
         $driver = Driver::where('id', $request->id)->first();
+        $images = new Image;
 
         $driver->max_penumpang = $request->max_penumpang;
         $driver->gender_penumpang = $request->gender_penumpang;
         $driver->alamat = $request->alamat;
         $driver->tujuan = $request->tujuan;
+
+        $file     = $request->file('mobil');
+        $filename = $driver->id.sha1(time()) . "." . $file->getClientOriginalExtension();
+        $request->file('mobil')->move("img/mobil", $filename);
+        $images->driver_id = $driver->id;
+        $images->images = $filename; 
+        $images->save();
 
         $driver->save();
 
@@ -162,11 +136,12 @@ class DriverController extends Controller
               'phone' => $driver->phone,
               'nopol' => $driver->nopol,
               'tipe_mobil' => $driver->tipe_mobil,
-              'max_penumpang' => $driver->mac_penumpang,
+              'max_penumpang' => $driver->max_penumpang,
               'tujuan' => $driver->tujuan,
               'alamat' => $driver->alamat,
               'gender_penumpang' => $driver->gender_penumpang,
-              'avatar' => "img/user/" . $driver->avatar
+              'avatar' => "img/user/" . $driver->avatar,
+              'foto_mobil' => "img/mobil/" . $driver->image->images
             ]);
         }
     }

@@ -18,7 +18,7 @@
                         {{ Form::token() }}
                             <input type="hidden" name="id" value="{{ $Driver->id }}">
                             <center>
-                                <img class="img-thumbnail" src="{{asset('storage/blog/' . $Driver->avatar)}}" alt="">
+                                <img class="img-thumbnail" src="/img/driver/ {{ $Driver->avatar }}" alt="">
                             </center>
                             <br>
                             <div class="form-group">
@@ -66,7 +66,7 @@
                                 <label>Foto Mobil</label>
 
                             <center>
-                                <img class="img-thumbnail" src="{{asset('storage/blog/' . $Driver->image->images)}}" alt="gaada">
+                                <img class="img-thumbnail" src="/img/mobil/ {{ $Driver->image->images }}" alt="">
                             </center>
                                 <input type="file" name="image">
                             </div>

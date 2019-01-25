@@ -32,4 +32,9 @@ class User extends Authenticatable
     public function childs(){
       return $this->hasMany('App\Child');
     }
+
+    public function getChild(){
+        return $this->hasOne('App\Child');
+    }
+
 }

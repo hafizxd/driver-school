@@ -134,7 +134,7 @@ class UserController extends Controller
               'name' => $user->name,
               'email' => $user->email,
               'phone' => $user->phone,
-              'nama_anak' => $user->child->name,
+              'nama_anak' => $user->getChild->name,
               'avatar' => "img/user/" . $user->avatar
             ]);
         }
