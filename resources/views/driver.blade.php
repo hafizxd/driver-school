@@ -19,6 +19,9 @@
             <li class="nav-item">
                 <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirSupir-tab" role="tab" aria-controls="bookings-tab" aria-selected="false">Blokir</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pendingSupir-tab" role="tab" aria-controls="pending-tab" aria-selected="false">Pending</a>
+            </li>
           </ul>
           <br>
 
@@ -41,7 +44,7 @@
                                     <th scope="row">{{ ++$Key }}</th>
                                     <td>
                                         @if(!empty($Driver->avatar))
-                                            <img class="img-thumbnail" width="50" src="{{ asset('storage/blog/' . $Driver->avatar)}}" alt="">
+                                            <img class="img-thumbnail" width="50" src="/img/driver/{{ $Driver->avatar }}" alt="">
                                         @else
                                             -
                                         @endif
@@ -75,7 +78,7 @@
                                     <th scope="row">{{ ++$Key }}</th>
                                     <td>
                                         @if(!empty($Driver->avatar))
-                                            <img class="img-thumbnail" width="50" src="{{ asset('storage/blog/' . $Driver->avatar)}}" alt="">
+                                            <img class="img-thumbnail" width="50" src="/img/driver/{{ $Driver->avatar }})" alt="">
                                         @else
                                             -
                                         @endif
@@ -83,7 +86,41 @@
                                     <td>{{ $Driver->name }}</td>
                                     <td>{{ $Driver->email }}</td>
                                     <td>
-                                        <a href="/user/{{$Driver->id}}" class="btn btn-dark" style="width:100px;">Info</a>
+                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width:100px;">Info</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Pending --}}
+                <div class="tab-pane" id="pendingSupir-tab">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="5%">#</th>
+                                <th scope="col" width="15%">Avatar</th>
+                                <th scope="col" width="32%">Nama</th>
+                                <th scope="col" width="32%">E-mail</th>
+                                <th scope="col" width="15%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($DriversPending as $Key => $Driver)
+                                <tr>
+                                    <th scope="row">{{ ++$Key }}</th>
+                                    <td>
+                                        @if(!empty($Driver->avatar))
+                                            <img class="img-thumbnail" width="50" src="/img/driver/{{ $Driver->avatar }}" alt="">
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>{{ $Driver->name }}</td>
+                                    <td>{{ $Driver->email }}</td>
+                                    <td>
+                                        <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width:100px;">Info</a>
                                     </td>
                                 </tr>
                             @endforeach

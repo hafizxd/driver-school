@@ -9,7 +9,9 @@
             <a href="/driver" class="btn btn-outline-dark" style="margin-bottom:20px;">Kembali</a>
                 <div class="card">
                     <div class="card-header">
-                        <a class="btn btn-outline-danger" href="#" role="button">Block</a>
+                        @if($Driver->role == 0) <a class="btn btn-outline-danger" href="#" role="button">Unblock</a> @endif
+                        @if($Driver->role == 2) <a class="btn btn-outline-danger" href="#" role="button">Block</a> @endif
+                        @if($Driver->role == 4) <a class="btn btn-outline-danger" href="#" role="button">Jadikan Driver</a> @endif
                     </div>
                     <div class="card-body">
 
@@ -18,7 +20,7 @@
                         {{ Form::token() }}
                             <input type="hidden" name="id" value="{{ $Driver->id }}">
                             <center>
-                                <img class="img-thumbnail" src="{{asset('storage/blog/' . $Driver->avatar)}}" alt="">
+                                <img class="img-thumbnail" src="/img/driver/{{ $Driver->avatar }}" alt="">
                             </center>
                             <br>
                             <div class="form-group">
@@ -65,15 +67,19 @@
                             <div class="form-group">
                                 <label>Foto Mobil</label>
 
-                            <center>
-                                <img class="img-thumbnail" src="{{asset('storage/blog/' . $Driver->image->images)}}" alt="gaada">
-                            </center>
-                                <input type="file" name="image">
+                                @if(!empty($Driver->image->images))
+                                    <center>
+                                        <img class="img-thumbnail" src="/img/car_image/{{ $Driver->image->images }}" alt="gaada">
+                                    </center>
+                                        <input type="file" name="image">
+                                @else
+                                    <br> -
+                                @endif
                             </div>
 
 
                             <div class="text-center">
-                                <a href="/driver" class="btn btn-danger">Batal</a>
+                                <a href="/driver/{{$Driver->id}}" class="btn btn-danger">Batal</a>
                                 <button type="submit" class="btn btn-success">Simpan</button>
                             </div>
                         {!! Form::close() !!}

@@ -9,7 +9,8 @@
           <a href="/user" class="btn btn-outline-dark" style="margin-bottom:20px;">Back</a>
             <div class="card">
                 <div class="card-header">
-                  <a class="btn btn-outline-danger" href="#" role="button">Block</a>
+                  @if($User->role == 0) <a class="btn btn-outline-danger" href="#" role="button">Unblock</a> @endif
+                  @if($User->role == 1) <a class="btn btn-outline-danger" href="#" role="button">Block</a> @endif
                 </div>
                 <div class="card-body">
 
@@ -17,7 +18,7 @@
                   {{ Form::token() }}
                     <input type="hidden" name="id" value="{{ $User->id }}">
                     <center>
-                        <img class="img-thumbnail" src="{{ asset('storage/blog/' . $User->avatar )}}" alt="">
+                        <img class="img-thumbnail" src="/img/user/{{ $User->avatar}}" alt="">
                     </center>
                     <br>
                     <div class="form-group">

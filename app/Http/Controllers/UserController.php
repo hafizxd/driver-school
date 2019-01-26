@@ -19,16 +19,21 @@ class UserController extends Controller
       return view('User')->with(compact('Users', 'UsersBlocked'));
     }
 
+
     public function infoWeb($id){
       $User = User::where('id', $id)->first();
 
       return view('userInfo')->with(compact('User'));
     }
 
+
     public function update(Request $request){
+      $User = User::where('id', $request->id)->first();
+
       if(!empty($request->avatar)){
-        $fileName = time() . '.png';
-        $request->file('avatar')->storeAs('public/blog/', $fileName);
+        $file = $request->file('avatar');
+        $fileName = $User->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+        $request->file('avatar')->move("img/user", $fileName);
       }else{
         $file = User::where('id', $request->id)->first();
         $fileName = $file->avatar;

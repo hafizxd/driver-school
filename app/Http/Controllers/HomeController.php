@@ -21,7 +21,8 @@ class HomeController extends Controller
 
         $Drivers = Driver::where('role', 2)->orderBy('created_at', 'DESC')->paginate(5);
         $DriversBlocked = Driver::where('role', 0)->orderBy('created_at', 'DESC')->paginate(5);
+        $DriversPending = Driver::where('role', 4)->orderBy('created_at', 'DESC')->paginate(5);
 
-        return view('home')->with(compact('Users', 'UsersBlocked', 'Drivers', 'DriversBlocked'));
+        return view('home')->with(compact('Users', 'UsersBlocked', 'Drivers', 'DriversBlocked', 'DriversPending'));
     }
 }

@@ -11,8 +11,9 @@ class DriverController extends Controller
     public function index(){
         $Drivers = Driver::where('role', 2)->orderBy('created_at', 'DESC')->get();
         $DriversBlocked = Driver::where('role', 0)->orderBy('created_at', 'DESC')->get();
+        $DriversPending = Driver::where('role', 4)->orderBy('created_at', 'DESC')->get();
 
-        return view('Driver')->with(compact('Drivers', 'DriversBlocked'));
+        return view('Driver')->with(compact('Drivers', 'DriversBlocked', 'DriversPending'));
     }
 
 
@@ -24,20 +25,22 @@ class DriverController extends Controller
 
 
     public function update(Request $request){
-        $Driver   = Driver::where('id', $request->id)->first();
+        $Driver = Driver::where('id', $request->id)->first();
 
         if(!empty($request->avatar)){
-            $fileName = time() . '.png';
-            $request->file('avatar')->storeAs('public/blog/', $fileName);
+            $file = $request->file('avatar');
+            $fileName = $Driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+            $request->file('avatar')->move("img/driver", $fileName);
         } else {
             $fileName = $Driver->avatar;
         }
 
         if(!empty($request->image)){
-            $imageName = time() . 'img.png';
-            $request->file('image')->storeAs('public/blog/', $imageName);
-        } else {
-            $imageName = $Driver->image->images;
+            $file = $request->image;
+            $imageName = $Driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+            $request->file('image')->move("img/car_image", $imageName);
+            $Driver->image->images = $imageName;
+            $Driver->image->save();
         }
 
         Driver::findOrFail($request->id)->update([
@@ -52,16 +55,12 @@ class DriverController extends Controller
             'phone'            => $request->phone
         ]);
 
-        $Driver->image->update([
-          'images' => $imageName
-        ]);
-
         return back();
     }
 
     public function updateWeb(Request $request){
         $driver = Driver::where('id', $request->id)->where('role', '2')->first();
-    
+
         $driver->name = $request->name;
         $driver->email = $request->email;
         $driver->alamat = $request->alamat;
@@ -70,7 +69,7 @@ class DriverController extends Controller
         $driver->gender_penumpang = $request->gender_penumpang;
 
         if(!empty($request->avatar)){
-            $file     = $request->file('avatar');
+            $file     = $request->file('image');
             $filename = $driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
             $request->file('avatar')->move("img/driver", $filename);
             $driver->avatar = $filename;

@@ -124,6 +124,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirSupir-tab" role="tab" aria-controls="blokirSupir-tab" aria-selected="false">Blokir</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pendingSupir-tab" role="tab" aria-controls="pendingSupir-tab" aria-selected="false">Pending</a>
+                                </li>
                             </ul>
                             <br>
 
@@ -175,7 +178,32 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                                {{-- Pending --}}
+                                <div class="tab-pane" id="pendingSupir-tab">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" width="10%">#</th>
+                                                <th scope="col" width="35%">Nama</th>
+                                                <th scope="col" width="35%">E-mail</th>
+                                                <th scope="col" width="20%">Telepon</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($DriversPending as $Key =>  $Driver)
+                                                <tr>
+                                                    <th scope="row">{{ ++$Key }}</th>
+                                                    <td>{{ $Driver->name }}</td>
+                                                    <td>{{ $Driver->email }}</td>
+                                                    <td>{{ $Driver->phone }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
                         </div>
                         <div class="card-footer">
                             <a style="font-weight:bold;font-size:23px;"  href="/driver">More</a>
