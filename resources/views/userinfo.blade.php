@@ -43,7 +43,7 @@
                     @foreach($User->childs as $Key => $Child)
                         <div class="form-group">
                           <label>Nama Anak {{++$Key}}</label>
-                          <input name="child[{{++$Key}}]" type="text" class="form-control" value="{{ $Child->nama }}">
+                          <input name="child[{{$Key}}]" type="text" class="form-control" value="{{ $Child->nama }}">
                         </div>
                     @endforeach
 
