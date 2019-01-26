@@ -21,7 +21,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::get('/user/{user_id}/child/{id}', 'ChildController@show');
+    Route::get('/child/{id}', 'ChildController@info');
 
     Route::get('/user', 'UserController@index');
     Route::get('/user/{id}', 'UserController@infoWeb')->name('userinfo');
@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/driver', 'DriverController@index');
     Route::get('/driver/{id}', 'DriverController@infoWeb');
-    Route::post('/driver/update', 'DriverController@update');
+    Route::post('/driver/update', 'DriverController@updateWeb');
 
+    Route::get('/langganan', 'OrderController@index');
 });

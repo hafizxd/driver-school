@@ -30,3 +30,5 @@ Route::post('/driver/login', 'DriverController@login');
 Route::post('/driver/complete', 'DriverController@complete');
 Route::post('/driver', 'DriverController@info');
 Route::get('/driver', 'DriverController@allDriver');
+
+Route::post('/order', 'OrderController@order');

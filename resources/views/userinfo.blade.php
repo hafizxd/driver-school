@@ -18,7 +18,7 @@
                   {{ Form::token() }}
                     <input type="hidden" name="id" value="{{ $User->id }}">
                     <center>
-                        <img class="img-thumbnail" src="/img/user/{{ $User->avatar}}" alt="">
+                        <img class="img-thumbnail" src="/img/user/{{ $User->avatar }}" alt="">
                     </center>
                     <br>
                     <div class="form-group">
@@ -51,9 +51,6 @@
                     <div class="text-center">
                         <a href="../" class="btn btn-danger">Batal</a>
                         <button type="submit" class="btn btn-success">Simpan</button>
-                    </div>
-                    <div class="form-group">
-                      <hr width="90%">
                     </div>
                   {!! Form::close() !!}
 

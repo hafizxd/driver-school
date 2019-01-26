@@ -40,11 +40,11 @@ class UserController extends Controller
       }
 
       User::findOrFail($request->id)->update([
-        'avatar' => $fileName,
-        'name'   => $request->name,
-        'email'  => $request->email,
-        'alamat'=> $request->alamat,
-        'phone'  => $request->phone
+          'name'             => $request->name,
+          'email'            => $request->email,
+          'avatar'           => $fileName,
+          'alamat'           => $request->alamat,
+          'phone'            => $request->phone
       ]);
 
       $Childs = Child::where('user_id', $request->id)->get();
@@ -52,7 +52,6 @@ class UserController extends Controller
       $i = 1;
 
       foreach ($Childs as $Key => $Child) {
-
             $Child->update([
               'nama' => $request->child[$i]
             ]);
@@ -61,8 +60,6 @@ class UserController extends Controller
 
      return redirect()->back();
     }
-
-
 
 
     /*
@@ -139,7 +136,7 @@ class UserController extends Controller
               'name' => $user->name,
               'email' => $user->email,
               'phone' => $user->phone,
-              'nama_anak' => $user->child->name,
+              'nama_anak' => $user->getChild->name,
               'avatar' => "img/user/" . $user->avatar
             ]);
         }

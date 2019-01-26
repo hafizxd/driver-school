@@ -7,5 +7,12 @@ use App\Order;
 
 class OrderController extends Controller
 {
-    //
+    
+    public function index(){
+        $orders = Order::all();
+
+        return view('order')->with('orders');
+    }
+
+
 }
