@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/user/update', 'UserController@update');
 
     Route::get('/driver', 'DriverController@index');
+    Route::get('/driver/{id}/accept', 'DriverController@accept');
+    Route::get('/driver/{id}/decline', 'DriverController@decline');
     Route::get('/driver/{id}', 'DriverController@infoWeb');
     Route::post('/driver/update', 'DriverController@updateWeb');
 

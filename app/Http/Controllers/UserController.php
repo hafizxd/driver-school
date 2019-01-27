@@ -43,7 +43,7 @@ class UserController extends Controller
           'name'             => $request->name,
           'email'            => $request->email,
           'avatar'           => $fileName,
-          'alamat'           => $request->alamat,
+          'address'          => $request->address,
           'phone'            => $request->phone
       ]);
 

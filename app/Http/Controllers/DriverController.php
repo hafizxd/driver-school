@@ -60,6 +60,22 @@ class DriverController extends Controller
     }
 
 
+    public function accept($id){
+        Driver::where('id', $id)->update([
+            'role' => 2
+        ]);
+
+        return redirect('/driver');
+    }
+
+
+    public function decline($id){
+        Driver::destroy($id);
+
+        return redirect('/driver');
+    }
+
+
     /*
 
         ===== API =====

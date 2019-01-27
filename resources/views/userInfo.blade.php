@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                       <label>Alamat</label>
-                      <input name="alamat" type="text" class="form-control" value="{{ $User->alamat }}">
+                      <input name="address" type="text" class="form-control" value="{{ $User->address }}">
                     </div>
                     <div class="form-group">
                       <label>Phone</label>
