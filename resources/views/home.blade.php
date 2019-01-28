@@ -16,7 +16,7 @@
                     <a class="nav-link" id="driver-tab" data-toggle="pill" href="#drivers-tab" role="tab" aria-controls="drivers-tab" aria-selected="false">Supir</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/langganan">Langganan</a>
+                    <a class="nav-link" href="/order">Langganan</a>
                 </li>
             </ul>
         </div>

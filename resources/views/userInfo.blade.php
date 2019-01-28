@@ -49,7 +49,7 @@
                     @endforeach
 
                     <div class="text-center">
-                        <a href="../" class="btn btn-danger">Batal</a>
+                        <button type="reset" class="btn btn-danger">Batal</button>
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                   {!! Form::close() !!}

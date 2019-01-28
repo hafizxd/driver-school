@@ -33,5 +33,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/driver/{id}', 'DriverController@infoWeb');
     Route::post('/driver/update', 'DriverController@updateWeb');
 
-    Route::get('/langganan', 'OrderController@index');
+    Route::get('/order', 'OrderController@index');
+    Route::get('/order/{id}', 'OrderController@show');
+    Route::post('/order/update', 'OrderController@update');
 });
