@@ -9,11 +9,55 @@
           <a href="/user" class="btn btn-outline-dark" style="margin-bottom:20px;">Back</a>
             <div class="card">
                 <div class="card-header">
-                  @if($User->role == 0) <a class="btn btn-outline-danger" href="#" role="button">Unblock</a> @endif
-                  @if($User->role == 1) <a class="btn btn-outline-danger" href="#" role="button">Block</a> @endif
+                  @if($User->role == 0) <a class="btn btn-outline-danger" role="button" data-toggle="modal" data-target="#modalUnblock">Unblock</a> @endif
+                  @if($User->role == 1) <a class="btn btn-outline-danger" role="button" data-toggle="modal" data-target="#modalBlock">Block</a> @endif
                 </div>
-                <div class="card-body">
 
+                 <div class="btn-group" role="group" aria-label="Basic example">
+                    <div class="modal fade" id="modalUnblock" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Unblock User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <h1>Unblock user <b>{{ $User->name }}</b> ?</h1>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="user/{{$User->id}}/block">Unblock</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                     <div class="modal fade" id="modalBlock" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                       <div class="modal-dialog modal-dialog-centered" role="document">
+                         <div class="modal-content">
+                           <div class="modal-header">
+                             <h5 class="modal-title" id="exampleModalLongTitle">Block User</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                             </button>
+                           </div>
+                           <div class="modal-body">
+                             <h1>Block user <b>{{ $User->name }}</b> ?</h1>
+                           </div>
+                           <div class="modal-footer">
+                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                             <a class="btn btn-danger" href="user/{{$User->id}}/block">Block</a>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+
+                <div class="card-body">
                   {!! Form::open(['url' => '/user/update', 'method' => 'POST', 'files' => true]) !!}
                   {{ Form::token() }}
                     <input type="hidden" name="id" value="{{ $User->id }}">
@@ -44,7 +88,7 @@
                     @foreach($User->childs as $Key => $Child)
                         <div class="form-group">
                           <label>Nama Anak {{++$Key}}</label>
-                          <input name="child[{{$Key}}]" type="text" class="form-control" value="{{ $Child->nama }}">
+                          <input name="child[{{$Key}}]" type="text" class="form-control" value="{{ $Child->name }}">
                         </div>
                     @endforeach
 

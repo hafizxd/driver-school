@@ -1,4 +1,4 @@
-@extends('layouts.app')
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @extends('layouts.app')
 
 @section('title') Driver Info | DriverSchool @endsection
 
@@ -9,12 +9,57 @@
             <a href="/driver" class="btn btn-outline-dark" style="margin-bottom:20px;">Kembali</a>
                 <div class="card">
                     <div class="card-header">
-                        @if($Driver->role == 0) <a class="btn btn-outline-danger" href="#" role="button">Unblock</a> @endif
-                        @if($Driver->role == 2) <a class="btn btn-outline-danger" href="#" role="button">Block</a> @endif
+                        @if($Driver->role == 0) <a class="btn btn-outline-danger" role="button" data-toggle="modal" data-target="#modalUnblock">Unblock</a> @endif
+                        @if($Driver->role == 2) <a class="btn btn-outline-danger" role="button" data-toggle="modal" data-target="#modalBlock">Block</a> @endif
                         @if($Driver->role == 4) <h3>Pending Driver</h3> @endif
                     </div>
-                    <div class="card-body">
 
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                       <div class="modal fade" id="modalUnblock" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                         <div class="modal-dialog modal-dialog-centered" role="document">
+                           <div class="modal-content">
+                             <div class="modal-header">
+                               <h5 class="modal-title" id="exampleModalLongTitle">Unblock Driver</h5>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                               </button>
+                             </div>
+                             <div class="modal-body">
+                               <h1>Unblock driver <b>{{ $Driver->name }}</b> ?</h1>
+                             </div>
+                             <div class="modal-footer">
+                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                               <a class="btn btn-primary" href="driver/{{$Driver->id}}/block">Unblock</a>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+
+                     <div class="btn-group" role="group" aria-label="Basic example">
+                        <div class="modal fade" id="modalBlock" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Block Driver</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <h1>Block driver <b>{{ $Driver->name }}</b> ?</h1>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-danger" href="driver/{{$Driver->id}}/block">Block</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    <div class="card-body">
                         @if($Driver->role == 0 | $Driver->role == 2)
                             {!! Form::open(['url' => '/driver/update', 'method' => 'POST', 'files' => true]) !!}
                             {{ Form::token() }}

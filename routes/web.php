@@ -24,12 +24,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/child/{id}', 'ChildController@info');
 
     Route::get('/user', 'UserController@index');
+    Route::get('/user/{id}/block', 'UserController@block');
     Route::get('/user/{id}', 'UserController@infoWeb')->name('userinfo');
     Route::post('/user/update', 'UserController@update');
 
     Route::get('/driver', 'DriverController@index');
     Route::get('/driver/{id}/accept', 'DriverController@accept');
     Route::get('/driver/{id}/decline', 'DriverController@decline');
+    Route::get('/driver/{id}/block', 'DriverController@block');
     Route::get('/driver/{id}', 'DriverController@infoWeb');
     Route::post('/driver/update', 'DriverController@updateWeb');
 
