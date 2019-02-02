@@ -17,8 +17,14 @@
                       <div class="card-body">
                           Hey {{ $user->name }}, <br>
                           <p>Someone requested a new password for your DriverSchool account.</p>
-                          <a class="btn btn-primary" href="{{ url('www.google.com') }}" role="button">Reset Password</a>
-                          <br><br>
+
+                          <form action="{{ url('/change-password') }}" method="GET">
+                              <input type="hidden" name="email" value="{{ $user->email }}">
+                              <button type="submit" name="button">Reset Password</button>
+                              {{ csrf_field() }}
+                          </form>
+
+                          <br>
                           <p>If you didn't make this request then you can safely ignore this email :)</p>
                       </div>
                   </div>

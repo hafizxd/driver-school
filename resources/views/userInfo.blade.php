@@ -28,7 +28,7 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="user/{{$User->id}}/block">Unblock</a>
+                            <a class="btn btn-primary" href="{{$User->id}}/block">Unblock</a>
                           </div>
                         </div>
                       </div>
@@ -50,7 +50,7 @@
                            </div>
                            <div class="modal-footer">
                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                             <a class="btn btn-danger" href="user/{{$User->id}}/block">Block</a>
+                             <a class="btn btn-danger" href="{{$User->id}}/block">Block</a>
                            </div>
                          </div>
                        </div>

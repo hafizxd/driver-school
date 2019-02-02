@@ -22,6 +22,7 @@ Route::post('/user/register', 'UserController@store');
 Route::post('/user/login', 'UserController@login');
 Route::post('/user/complete', 'UserController@complete');
 Route::post('/user/reset', 'UserController@resetpassword');
+Route::post('/user/edit', 'UserController@updateUser');
 Route::post('/user', 'UserController@info');
 
 
@@ -29,6 +30,9 @@ Route::post('/user', 'UserController@info');
 Route::post('/driver/register', 'DriverController@store');
 Route::post('/driver/login', 'DriverController@login');
 Route::post('/driver/complete', 'DriverController@complete');
+Route::post('/driver/edit-profile', 'DriverController@updateProfile');
+Route::post('/driver/edit-mobil', 'DriverController@updateMobil');
+Route::post('/driver/reset', 'DriverController@resetpassword');
 Route::post('/driver', 'DriverController@info');
 Route::get('/driver', 'DriverController@allDriver');
 

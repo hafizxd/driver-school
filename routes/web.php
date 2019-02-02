@@ -39,3 +39,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/order/{id}', 'OrderController@show');
     Route::post('/order/update', 'OrderController@update');
 });
+
+Route::get('/change-password', 'PasswordController@reset');
+Route::post('/change-password/edit', 'PasswordController@update');

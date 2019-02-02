@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Mail\RegisterDriver;
+use App\Mail\ResetPassword;
 use App\Driver;
 use App\Image;
+use File;
 
 class DriverController extends Controller
 {
@@ -20,6 +22,17 @@ class DriverController extends Controller
         return view('Driver')->with(compact('Drivers', 'DriversBlocked', 'DriversPending'));
     }
 
+    public function block($id){
+        $Driver = Driver::find($id);
+        if($Driver->role == 2){
+            $Driver->role = 0;
+        } else {
+            $Driver->role = 2;
+        }
+        $Driver->save();
+
+        return back();
+    }
 
     public function infoWeb($id){
         $Driver = Driver::where('id', $id)->first();
@@ -42,7 +55,7 @@ class DriverController extends Controller
         if(!empty($request->image)){
             $file = $request->image;
             $imageName = $Driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
-            $request->file('image')->move("img/car_image", $imageName);
+            $request->file('image')->move("img/mobil", $imageName);
             $Driver->image->images = $imageName;
             $Driver->image->save();
         }
@@ -103,7 +116,7 @@ class DriverController extends Controller
             $driver->nopol = $request->nopol;
             $driver->phone = $request->phone;
             $driver->tipe_mobil = $request->tipe_mobil;
-            
+
             $file     = $request->file('avatar');
             $filename = $driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
             $request->file('avatar')->move("img/driver", $filename);
@@ -160,6 +173,62 @@ class DriverController extends Controller
         return response()->json([
             'success' => 'true'
         ]);
+    }
+
+    public function updateProfile(Request $request){
+        $driver = Driver::find($request->driverId);
+
+        $imagePath = 'img/driver/' . $driver->avatar;
+        if(File::exists($imagePath)) File::delete($imagePath);
+
+        $fileName = $driver->id.sha1(time()) . "." . $request->file('avatar')->getClientOriginalExtension();
+        $request->file('avatar')->move('img/driver', $fileName);
+
+        $driver->update([
+            'phone'  => $request->phone,
+            'avatar' => $fileName
+        ]);
+
+        return response()->json([
+            'message'   => 'success'
+        ], 200);
+    }
+
+    public function updateMobil(Request $request){
+        $driver = Driver::find($request->driverId);
+
+        $imagePath = 'img/mobil/' . $driver->image->images;
+        if(File::exists($imagePath)) File::delete($imagePath);
+
+        $imageName = $driver->image->id.sha1(time()) . '.' . $request->file('carImage')->getClientOriginalExtension();
+        $request->file('carImage')->move('img/mobil', $imageName);
+
+        $driver->update([
+            'tipe_mobil' => $request->carType,
+            'nopol'      => $request->nopol,
+        ]);
+
+        $img = $driver->image;
+        $img->update(['images' => $imageName]);
+
+        return response()->json([
+            'message' => 'success',
+        ], 200);
+    }
+
+    public function resetpassword(Request $request){
+        $user = Driver::where('email', $request->email)->first();
+        if(empty($user)){
+            return response()->json([
+                'message' => 'Email tidak terdaftar'
+            ], 401);
+        } else {
+            Mail::to($request->email)->send(new ResetPassword($user));
+
+            return response()->json([
+                'message' => 'success'
+            ], 200);
+        }
     }
 
     public function info(Request $request){

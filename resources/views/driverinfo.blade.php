@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @extends('layouts.app')
+@extends('layouts.app')
 
 @section('title') Driver Info | DriverSchool @endsection
 
@@ -29,7 +29,7 @@
                              </div>
                              <div class="modal-footer">
                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                               <a class="btn btn-primary" href="driver/{{$Driver->id}}/block">Unblock</a>
+                               <a class="btn btn-primary" href="{{$Driver->id}}/block">Unblock</a>
                              </div>
                            </div>
                          </div>
@@ -51,7 +51,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <a class="btn btn-danger" href="driver/{{$Driver->id}}/block">Block</a>
+                                <a class="btn btn-danger" href="{{$Driver->id}}/block">Block</a>
                               </div>
                             </div>
                           </div>
@@ -81,8 +81,8 @@
                                     <input name="email" type="email" class="form-control" value="{{ $Driver->email }}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Alamat</label>
-                                    <input name="alamat" type="text" class="form-control" value="{{ $Driver->alamat }}">
+                                    <label>Phone</label>
+                                    <input name="phone" type="number" class="form-control" value="{{ $Driver->phone }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Tipe Mobil</label>
@@ -95,9 +95,9 @@
                                 <div class="form-group">
                                     <label>Gender Penumpang</label>
                                     <select class="form-control" name="gender_penumpang">
-                                        <option @if($Driver->gender_penumpang == 'Campur') selected @endif>Campur</option>
-                                        <option @if($Driver->gender_penumpang == 'Laki-Laki') selected @endif>Laki-Laki</option>
-                                        <option @if($Driver->gender_penumpang == 'Perempuan') selected @endif>Perempuan</option>
+                                        <option @if($Driver->gender_penumpang == 0) selected @endif value=0>Campur</option>
+                                        <option @if($Driver->gender_penumpang == 1) selected @endif value=1>Laki-Laki</option>
+                                        <option @if($Driver->gender_penumpang == 2) selected @endif value=2>Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -114,7 +114,7 @@
 
                                     @if(!empty($Driver->image->images))
                                         <center>
-                                            <img class="img-thumbnail" src="/img/car_image/{{ $Driver->image->images }}" alt="gaada">
+                                            <img class="img-thumbnail" src="/img/mobil/{{ $Driver->image->images }}" alt="gaada">
                                         </center>
                                             <input type="file" name="image">
                                     @else
@@ -147,8 +147,8 @@
                                     <input name="email" type="email" class="form-control" value="{{ $Driver->email }}" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label>Alamat</label>
-                                    <input name="alamat" type="text" class="form-control" value="{{ $Driver->alamat }}" readonly>
+                                    <label>Phone</label>
+                                    <input name="phone" type="number" class="form-control" value="{{ $Driver->phone }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Tipe Mobil</label>
@@ -161,9 +161,9 @@
                                 <div class="form-group">
                                     <label>Gender Penumpang</label>
                                     <select class="form-control" name="gender_penumpang" disabled>
-                                        <option @if($Driver->gender_penumpang == 'Campur') selected @endif>Campur</option>
-                                        <option @if($Driver->gender_penumpang == 'Laki-Laki') selected @endif>Laki-Laki</option>
-                                        <option @if($Driver->gender_penumpang == 'Perempuan') selected @endif>Perempuan</option>
+                                        <option @if($Driver->gender_penumpang == 0) selected @endif value=0>Campur</option>
+                                        <option @if($Driver->gender_penumpang == 1) selected @endif value=1>Laki-Laki</option>
+                                        <option @if($Driver->gender_penumpang == 2) selected @endif value=2>Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -180,7 +180,7 @@
 
                                     @if(!empty($Driver->image->images))
                                         <center>
-                                            <img class="img-thumbnail" src="/img/car_image/{{ $Driver->image->images }}" alt="img-car">
+                                            <img class="img-thumbnail" src="/img/mobil/{{ $Driver->image->images }}" alt="img-car">
                                         </center>
                                     @else
                                         <br> -
