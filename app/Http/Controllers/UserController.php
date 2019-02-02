@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\ResetPassword;
 use App\User;
 use App\Child;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 
@@ -53,7 +55,7 @@ class UserController extends Controller
 
       foreach ($Childs as $Key => $Child) {
             $Child->update([
-              'nama' => $request->child[$i]
+              'name' => $request->child[$i]
             ]);
             $i += 1;
       }
@@ -139,6 +141,22 @@ class UserController extends Controller
               'nama_anak' => $user->getChild->name,
               'avatar' => "img/user/" . $user->avatar
             ]);
+        }
+    }
+
+    public function resetpassword(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if(empty($user)){
+            return response()->json([
+                'success' => 'false',
+                'error'   => 'Email belum terdaftar'
+            ], 401);
+        } else {
+            Mail::to($request->email)->send(new ResetPassword($user));
+            return response()->json([
+                'success' => 'true',
+                'user_id' => $user->id
+            ], 200);
         }
     }
 

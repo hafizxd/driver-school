@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\Mail\RegisterDriver;
 use App\Driver;
-use App\Image   ;
+use App\Image;
 
 class DriverController extends Controller
 {
+
     public function index(){
         $Drivers = Driver::where('role', 2)->orderBy('created_at', 'DESC')->get();
         $DriversBlocked = Driver::where('role', 0)->orderBy('created_at', 'DESC')->get();
@@ -65,6 +68,9 @@ class DriverController extends Controller
             'role' => 2
         ]);
 
+        $driver = Driver::where('id', $id)->first();
+        Mail::to($driver->email)->send(new RegisterDriver($driver));
+
         return redirect('/driver');
     }
 
@@ -97,9 +103,7 @@ class DriverController extends Controller
             $driver->nopol = $request->nopol;
             $driver->phone = $request->phone;
             $driver->tipe_mobil = $request->tipe_mobil;
-
-
-
+            
             $file     = $request->file('avatar');
             $filename = $driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
             $request->file('avatar')->move("img/driver", $filename);
@@ -107,6 +111,7 @@ class DriverController extends Controller
 
             $driver->password = bcrypt($request->password);
             $driver->save();
+
             return response()->json([
             'success' => 'true',
             'user_id' => $driver->id
