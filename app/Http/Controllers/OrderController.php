@@ -20,7 +20,7 @@ class OrderController extends Controller
     public function show($id){
         $Order = Order::where('id', $id)->first();
 
-        return view('orderInfo')->with(compact('Order', 'TimeStart'));
+        return view('orderInfo')->with(compact('Order'));
     }
 
 
@@ -47,6 +47,87 @@ class OrderController extends Controller
         }
 
         return back();
+    }
+
+
+
+
+    /* 
+    
+    ====== API ========
+    
+    */
+
+
+
+
+    public function userOrder(Request $request){
+
+        //driverId, userId, destination, pickupPoint, longContract,  price
+
+        $order = new Order;
+        $order->user_id = $request->userId;
+        $order->driver_id = $request->driverId;
+        $order->destination = $request->destination;
+        $order->pickup_point = $request->pickupPoint;
+        $order->plan = $request->longContract;
+        $order->price = $request->price;
+        $order->save();
+
+        return response()->json([
+            'message' => 'success'
+        ]);
+        
+    }
+
+    public function searchByOrderId(Request $request){
+        $order = Order::where('id', $request->id)->first();
+        
+        if(!$order){
+            return response()->json([
+                'message' => 'false'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'success',
+                'userId' => $order->user_id,
+                'driverId' => $order->driver_id,
+                'destination' => $order->destination,
+                'pickupPoint' => $order->pickup_point,
+                'longContract' => $order->plan,
+                'price' => $order->price
+            ]);
+        }
+
+    }
+
+    public function cekLangganan(Request $request){
+        $orders = Order::where('user_id', $request->id)->get();
+
+        if(empty($orders)){
+            return response()->json([
+                'messages' => 'false'
+            ]);
+        } else {
+            foreach($orders as $order){
+                $variable['user_id'] = $order->user_id;
+                $variable['driver_id'] = $order->driver_id;
+                $result[] = $variable;
+            }
+            return response()->json($result);
+
+        }
+
+        // if($user->()){
+        //     return response()->json([
+        //         'message' => 'fails'
+        //     ]);
+        // } else {
+        //     dd($user->user->user_id . " haloooooo !!! ". $user->driver->driver_id);
+        //     return response()->json([
+        //         'message' => 'true'
+        //     ]);
+        // }
     }
 
 

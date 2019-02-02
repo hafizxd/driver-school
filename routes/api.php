@@ -23,7 +23,8 @@ Route::post('/user/login', 'UserController@login');
 Route::post('/user/complete', 'UserController@complete');
 Route::post('/user/reset', 'UserController@resetpassword');
 Route::post('/user', 'UserController@info');
-
+Route::post('/user/order', 'OrderController@userOrder');
+Route::get('/user/subs/{id}', 'OrderController@cekLangganan');
 
 //Driver
 Route::post('/driver/register', 'DriverController@store');
@@ -32,4 +33,6 @@ Route::post('/driver/complete', 'DriverController@complete');
 Route::post('/driver', 'DriverController@info');
 Route::get('/driver', 'DriverController@allDriver');
 
-Route::post('/order', 'OrderController@order');
+
+
+Route::get('/order/{id}', 'OrderController@searchByOrderId');

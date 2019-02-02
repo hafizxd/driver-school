@@ -93,7 +93,7 @@ class DriverController extends Controller
 
         if($driver->count() > 0){
             return response()->json([
-            'success' => 'false',
+            'message' => 'false',
             'error'   => 'Email telah didaftarkan'
             ]);
         } else {
@@ -113,7 +113,7 @@ class DriverController extends Controller
             $driver->save();
 
             return response()->json([
-            'success' => 'true',
+            'message' => 'true',
             'user_id' => $driver->id
             ], 200);
         }
@@ -124,17 +124,17 @@ class DriverController extends Controller
         if(!empty($driver)){
             if(Hash::check($request->password, $driver->password)){
                 return response()->json([
-                    'success' => 'true',
+                    'message' => 'true',
                     'user_id' => $driver->id
                 ], 200);
             } else {
                 return response()->json([
-                    'success' => 'false',
+                    'message' => 'false',
                 ], 401);
             }
         } else {
             return response()->json([
-                'success' => 'false'
+                'message' => 'false'
             ]);
         }
     }
@@ -158,7 +158,7 @@ class DriverController extends Controller
         $driver->save();
 
         return response()->json([
-            'success' => 'true'
+            'message' => 'true'
         ]);
     }
 
