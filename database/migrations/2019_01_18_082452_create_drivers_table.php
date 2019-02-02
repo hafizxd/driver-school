@@ -23,7 +23,7 @@ class CreateDriversTable extends Migration
             $table->string('nopol')->nullable();
             $table->string('tipe_mobil')->nullable();
             $table->tinyInteger('max_penumpang')->nullable();
-            $table->string('gender_penumpang')->nullable();
+            $table->tinyInteger('gender_penumpang')->nullable(); //0=campur, 1=laki 2=Perempuan
             $table->string('tujuan')->nullable();
             $table->string('alamat')->nullable();
             $table->string('password');

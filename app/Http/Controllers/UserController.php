@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use File;
 
 
 class UserController extends Controller
@@ -21,6 +22,17 @@ class UserController extends Controller
       return view('User')->with(compact('Users', 'UsersBlocked'));
     }
 
+    public function block($id){
+        $User = User::find($id);
+        if($User->role != 0){
+            $User->role = 0;
+        } else {
+            $User->role = 1;
+        }
+        $User->save();
+
+        return back();
+    }
 
     public function infoWeb($id){
       $User = User::where('id', $id)->first();
@@ -148,16 +160,27 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->first();
         if(empty($user)){
             return response()->json([
-                'message' => 'false',
-                'error'   => 'Email belum terdaftar'
+                'message' => 'Email belum terdaftar'
             ], 401);
         } else {
             Mail::to($request->email)->send(new ResetPassword($user));
             return response()->json([
-                'message' => 'true',
+                'message' => 'success',
                 'user_id' => $user->id
             ], 200);
         }
+    }
+
+    public function updateUser(Request $request){
+        $user = User::find($request->userId);
+        $user->update([
+            'address' => $request->address,
+            'phone'   => $request->phone
+        ]);
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
     }
 
 }
