@@ -114,20 +114,39 @@ class OrderController extends Controller
                 $variable['driver_id'] = $order->driver_id;
                 $result[] = $variable;
             }
-            return response()->json($result);
+            return response()->json(
+                $result
+            );
 
         }
+    }
 
-        // if($user->()){
-        //     return response()->json([
-        //         'message' => 'fails'
-        //     ]);
-        // } else {
-        //     dd($user->user->user_id . " haloooooo !!! ". $user->driver->driver_id);
-        //     return response()->json([
-        //         'message' => 'true'
-        //     ]);
-        // }
+    public function pendingView(Request $request){
+        $orders = Order::where('driver_id', $request->id)->where('status', 0)->get();
+        if(count($orders) <= 0 ){
+            return response()->json([
+                'message' => 'fails'
+            ]);
+        } else {
+            foreach($orders as $order){
+                $var['userId'] = $order->user_id;
+                $var['orderId'] = $order->id;
+                $result[] = $var;
+            }
+            return response()->json(
+                $result
+            );
+        }
+    }
+
+    public function validateOrder(Request $request){
+        $order = Order::where('id', $request->orderId)->first();
+        $order->status = $request->isAccept;
+        $order->reason = $request->reason;
+        $order->save();
+        return response()->json([
+            'message' => 'success'
+        ]);
     }
 
 
