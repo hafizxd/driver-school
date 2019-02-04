@@ -14,13 +14,13 @@
         <div class="card-body">
           <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link active" id="user-tab" data-toggle="pill" href="#supir-tab" role="tab" aria-controls="supir-tab" aria-selected="true" @if(getRole() != 2)) style="display: none;" @endif >Supir</a>
+                <a class="nav-link active" id="user-tab" data-toggle="pill" href="#supir-tab" role="tab" aria-controls="supir-tab" aria-selected="true" @if(getRole() != 3)) style="display: none;" @endif >Supir</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirSupir-tab" role="tab" aria-controls="bookings-tab" aria-selected="false" @if(getRole() != 2)) style="display: none;" @endif >Blokir</a>
+                <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirSupir-tab" role="tab" aria-controls="bookings-tab" aria-selected="false" @if(getRole() != 3)) style="display: none;" @endif >Blokir</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pendingSupir-tab" role="tab" aria-controls="pending-tab" aria-selected="false" @if(getRole() != 2)) style="display: none;" @endif >Pending</a>
+                <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pendingSupir-tab" role="tab" aria-controls="pending-tab" aria-selected="false" @if(getRole() != 3)) style="display: none;" @endif >Pending</a>
             </li>
           </ul>
           <br>
@@ -35,7 +35,7 @@
                                 <th scope="col" width="15%">Avatar</th>
                                 <th scope="col" width="32%">Nama</th>
                                 <th scope="col" width="32%">E-mail</th>
-                                <th scope="col" width="15%" @if(getRole() != 2)) style="display: none;" @endif >Action</th>
+                                <th scope="col" width="15%" @if(getRole() != 3)) style="display: none;" @endif >Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,7 +51,7 @@
                                     </td>
                                     <td>{{ $Driver->name }}</td>
                                     <td>{{ $Driver->email }}</td>
-                                    <td @if(getRole() != 2)) style="display: none;" @endif >
+                                    <td @if(getRole() != 3)) style="display: none;" @endif >
                                         <a href="/driver/{{$Driver->id}}" class="btn btn-dark" style="width:100px;">Info</a>
                                     </td>
                                 </tr>

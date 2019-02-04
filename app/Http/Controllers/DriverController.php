@@ -133,13 +133,19 @@ class DriverController extends Controller
     }
 
     public function login(Request $request){
-        $driver = Driver::where('email', $request->email)->where('role', 2)->first();
+        $driver = Driver::where('email', $request->email)->first();
         if(!empty($driver)){
             if(Hash::check($request->password, $driver->password)){
-                return response()->json([
-                    'message' => 'true',
-                    'driver_id' => $driver->id
-                ], 200);
+                if($driver->role == 2){
+                    return response()->json([
+                        'message' => 'true',
+                        'driver_id' => $driver->id
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'message' => 'pending'
+                    ]);
+                }
             } else {
                 return response()->json([
                     'message' => 'false',
