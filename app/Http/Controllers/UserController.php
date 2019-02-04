@@ -15,6 +15,10 @@ use File;
 
 class UserController extends Controller
 {
+    protected function authenticated(){
+        \Auth::logoutOtherDevices(request('password'));
+    }
+
     public function index(Request $request){
       $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->Paginate(10);
       $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->Paginate(10);
@@ -37,7 +41,7 @@ class UserController extends Controller
     public function infoWeb($id){
       $User = User::where('id', $id)->first();
 
-      return view('userInfo')->with(compact('User'));
+      return view('userInfo')->with(compact('User', 'childnames'));
     }
 
 
@@ -124,17 +128,19 @@ class UserController extends Controller
 
     public function complete(Request $request){
         $user = User::where('id', $request->id)->first();
-        $child = new Child;
 
-        $child->user_id = $user->id;
-        $child->name = $request->name;
+        foreach ($request->name as $key => $childName) {
+           Child::create([
+              'name'    => $childName,
+              'user_id' => $user->id
+           ]);
+        }
 
         $file     = $request->file('avatar');
         $filename = $user->name.sha1(time()) . "." . $file->getClientOriginalExtension();
         $request->file('avatar')->move("img/user", $filename);
         $user->avatar = $filename;
 
-        $child->save();
         $user->save();
 
         return response()->json([
