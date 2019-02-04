@@ -23,10 +23,10 @@ class DriverController extends Controller
     }
 
     public function block($id){
-        $Driver = Driver::find($id);
+        $Driver = Driver::where('id', $id);
         if($Driver->role == 2){
             $Driver->role = 0;
-        } else {
+        }  else {
             $Driver->role = 2;
         }
         $Driver->save();

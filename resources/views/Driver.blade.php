@@ -46,7 +46,7 @@
                                         @if(!empty($Driver->avatar))
                                             <img class="img-thumbnail" width="50" src="/img/driver/{{ $Driver->avatar }}" alt="">
                                         @else
-                                            -
+                                            <img class="img-thumbnail" width="50" src="{{ $Driver->avatar }}" alt="">
                                         @endif
                                     </td>
                                     <td>{{ $Driver->name }}</td>
@@ -78,9 +78,9 @@
                                     <th scope="row">{{ ++$Key }}</th>
                                     <td>
                                         @if(!empty($Driver->avatar))
-                                            <img class="img-thumbnail" width="50" src="/img/driver/{{ $Driver->avatar }})" alt="">
+                                            <img class="img-thumbnail" width="50" src="/img/driver/{{ $Driver->avatar }}" alt="">
                                         @else
-                                            -
+                                            <img class="img-thumbnail" width="50" src="{{ $Driver->avatar }}" alt="">
                                         @endif
                                     </td>
                                     <td>{{ $Driver->name }}</td>
@@ -114,7 +114,7 @@
                                         @if(!empty($Driver->avatar))
                                             <img class="img-thumbnail" width="50" src="/img/driver/{{ $Driver->avatar }}" alt="">
                                         @else
-                                            -
+                                            <img class="img-thumbnail" width="50" src="/img/driver/{{ $Driver->avatar }}" alt="">
                                         @endif
                                     </td>
                                     <td>{{ $Driver->name }}</td>
