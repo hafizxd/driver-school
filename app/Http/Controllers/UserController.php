@@ -150,8 +150,12 @@ class UserController extends Controller
               'name' => $user->name,
               'email' => $user->email,
               'phone' => $user->phone,
-              'nama_anak' => $user->getChild->name,
+              'nama_anak' => $user->childs->name,
               'avatar' => "img/user/" . $user->avatar
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'fails'
             ]);
         }
     }

@@ -127,7 +127,7 @@ class DriverController extends Controller
 
             return response()->json([
             'message' => 'true',
-            'user_id' => $driver->id
+            'driver_id' => $driver->id
             ], 200);
         }
     }
@@ -138,7 +138,7 @@ class DriverController extends Controller
             if(Hash::check($request->password, $driver->password)){
                 return response()->json([
                     'message' => 'true',
-                    'user_id' => $driver->id
+                    'driver_id' => $driver->id
                 ], 200);
             } else {
                 return response()->json([
@@ -246,6 +246,10 @@ class DriverController extends Controller
               'gender_penumpang' => $driver->gender_penumpang,
               'avatar' => "img/user/" . $driver->avatar,
               'foto_mobil' => "img/mobil/" . $driver->image->images
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'fails'
             ]);
         }
     }
