@@ -15,9 +15,6 @@ use File;
 
 class UserController extends Controller
 {
-    protected function authenticated(){
-        \Auth::logoutOtherDevices(request('password'));
-    }
 
     public function index(Request $request){
       $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->Paginate(10);
@@ -93,7 +90,7 @@ class UserController extends Controller
 
       if($user->count() > 0){
         return response()->json([
-          'success' => 'false',
+          'message' => 'false',
           'error'   => 'Email telah didaftarkan'
         ]);
       } else {
@@ -105,7 +102,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
         return response()->json([
-          'success' => 'true',
+          'message' => 'true',
           'user_id' => $user->id
         ], 200);
       }
@@ -116,12 +113,12 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->where('role', 1)->first();
         if(Hash::check($request->password, $user->password)){
             return response()->json([
-                'success' => 'true',
+                'message' => 'true',
                 'user_id' => $user->id
             ], 200);
         } else {
             return response()->json([
-                'success' => 'false'
+                'message' => 'false'
             ], 401);
         }
     }
@@ -144,7 +141,7 @@ class UserController extends Controller
         $user->save();
 
         return response()->json([
-          'success' => 'true',
+          'message' => 'true',
           'user_id' => $user->id
         ]);
     }
@@ -156,8 +153,12 @@ class UserController extends Controller
               'name' => $user->name,
               'email' => $user->email,
               'phone' => $user->phone,
-              'nama_anak' => $user->getChild->name,
+              'nama_anak' => $user->childs->name,
               'avatar' => "img/user/" . $user->avatar
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'fails'
             ]);
         }
     }

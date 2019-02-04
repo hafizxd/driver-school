@@ -23,10 +23,10 @@ class DriverController extends Controller
     }
 
     public function block($id){
-        $Driver = Driver::find($id);
+        $Driver = Driver::where('id', $id);
         if($Driver->role == 2){
             $Driver->role = 0;
-        } else {
+        }  else {
             $Driver->role = 2;
         }
         $Driver->save();
@@ -106,7 +106,7 @@ class DriverController extends Controller
 
         if($driver->count() > 0){
             return response()->json([
-            'success' => 'false',
+            'message' => 'false',
             'error'   => 'Email telah didaftarkan'
             ]);
         } else {
@@ -126,28 +126,34 @@ class DriverController extends Controller
             $driver->save();
 
             return response()->json([
-            'success' => 'true',
-            'user_id' => $driver->id
+            'message' => 'true',
+            'driver_id' => $driver->id
             ], 200);
         }
     }
 
     public function login(Request $request){
-        $driver = Driver::where('email', $request->email)->where('role', 2)->first();
+        $driver = Driver::where('email', $request->email)->first();
         if(!empty($driver)){
             if(Hash::check($request->password, $driver->password)){
-                return response()->json([
-                    'success' => 'true',
-                    'user_id' => $driver->id
-                ], 200);
+                if($driver->role == 2){
+                    return response()->json([
+                        'message' => 'true',
+                        'driver_id' => $driver->id
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'message' => 'pending'
+                    ]);
+                }
             } else {
                 return response()->json([
-                    'success' => 'false',
+                    'message' => 'false',
                 ], 401);
             }
         } else {
             return response()->json([
-                'success' => 'false'
+                'message' => 'false'
             ]);
         }
     }
@@ -171,7 +177,7 @@ class DriverController extends Controller
         $driver->save();
 
         return response()->json([
-            'success' => 'true'
+            'message' => 'true'
         ]);
     }
 
@@ -246,6 +252,10 @@ class DriverController extends Controller
               'gender_penumpang' => $driver->gender_penumpang,
               'avatar' => "img/user/" . $driver->avatar,
               'foto_mobil' => "img/mobil/" . $driver->image->images
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'fails'
             ]);
         }
     }

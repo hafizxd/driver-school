@@ -24,7 +24,8 @@ Route::post('/user/complete', 'UserController@complete');
 Route::post('/user/reset', 'UserController@resetpassword');
 Route::post('/user/edit', 'UserController@updateUser');
 Route::post('/user', 'UserController@info');
-
+Route::post('/user/order', 'OrderController@userOrder');
+Route::get('/user/subs/{id}', 'OrderController@cekLangganan');
 
 //Driver
 Route::post('/driver/register', 'DriverController@store');
@@ -35,5 +36,7 @@ Route::post('/driver/edit-mobil', 'DriverController@updateMobil');
 Route::post('/driver/reset', 'DriverController@resetpassword');
 Route::post('/driver', 'DriverController@info');
 Route::get('/driver', 'DriverController@allDriver');
+Route::get('/driver/order/pending/{id}', 'OrderController@pendingView');
 
-Route::post('/order', 'OrderController@order');
+Route::get('/order/{id}', 'OrderController@searchByOrderId');
+Route::post('/order/validate', 'OrderController@validateOrder');

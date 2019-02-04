@@ -10,13 +10,13 @@
             {{-- List Navigation --}}
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#users-tab" role="tab" aria-controls="users-tab" aria-selected="true">Pengguna</a>
+                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#users-tab" role="tab" aria-controls="users-tab" aria-selected="true" @if(getRole() != 3)) style="display: none;" @endif>Pengguna</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="driver-tab" data-toggle="pill" href="#drivers-tab" role="tab" aria-controls="drivers-tab" aria-selected="false">Supir</a>
+                    <a @if(getRole() != 3)) class="nav-link active" @else class="nav-link" @endif  id="driver-tab" data-toggle="pill" href="#drivers-tab" role="tab" aria-controls="drivers-tab" aria-selected="false">Supir</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/order">Langganan</a>
+                    <a class="nav-link" href="/order" @if(getRole() != 3)) style="display: none;" @endif>Langganan</a>
                 </li>
             </ul>
         </div>
@@ -27,7 +27,7 @@
     <div class="tab-content" id="pills-tabContent">
 
         {{-- Content Pengguna --}}
-        <div class="tab-pane fade show active" id="users-tab" role="tabpanel" aria-labelledby="users-tab">
+        <div @if(getRole() != 3)) class="tab-pane fade" @else class="tab-pane fade show active" @endif  id="users-tab" role="tabpanel" aria-labelledby="users-tab">
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="card">
@@ -106,7 +106,7 @@
         </div>
 
         {{-- Content Supir --}}
-        <div class="tab-pane fade" id="drivers-tab" role="tabpanel" aria-labelledby="drivers-tab">
+        <div @if(getRole() != 3)) class="tab-pane fade show active" @else class="tab-pane fade" @endif id="drivers-tab" role="tabpanel" aria-labelledby="drivers-tab">
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="card">
@@ -119,13 +119,13 @@
 
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#supir-tab" role="tab" aria-controls="supir-tab" aria-selected="true">Supir</a>
+                                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#supir-tab" role="tab" aria-controls="supir-tab" aria-selected="true" @if(getRole() != 3)) style="display: none;" @endif >Supir</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirSupir-tab" role="tab" aria-controls="blokirSupir-tab" aria-selected="false">Blokir</a>
+                                    <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirSupir-tab" role="tab" aria-controls="blokirSupir-tab" aria-selected="false" @if(getRole() != 3)) style="display: none;" @endif >Blokir</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pendingSupir-tab" role="tab" aria-controls="pendingSupir-tab" aria-selected="false">Pending</a>
+                                    <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pendingSupir-tab" role="tab" aria-controls="pendingSupir-tab" aria-selected="false" @if(getRole() != 3)) style="display: none;" @endif >Pending</a>
                                 </li>
                             </ul>
                             <br>
