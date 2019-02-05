@@ -72,6 +72,10 @@ class OrderController extends Controller
         $order->pickup_point = $request->pickupPoint;
         $order->plan = $request->longContract;
         $order->price = $request->price;
+        $order->note = $request->note;
+        $order->nama_anak = $request->namaAnak;
+        $order->start_date = $request->start_date;
+        $order->end_date = $request->end_date;
         $order->save();
 
         return response()->json([

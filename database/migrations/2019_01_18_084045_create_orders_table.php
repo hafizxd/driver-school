@@ -18,14 +18,16 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('driver_id')->unsigned();
             $table->tinyInteger('active')->default(0);
-            $table->string('destination')->nullable();
-            $table->string('pickup_point')->nullable();
             $table->string('plan');
             $table->string('price')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->string('nama_anak')->nullable();
+            $table->text('note')->nullable();
+            $table->text('reason')->nullable();
+            $table->string('destination')->nullable();
+            $table->string('pickup_point')->nullable();
             $table->text('start_date');
             $table->text('end_date');
-            $table->tinyInteger('status')->default(0);
-            $table->text('reason')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
