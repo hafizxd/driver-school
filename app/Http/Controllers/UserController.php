@@ -85,7 +85,6 @@ class UserController extends Controller
 
 
     public function store(Request $request){
-
       $user = User::where('email', $request->email)->get();
 
       if($user->count() > 0){

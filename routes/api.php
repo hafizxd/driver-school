@@ -34,6 +34,7 @@ Route::post('/driver/complete', 'DriverController@complete');
 Route::post('/driver/edit-profile', 'DriverController@updateProfile');
 Route::post('/driver/edit-mobil', 'DriverController@updateMobil');
 Route::post('/driver/reset', 'DriverController@resetpassword');
+Route::post('/driver/order', 'DriverController@order');
 Route::post('/driver', 'DriverController@info');
 Route::get('/driver', 'DriverController@allDriver');
 Route::get('/driver/order/pending/{id}', 'OrderController@pendingView');
