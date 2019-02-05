@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Order;
+use App\Child;
 
 class OrderController extends Controller
 {
@@ -52,10 +53,10 @@ class OrderController extends Controller
 
 
 
-    /* 
-    
+    /*
+
     ====== API ========
-    
+
     */
 
 
@@ -63,7 +64,7 @@ class OrderController extends Controller
 
     public function userOrder(Request $request){
 
-        //driverId, userId, destination, pickupPoint, longContract,  price
+        //driverId, userId, destination, pickupPoint, longContract,  price, note, namaAnak
 
         $order = new Order;
         $order->user_id = $request->userId;
@@ -71,21 +72,29 @@ class OrderController extends Controller
         $order->destination = $request->destination;
         $order->pickup_point = $request->pickupPoint;
         $order->plan = $request->longContract;
-        $order->price = $request->price;
+        $order->start_date = $request->start_date;
+        $order->end_date = $request->end_date;
         $order->save();
+
+        foreach($request->namaAnak as $key => $child){
+            Child::create([
+                'name'    => $child,
+                'user_id' => $order->user->id
+            ]);
+        }
 
         return response()->json([
             'message' => 'success'
         ]);
-        
+
     }
 
     public function searchByOrderId(Request $request){
         $order = Order::where('id', $request->id)->first();
-        
+
         if(!$order){
             return response()->json([
-                'message' => 'false'
+                'message' => 'error'
             ]);
         } else {
             return response()->json([
@@ -106,7 +115,7 @@ class OrderController extends Controller
 
         if(empty($orders)){
             return response()->json([
-                'messages' => 'false'
+                'messages' => 'error'
             ]);
         } else {
             foreach($orders as $order){
@@ -125,7 +134,7 @@ class OrderController extends Controller
         $orders = Order::where('driver_id', $request->id)->where('status', 0)->get();
         if(count($orders) <= 0 ){
             return response()->json([
-                'message' => 'fails'
+                'message' => 'error'
             ]);
         } else {
             foreach($orders as $order){
