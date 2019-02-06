@@ -32,6 +32,8 @@ class UserController extends Controller
         }
         $User->save();
 
+        session()->flash('block', 'Success');
+
         return back();
     }
 
@@ -72,6 +74,8 @@ class UserController extends Controller
             ]);
             $i += 1;
       }
+
+      session()->flash('updateSuccess', 'Update Profil Success');
 
      return redirect()->back();
     }

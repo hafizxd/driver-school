@@ -7,6 +7,17 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
           <a href="/user" class="btn btn-outline-dark" style="margin-bottom:20px;">Back</a>
+          @if(session()->has('block'))
+            <div class="alert alert-success">
+              <button class="close" data-dismiss="alert" aria-hidden="true">     &#10004;</button>
+              <strong>Notification </strong> {{ session()->get('block') }}
+            </div>
+          @elseif(session()->has('updateSuccess'))
+            <div class="alert alert-success">
+              <button class="close" data-dismiss="alert" aria-hidden="true">     &#10004;</button>
+              <strong>Notification </strong> {{ session()->get('updateSuccess') }}
+            </div>
+          @endif
             <div class="card">
                 <div class="card-header">
                   @if($User->role == 0) <a class="btn btn-outline-danger" role="button" data-toggle="modal" data-target="#modalUnblock">Unblock</a> @endif
