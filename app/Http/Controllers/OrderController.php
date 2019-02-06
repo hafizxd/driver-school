@@ -199,7 +199,7 @@ class OrderController extends Controller
         foreach ($users as $key => $user) {
             $varDriver['user'] = $user;
             $varDriver['order'] = $order[$key];
-            $drivers['order'.$key] = $varDriver;
+            $drivers[$key] = $varDriver;
         }
 
         return response()->json([
