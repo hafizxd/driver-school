@@ -19,6 +19,7 @@ Auth::routes();
 
 
 Route::group(['middleware' => 'auth'], function(){
+    App::setLocale("id");
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/child/{id}', 'ChildController@info');
@@ -35,9 +36,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/driver/{id}', 'DriverController@infoWeb');
     Route::post('/driver/update', 'DriverController@updateWeb');
 
-    Route::get('/order', 'OrderController@index');
+    Route::get('/order', 'OrderController@index')->name('order');
     Route::get('/order/{id}', 'OrderController@show');
     Route::post('/order/update', 'OrderController@update');
+    Route::get('/order/cancel/{id}', 'OrderController@cancelWeb');
 });
 
 Route::get('/change-password', 'PasswordController@reset');

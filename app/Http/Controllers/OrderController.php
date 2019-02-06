@@ -26,7 +26,7 @@ class OrderController extends Controller
 
 
     public function update(Request $request){
-        Order::find($request->id)->update([
+        Order::where('id',$request->id)->update([
             'plan'       => $request->plan,
             'start_date' => $request->start_date,
             'end_date'   => $request->end_date
@@ -50,7 +50,11 @@ class OrderController extends Controller
         return back();
     }
 
-
+    public function cancelWeb(Request $request){
+        $order = Order::where('id', $request->id)->first();
+        $order->delete();
+        return redirect()->route('order');
+    }
 
 
     /*
