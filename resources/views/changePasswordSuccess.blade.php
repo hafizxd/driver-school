@@ -14,7 +14,6 @@
 
                   <p>Selamat, password anda berhasil diganti. Silahkan login kembali pada aplikasi DriverSchool.</p>
 
-
              </div>
          </div>
      </div>

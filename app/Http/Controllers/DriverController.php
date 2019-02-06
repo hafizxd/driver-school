@@ -23,8 +23,8 @@ class DriverController extends Controller
     }
 
     public function block($id){
-        $Driver = Driver::where('id', $id);
-        if($Driver->role == 2){
+        $Driver = Driver::where('id',$id)->first();
+        if($Driver->role == 2){ 
             $Driver->role = 0;
         }  else {
             $Driver->role = 2;
@@ -126,7 +126,7 @@ class DriverController extends Controller
             $driver->save();
 
             return response()->json([
-            'message' => 'true',
+            'message' => 'success',
             'driver_id' => $driver->id
             ], 200);
         }
@@ -138,7 +138,7 @@ class DriverController extends Controller
             if(Hash::check($request->password, $driver->password)){
                 if($driver->role == 2){
                     return response()->json([
-                        'message' => 'true',
+                        'message' => 'success',
                         'driver_id' => $driver->id
                     ], 200);
                 } else {
@@ -177,7 +177,7 @@ class DriverController extends Controller
         $driver->save();
 
         return response()->json([
-            'message' => 'true'
+            'message' => 'success'
         ]);
     }
 
@@ -192,6 +192,10 @@ class DriverController extends Controller
 
         $driver->update([
             'phone'  => $request->phone,
+            'max_penumpang' => $request->max_penumpang,
+            'gender_penumpang' => $request->gender_penumpang,
+            'alamat' => $request->alamat,
+            'tujuan' => $request->tujuan,
             'avatar' => $fileName
         ]);
 
@@ -236,6 +240,7 @@ class DriverController extends Controller
             ], 200);
         }
     }
+
 
     public function info(Request $request){
         $driver = Driver::where('id', $request->id)->first();

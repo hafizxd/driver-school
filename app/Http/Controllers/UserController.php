@@ -38,7 +38,7 @@ class UserController extends Controller
     public function infoWeb($id){
       $User = User::where('id', $id)->first();
 
-      return view('userInfo')->with(compact('User', 'childnames'));
+      return view('userInfo')->with(compact('User'));
     }
 
 
@@ -85,7 +85,6 @@ class UserController extends Controller
 
 
     public function store(Request $request){
-
       $user = User::where('email', $request->email)->get();
 
       if($user->count() > 0){
@@ -102,7 +101,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
         return response()->json([
-          'message' => 'true',
+          'message' => 'success',
           'user_id' => $user->id
         ], 200);
       }
@@ -113,7 +112,7 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->where('role', 1)->first();
         if(Hash::check($request->password, $user->password)){
             return response()->json([
-                'message' => 'true',
+                'message' => 'success',
                 'user_id' => $user->id
             ], 200);
         } else {
@@ -126,13 +125,6 @@ class UserController extends Controller
     public function complete(Request $request){
         $user = User::where('id', $request->id)->first();
 
-        foreach ($request->name as $key => $childName) {
-           Child::create([
-              'name'    => $childName,
-              'user_id' => $user->id
-           ]);
-        }
-
         $file     = $request->file('avatar');
         $filename = $user->name.sha1(time()) . "." . $file->getClientOriginalExtension();
         $request->file('avatar')->move("img/user", $filename);
@@ -141,7 +133,7 @@ class UserController extends Controller
         $user->save();
 
         return response()->json([
-          'message' => 'true',
+          'message' => 'success',
           'user_id' => $user->id
         ]);
     }
@@ -158,7 +150,7 @@ class UserController extends Controller
             ]);
         } else {
             return response()->json([
-                'message' => 'fails'
+                'message' => 'error'
             ]);
         }
     }
