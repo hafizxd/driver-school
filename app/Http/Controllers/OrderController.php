@@ -158,5 +158,52 @@ class OrderController extends Controller
         ]);
     }
 
+    public function order(Request $request){
+        $orders = Order::where('driver_id', $request->id)->where('status', 1)->get();
+
+        if(count($orders) <= 0){
+            return response()->json([
+                'message' => 'error'
+            ]);
+        }
+
+        foreach ($orders as $orderInfo) {
+            foreach ($orderInfo->childs as $key => $child) {
+                $children[$key] = $child->name;
+            }
+
+            $varUser['name'] = $orderInfo->user->name;
+            $varUser['email'] = $orderInfo->user->email;
+            $varUser['phone'] = $orderInfo->user->phone;
+            $varUser['address'] = $orderInfo->user->address;
+            $varUser['avatar'] = "/img/user/". $orderInfo->user->avatar;
+            $users[] = $varUser;
+
+            $varOrder['driverId'] =  $orderInfo->driver_id;
+            $varOrder['userId'] =  $orderInfo->user_id;
+            $varOrder['price'] =  $orderInfo->price;
+            $varOrder['longContract'] =  $orderInfo->plan;
+            $varOrder['note'] =  $orderInfo->reason;
+            $varOrder['pickupPoint'] =  $orderInfo->pickup_point;
+            $varOrder['destination'] =  $orderInfo->destination;
+            $varOrder['createdAt'] =  $orderInfo->start_date;
+            $varOrder['expiratedAt'] =  $orderInfo->end_date;
+            $varOrder['children'] = $children;
+            $order[] = $varOrder;
+
+        }
+
+        foreach ($users as $key => $user) {
+            $varDriver['user'] = $user;
+            $varDriver['order'] = $order[$key];
+            $drivers['order'.$key] = $varDriver;
+        }
+
+        return response()->json([
+            'message' => 'success',
+            'order'   => $drivers,
+        ]);
+    }
+
 
 }

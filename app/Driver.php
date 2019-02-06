@@ -15,4 +15,12 @@ class Driver extends Model
     public function image(){
       return $this->hasOne('App\Image');
     }
+
+    public function orders(){
+        return $this->hasMany('App\Order');
+    }
+
+    public function user(){
+      return $this->orders->user();
+    }
 }

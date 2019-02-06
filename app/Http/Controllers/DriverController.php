@@ -24,7 +24,7 @@ class DriverController extends Controller
 
     public function block($id){
         $Driver = Driver::where('id',$id)->first();
-        if($Driver->role == 2){ 
+        if($Driver->role == 2){
             $Driver->role = 0;
         }  else {
             $Driver->role = 2;
@@ -77,12 +77,12 @@ class DriverController extends Controller
 
 
     public function accept($id){
-        Driver::where('id', $id)->update([
-            'role' => 2
-        ]);
-
         $driver = Driver::where('id', $id)->first();
         Mail::to($driver->email)->send(new RegisterDriver($driver));
+        
+        $driver->update([
+            'role' => 2
+        ]);
 
         return redirect('/driver');
     }
@@ -240,7 +240,6 @@ class DriverController extends Controller
             ], 200);
         }
     }
-
 
     public function info(Request $request){
         $driver = Driver::where('id', $request->id)->first();
