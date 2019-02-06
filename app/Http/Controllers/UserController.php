@@ -140,15 +140,12 @@ class UserController extends Controller
 
     public function info(Request $request){
         $user = User::where('id', $request->id)->first();
-        foreach ($user->childs as $key => $child) {
-            $childName[$key] = $child->name;
-        }
         if(!empty($user)){
             return response()->json([
               'name' => $user->name,
               'email' => $user->email,
               'phone' => $user->phone,
-              'nama_anak' => $childName,
+              'address' => $user->address,
               'avatar' => "img/user/" . $user->avatar
             ]);
         } else {

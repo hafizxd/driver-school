@@ -133,8 +133,8 @@ class OrderController extends Controller
         }
     }
 
-    public function pendingView(Request $request){
-        $orders = Order::where('driver_id', $request->id)->where('status', 0)->get();
+    public function pendingView($id){
+        $orders = Order::where('driver_id', $id)->where('status', 0)->get();
 
         if(count($orders) <= 0){
             return response()->json([
@@ -176,7 +176,7 @@ class OrderController extends Controller
 
         return response()->json([
             'message' => 'success',
-            'order'   => $drivers,
+            'orders'   => $drivers,
         ]);
     }
 
@@ -233,7 +233,7 @@ class OrderController extends Controller
 
         return response()->json([
             'message' => 'success',
-            'order'   => $drivers,
+            'orders'   => $drivers,
         ]);
     }
 
