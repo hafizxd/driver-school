@@ -116,7 +116,7 @@
                                         <center>
                                             <img class="img-thumbnail" src="/img/mobil/{{ $Driver->image->images }}" alt="gaada">
                                         </center>
-                                            <input type="file" name="image">
+                                            <input type="file" accept="image/*" name="image">
                                     @else
                                         <br> -
                                     @endif
