@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/user/{id}/block', 'UserController@block');
     Route::get('/user/{id}', 'UserController@infoWeb')->name('userinfo');
     Route::post('/user/update', 'UserController@update');
+    Route::get('/user/search/{name}', 'UserController@nameSearch');
 
     Route::get('/driver', 'DriverController@index');
     Route::get('/driver/{id}/accept', 'DriverController@accept');
@@ -39,7 +40,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/order', 'OrderController@index')->name('order');
     Route::get('/order/{id}', 'OrderController@show');
     Route::post('/order/update', 'OrderController@update');
-    Route::get('/order/cancel/{id}', 'OrderController@cancelWeb');
+    Route::get('/order/search/{name}', 'OrderController@orderSearch');
 });
 
 Route::get('/change-password', 'PasswordController@reset');

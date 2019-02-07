@@ -58,6 +58,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $Drivers->links() }}                    
                 </div>
 
                 {{-- Blokir --}}
@@ -92,6 +93,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $DriversBlocked->links() }}
                 </div>
 
                 {{-- Pending --}}
@@ -126,6 +128,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $DriversPending->links() }}
                 </div>
             </div>
 
