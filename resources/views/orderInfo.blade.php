@@ -50,12 +50,32 @@
                       <label>Panjang Kontrak</label>
                       <input name="plan" type="text" class="form-control" value="{{ $Order->plan }}" readonly>
                     </div>
+                    <div class="form-group">
+                      <label>Tujuan</label>
+                      <input name="destination" type="text" class="form-control" value="{{ $Order->destination }}">
+                    </div>
+                    <div class="form-group">
+                      <label>Tempat Penjemputan</label>
+                      <input name="pickup_point" type="text" class="form-control" value="{{ $Order->pickup_point }}">
+                    </div>
+
+                    @if($Order->status == 1)
+                        <div class="form-group">
+                          <label>Harga</label>
+                          <input name="price" type="text" class="form-control" value="{{ $Order->price }}" readonly>
+                        </div>
+                    @endif
+
+                    <div class="form-group">
+                      <label>Catatan</label>
+                      <input name="note" type="text" class="form-control" value="{{ $Order->note }}">
+                    </div>
 
                     @if(!empty($Order->childs))
                         @foreach($Order->childs as $Key => $Child)
                             <div class="form-group">
                               <label>Penumpang {{++$Key}}</label>
-                              <input name="childs[{{$Key}}]" type="text" class="form-control" value="{{ $Child->name }}">
+                              <input name="childs[{{$Key}}]" type="text" class="form-control" value="{{ $Child->name }}" readonly>
                             </div>
                         @endforeach
                     @endif
@@ -73,7 +93,8 @@
                     </div>
 
                     <div class="text-center">
-                        <button class="btn btn-success">Simpan</button>
+                        <button type="reset" class="btn btn-danger">Batal</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
 
                   {!! Form::close() !!}

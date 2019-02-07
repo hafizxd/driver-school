@@ -17,10 +17,10 @@
             <div class="card-body">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" id="user-tab" data-toggle="pill" href="#pegguna-tab" role="tab" aria-controls="pegguna-tab" aria-selected="true">Pengguna</a>
+                        <a class="nav-link active" id="user-tab" data-toggle="pill" href="#pegguna-tab" role="tab" aria-controls="pegguna-tab" aria-selected="true" onclick="localStorage.setItem('i', 1);">Pengguna</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirPengguna-tab" role="tab" aria-controls="bookings-tab" aria-selected="false">Blokir</a>
+                        <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirPengguna-tab" role="tab" aria-controls="bookings-tab" aria-selected="false" onclick="localStorage.setItem('i', 2);">Blokir</a>
                     </li>
                 </ul>
                 <br>
@@ -57,6 +57,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $Users->links() }}
                     </div>
 
                     {{-- Blokir --}}
@@ -91,11 +92,24 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $UsersBlocked->links() }}
                     </div>
+
                 </div>
             </div>
         </div>
-        {{ $Users->links() }}
   </div>
 </div>
+@endsection
+
+@section('javascript')
+  <script type="text/javascript">
+      var j = localStorage.getItem("i");
+      if(j == 2){
+          document.getElementById("booking-tab").classList.add('active');
+          document.getElementById("blokirPengguna-tab").classList.add('show', 'active');
+          document.getElementById("user-tab").classList.remove('active');
+          document.getElementById("pegguna-tab").classList.remove('show', 'active');
+      }
+  </script>
 @endsection

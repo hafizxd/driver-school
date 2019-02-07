@@ -27,25 +27,10 @@ class OrderController extends Controller
 
     public function update(Request $request){
         Order::where('id',$request->id)->update([
-            'plan'       => $request->plan,
-            'start_date' => $request->start_date,
-            'end_date'   => $request->end_date
+            'destination' => $request->destination,
+            'pickup_point'   => $request->pickup_point,
+            'note' => $request->note
         ]);
-
-        $Order = Order::where('id', $request->id)->first();
-
-        $Order->user->update([
-            'name' => $request->pelanggan,
-        ]);
-
-        $Order->driver->update([
-            'name' => $request->supir
-        ]);
-
-        foreach ($Order->childs as $key => $child) {
-            $child->name = $request->childs[++$key];
-            $child->save();
-        }
 
         return back();
     }
@@ -76,9 +61,7 @@ class OrderController extends Controller
         $order->destination = $request->destination;
         $order->pickup_point = $request->pickupPoint;
         $order->plan = $request->longContract;
-        $order->price = $request->price;
         $order->note = $request->note;
-        $order->nama_anak = $request->namaAnak;
         $order->start_date = $request->start_date;
         $order->end_date = $request->end_date;
         $order->save();
@@ -118,23 +101,75 @@ class OrderController extends Controller
     }
 
     public function cekLangganan(Request $request){
-        $orders = Order::where('user_id', $request->id)->get();
+        // $orders = Order::where('user_id', $request->id)->get();
+        //
+        // if(empty($orders)){
+        //     return response()->json([
+        //         'messages' => 'error'
+        //     ]);
+        // } else {
+        //     foreach($orders as $order){
+        //         $variable['user_id'] = $order->user_id;
+        //         $variable['driver_id'] = $order->driver_id;
+        //         $result[] = $variable;
+        //     }
+        //     return response()->json(
+        //         $result
+        //     );
+        //
+        // }
 
-        if(empty($orders)){
+        $orders = Order::where('user_id', $request->id)->where('status', 1)->get();
+
+        if(count($orders) <= 0){
             return response()->json([
-                'messages' => 'error'
+                'message' => 'error'
             ]);
-        } else {
-            foreach($orders as $order){
-                $variable['user_id'] = $order->user_id;
-                $variable['driver_id'] = $order->driver_id;
-                $result[] = $variable;
+        }
+
+        foreach ($orders as $orderInfo) {
+            foreach ($orderInfo->childs as $key => $child) {
+                $children[$key] = $child->name;
             }
-            return response()->json(
-                $result
-            );
+
+            $varDriver['name'] = $orderInfo->driver->name;
+            $varDriver['email'] = $orderInfo->driver->email;
+            $varDriver['phone'] = $orderInfo->driver->phone;
+            $varDriver['nopol'] = $orderInfo->driver->nopol;
+            $varDriver['tipe_mobil'] = $orderInfo->driver->tipe_mobil;
+            $varDriver['max_penumpang'] = $orderInfo->driver->max_penumpang;
+            $varDriver['tujuan'] = $orderInfo->driver->tujuan;
+            $varDriver['alamat'] = $orderInfo->driver->alamat;
+            $varDriver['gender_penumpang'] = $orderInfo->driver->gender_penumpang;
+            $varDriver['tujuan'] = $orderInfo->driver->tujuan;
+            $varDriver['avatar'] = "/img/driver/". $orderInfo->driver->avatar;
+            $varDriver['foto_mobil'] = "/img/mobil/". $orderInfo->driver->image->images;
+            $drivers[] = $varDriver;
+
+            $varOrder['driverId'] =  $orderInfo->driver_id;
+            $varOrder['userId'] =  $orderInfo->user_id;
+            $varOrder['price'] =  $orderInfo->price;
+            $varOrder['longContract'] =  $orderInfo->plan;
+            $varOrder['note'] =  $orderInfo->note;
+            $varOrder['pickupPoint'] =  $orderInfo->pickup_point;
+            $varOrder['destination'] =  $orderInfo->destination;
+            $varOrder['createdAt'] =  $orderInfo->start_date;
+            $varOrder['expiratedAt'] =  $orderInfo->end_date;
+            $varOrder['children'] = $children;
+            $order[] = $varOrder;
 
         }
+
+        foreach ($order as $key => $orderrr) {
+            $varResult['driver'] = $drivers[$key];
+            $varResult['order'] = $orderrr;
+            $result[$key] = $varResult;
+        }
+
+        return response()->json([
+            'message' => 'success',
+            'orders'  =>  $result,
+        ]);
     }
 
     public function pendingView($id){
@@ -226,7 +261,6 @@ class OrderController extends Controller
             $varOrder['expiratedAt'] =  $orderInfo->end_date;
             $varOrder['children'] = $children;
             $order[] = $varOrder;
-
         }
 
         foreach ($users as $key => $user) {

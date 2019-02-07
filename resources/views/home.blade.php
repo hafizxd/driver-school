@@ -10,10 +10,10 @@
             {{-- List Navigation --}}
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#users-tab" role="tab" aria-controls="users-tab" aria-selected="true" @if(getRole() != 3)) style="display: none;" @endif>Pengguna</a>
+                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#users-tab" role="tab" aria-controls="users-tab" aria-selected="true" @if(getRole() != 3)) style="display: none;" @endif onclick="localStorage.setItem('k', 1);">Pengguna</a>
                 </li>
                 <li class="nav-item">
-                    <a @if(getRole() != 3)) class="nav-link active" @else class="nav-link" @endif  id="driver-tab" data-toggle="pill" href="#drivers-tab" role="tab" aria-controls="drivers-tab" aria-selected="false">Supir</a>
+                    <a @if(getRole() != 3)) class="nav-link active" @else class="nav-link" @endif  id="driver-tab" data-toggle="pill" href="#drivers-tab" role="tab" aria-controls="drivers-tab" aria-selected="false" onclick="localStorage.setItem('k', 2);">Supir</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/order" @if(getRole() != 3)) style="display: none;" @endif>Langganan</a>
@@ -39,10 +39,10 @@
                         <div class="card-body">
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#pegguna-tab" role="tab" aria-controls="pegguna-tab" aria-selected="true">Pelanggan</a>
+                                    <a class="nav-link active" id="penggunaNav-tab" data-toggle="pill" href="#pegguna-tab" role="tab" aria-controls="pegguna-tab" aria-selected="true" onclick="localStorage.setItem('i', 1);">Pelanggan</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirPengguna-tab" role="tab" aria-controls="bookings-tab" aria-selected="false">Blokir</a>
+                                    <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirPengguna-tab" role="tab" aria-controls="bookings-tab" aria-selected="false" onclick="localStorage.setItem('i', 2);">Blokir</a>
                                 </li>
                             </ul>
                             <br>
@@ -216,4 +216,25 @@
     </div>
 
 </div>
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+    var l = localStorage.getItem("k");
+    if (l == 2){
+        document.getElementById("driver-tab").classList.add('active');
+        document.getElementById("drivers-tab").classList.add('show', 'active');
+        document.getElementById("user-tab").classList.remove('active');
+        document.getElementById("users-tab").classList.remove('show', 'active');
+    }
+
+    var j = localStorage.getItem("i");
+    if (j == 2){
+        document.getElementById("booking-tab").classList.add('active');
+        document.getElementById("blokirPengguna-tab").classList.add('show', 'active');
+        document.getElementById("penggunaNav-tab").classList.remove('active');
+        document.getElementById("pegguna-tab").classList.remove('show', 'active');
+    }
+</script>
+
 @endsection
