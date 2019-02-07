@@ -10,3 +10,9 @@ if (!function_exists('getRole')) {
         return Auth::user()->role;
     }
 }
+
+if(!function_exists('getNameUser')){
+    function getNameUser($name){
+        
+    }
+}

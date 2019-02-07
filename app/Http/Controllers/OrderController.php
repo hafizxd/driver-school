@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Order;
 use App\Child;
 
@@ -54,6 +55,17 @@ class OrderController extends Controller
         $order = Order::where('id', $request->id)->first();
         $order->delete();
         return redirect()->route('order');
+    }
+
+    public function orderSearch(Request $request){
+        // return Order::where('user_id', 'LIKE', '%'.$request->name.'%')->orWhere('destination', 'LIKE', '%'.$request->name.'%')->get();
+        return DB::table('orders')
+               ->select('orders.user_id', 'users.name AS user_name', 'drivers.name AS driver_name', 'orders.destination', 'orders.id AS order_id')
+               ->join('users', 'orders.user_id', '=', 'users.id')
+               ->join('drivers', 'orders.driver_id', '=', 'drivers.id')
+               ->where('users.name', 'LIKE', '%'.$request->name.'%')
+               ->orWhere('orders.destination', 'LIKE', '%'.$request->name.'%')
+               ->get();
     }
 
 

@@ -93,7 +93,7 @@
                     </div>
                     <div class="form-group">
                       <label>Phone</label>
-                      <input name="phone" type="number" class="form-control" value="{{ $User->phone }}">
+                      <input name="phone" type="text" class="form-control" value="{{ $User->phone }}">
                     </div>
 
                     @foreach($User->childs as $Key => $Child)

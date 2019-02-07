@@ -15,9 +15,9 @@ class DriverController extends Controller
 {
 
     public function index(){
-        $Drivers = Driver::where('role', 2)->orderBy('created_at', 'DESC')->get();
-        $DriversBlocked = Driver::where('role', 0)->orderBy('created_at', 'DESC')->get();
-        $DriversPending = Driver::where('role', 4)->orderBy('created_at', 'DESC')->get();
+        $Drivers = Driver::where('role', 2)->orderBy('created_at', 'DESC')->Paginate(10);
+        $DriversBlocked = Driver::where('role', 0)->orderBy('created_at', 'DESC')->Paginate(10);
+        $DriversPending = Driver::where('role', 4)->orderBy('created_at', 'DESC')->Paginate(10);
 
         return view('Driver')->with(compact('Drivers', 'DriversBlocked', 'DriversPending'));
     }

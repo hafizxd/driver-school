@@ -9,7 +9,6 @@
         <a class="btn btn-outline-dark" href="/home">Beranda</a>
         <br>
         <br>
-
         <div class="card">
             <div class="card-header">
                 <h1> Pengguna </h1>
@@ -26,8 +25,14 @@
                 <br>
                 <div class="tab-content">
                     {{-- Pengguna --}}
-                    <div class="tab-pane show active" id="pegguna-tab" role="tabpanel" aria-labelledby="pegguna-tab">
-                        <table class="table table-hover">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">cari</span>
+                        </div>
+                        <input type="text" class="form-control" id="nameSearch" placeholder="cari pengguna..." aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="tab-pane show active" id="pegguna-tab" role="tabpanel" aria-labelledby="pegguna-tab">        
+                        <table class="table table-hover" id="tableOri">
                             <thead>
                                 <tr>
                                     <th scope="col" width="10%">#</th>
@@ -40,7 +45,7 @@
                             <tbody>
                                 @foreach($Users as $Key => $User)
                                     <tr>
-                                        <th scope="row">{{ ++$Key }}</th>
+                                        <th scope="row">{{ ($Users->currentpage()-1) * $Users->perpage() + $Key + 1 }}</th>
                                         <td>
                                             @if(!empty($User->avatar))
                                             <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="foto profil">
@@ -57,18 +62,32 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <table class="table" id="tableSearch" style="display:none">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Avatar</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="search-tbody">
+
+                            </tbody>
+                        </table>
+                        {{ $Users->links() }}
                     </div>
 
                     {{-- Blokir --}}
                     <div class="tab-pane" id="blokirPengguna-tab">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id="tableOri">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Avatar</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col" width="10%">#</th>
+                                    <th scope="col" width="15%">Avatar</th>
+                                    <th scope="col" width="30%">Nama</th>
+                                    <th scope="col" width="30%">E-mail</th>
+                                    <th scope="col" width="15%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,11 +110,56 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $UsersBlocked->links() }}
                     </div>
                 </div>
             </div>
         </div>
-        {{ $Users->links() }}
+        <br>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    document.getElementById("nameSearch").addEventListener("keypress", searchUser);
+    function searchUser(e){
+        var key = e.which || e.keycode;
+        if(key === 13){
+            var tableSearch = document.getElementById("tableSearch");
+            var tableOri = document.getElementById("tableOri");
+            $( "#search-tbody" ).empty();
+            if(document.getElementById("nameSearch").value.length == 0){
+                tableOri.style.display = "";
+                tableSearch.style.display = "none";
+                $('.pagination').css('display','');
+            }else{
+                tableOri.style.display = "none";
+                tableSearch.style.display = "";
+                $('.pagination').css('display','none');
+                var someUrl = "/user/search/"+document.getElementById("nameSearch").value;
+                $.ajax({
+                    type:"GET",
+                    url: someUrl,
+                    success: function(data) {
+                        $.each(data, function(index, element) {
+                            if(element.avatar != null){
+                                imageCheck = '<td><img class="img-thumbnail" width="70" src="/img/user/'+ element.avatar +'" ></td>';
+                            }else{
+                                imageCheck = '<td><img class="img-thumbnail" width="70" src="'+ element.avatar +'" ></td>';
+                            }
+                            var html = '<tr>'+imageCheck+'<td>'+ element.name +'</td><td>'+ element.email +'</td><td><a href="/user/'+ element.id +'" class="btn btn-dark">edit</a></td></tr>'
+                            $('#search-tbody').append(html);
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    },
+                    dataType: "json"
+                });
+            }
+        }
+    }
+});
+</script>
 @endsection

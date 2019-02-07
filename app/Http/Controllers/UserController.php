@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use File;
 
-
 class UserController extends Controller
 {
 
     public function index(Request $request){
       $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->Paginate(10);
       $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->Paginate(10);
+
 
       return view('User')->with(compact('Users', 'UsersBlocked'));
     }
@@ -78,6 +78,10 @@ class UserController extends Controller
       session()->flash('updateSuccess', 'Update Profil Success');
 
      return redirect()->back();
+    }
+
+    public function nameSearch(Request $request){
+        return User::where('name','LIKE', '%'.$request->name.'%')->orWhere('email', 'LIKE', '%'.$request->name.'%')->get();
     }
 
 
