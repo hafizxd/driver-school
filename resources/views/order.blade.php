@@ -46,6 +46,7 @@
                                             <th scope="row">{{ ++$Key }}</th>
                                             <td>{{ $order->user->name }}</td>
                                             <td>{{ $order->driver->name }}</td>
+                                            <td>{{ $order->destination }}</td>
                                             <td>
                                                 <a href="order/{{ $order->id }}" class="btn btn-dark" style="width: 100px;">Info</a>
                                             </td>
