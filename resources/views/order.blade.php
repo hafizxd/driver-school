@@ -56,10 +56,10 @@
                             <table class="table" id="tableSearch" style="display:none">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Pelanggan</th>
-                                        <th scope="col">Supir</th>
-                                        <th scope="col">Tujuan</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col" width="25%">Pelanggan</th>
+                                        <th scope="col" width="25%">Supir</th>
+                                        <th scope="col" width="35%">Tujuan</th>
+                                        <th scope="col" width="15%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="search-tbody">
@@ -127,7 +127,7 @@ function searchUser(e){
                 url: someUrl,
                 success: function(data) {
                     $.each(data, function(index, element) {
-                        var html = '<tr>'+'<td>'+ element.user_name +'</td><td>'+ element.driver_name+ '<td>' + element.destination + '</td><td><a href="/order/'+ element.id +'" class="btn btn-dark">edit</a></td></tr>'
+                        var html = '<tr>'+'<td>'+ element.user_name +'</td><td>'+ element.driver_name+ '<td>' + element.destination + '</td><td><a href="/order/'+ element.order_id +'" class="btn btn-dark">edit</a></td></tr>'
                         $('#search-tbody').append(html);
                     });
                 },
