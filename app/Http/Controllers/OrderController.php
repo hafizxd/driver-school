@@ -99,37 +99,37 @@ class OrderController extends Controller
                 'message' => 'error'
             ]);
         } else {
-            return response()->json([
-                'message' => 'success',
-                'userId' => $order->user_id,
-                'driverId' => $order->driver_id,
-                'destination' => $order->destination,
-                'pickupPoint' => $order->pickup_point,
-                'longContract' => $order->plan,
-                'price' => $order->price
-            ]);
+                 foreach ($order->childs as $key => $child) {
+                     $children[$key] = $child->name;
+                 
+                }
+
+
+                 $temp = array(
+                     'message' => 'success',
+                     'driverId' => $order->driver_id,
+                     'userId' => $order->user_id,
+                     'orderId' => $order->id,
+                     'price' => $order->price,
+                     'longContract' => $order->plan,
+                     'note'      => $order->note,
+                     'pickupPoint' => $order->pickup_point,
+                     'destination' => $order->destination,
+                     'createdAt' => $order->start_date,
+                     'expiredAt' => $order->end_date,
+                     'children' => $children
+                 );
+
+
+
+            return response()->json(
+                $temp
+            );
         }
 
     }
 
     public function cekLangganan(Request $request){
-        // $orders = Order::where('user_id', $request->id)->get();
-        //
-        // if(empty($orders)){
-        //     return response()->json([
-        //         'messages' => 'error'
-        //     ]);
-        // } else {
-        //     foreach($orders as $order){
-        //         $variable['user_id'] = $order->user_id;
-        //         $variable['driver_id'] = $order->driver_id;
-        //         $result[] = $variable;
-        //     }
-        //     return response()->json(
-        //         $result
-        //     );
-        //
-        // }
 
         $orders = Order::where('user_id', $request->id)->where('status', 1)->get();
 

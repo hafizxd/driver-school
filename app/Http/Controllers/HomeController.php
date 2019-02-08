@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Driver;
 use App\User;
+use Faker\Factory as Faker;
 
 class HomeController extends Controller
 {
@@ -16,6 +17,10 @@ class HomeController extends Controller
 
     public function index()
     {
+
+        // $faker = Faker::create();
+        // dd($faker->image($dir = null, $width = 400 , $height = 200, 'cats', false));
+
         $Users = User::where('role', 1)->orderBy('created_at', 'DESC')->paginate(5);
         $UsersBlocked = User::where('role', 0)->orderBy('created_at', 'DESC')->paginate(5);
 

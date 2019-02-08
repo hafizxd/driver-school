@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->text('fcm_token')->nullable();
             $table->string('password');
-
+            $table->string('session')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
