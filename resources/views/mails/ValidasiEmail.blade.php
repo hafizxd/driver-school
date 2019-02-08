@@ -18,7 +18,7 @@
                           Hey {{ $driver->name }}, <br>
                           <p>Click button below to confirm your email.</p>
 
-                          <form action="{{ url('/validate/driver') }}" method="POST">
+                          <form action="{{ url('/validate/driver') }}" method="GET">
                               <input type="hidden" name="email" value="{{ $driver->email }}">
                               <button type="submit" name="button">Confirm Email</button>
                               {{ csrf_field() }}

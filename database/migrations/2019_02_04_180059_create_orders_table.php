@@ -21,7 +21,6 @@ class CreateOrdersTable extends Migration
             $table->string('plan');
             $table->string('price')->nullable();
             $table->tinyInteger('status')->default(0);
-            $table->string('nama_anak')->nullable();
             $table->text('note')->nullable();
             $table->text('reason')->nullable();
             $table->string('destination')->nullable();
