@@ -48,9 +48,9 @@
                                         <th scope="row">{{ ($Users->currentpage()-1) * $Users->perpage() + $Key + 1 }}</th>
                                         <td>
                                             @if(!empty($User->avatar))
-                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="foto profil">
+                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="-">
                                             @else
-                                                <img class="img-thumbnail" width="50" src="{{ $User->avatar }}" alt="">
+                                                -
                                             @endif
                                         </td>
                                         <td>{{ $User->name }}</td>
@@ -96,9 +96,9 @@
                                         <th scope="row">{{ ++$Key }}</th>
                                         <td>
                                             @if(!empty($User->avatar))
-                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="">
+                                            <img class="img-thumbnail" width="50" src="/img/user/{{ $User->avatar }}" alt="-">
                                             @else
-                                                <img class="img-thumbnail" width="50" src="{{ $User->avatar }}" alt="">
+                                                -
                                             @endif
                                         </td>
                                         <td>{{ $User->name }}</td>

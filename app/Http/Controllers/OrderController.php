@@ -242,7 +242,7 @@ class OrderController extends Controller
     }
 
     public function order(Request $request){
-        $orders = Order::where('driver_id', $request->id)->where('status', 1)->get();
+        $orders = Order::where('driver_id', $request->driverId)->where('status', 1)->get();
 
         if(count($orders) <= 0){
             return response()->json([

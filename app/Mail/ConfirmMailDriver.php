@@ -11,14 +11,15 @@ class ConfirmMailDriver extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $driver;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($driver)
     {
-        //
+        $this->driver = $driver;
     }
 
     /**
@@ -28,6 +29,6 @@ class ConfirmMailDriver extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('mails.ValidasiEmail');
     }
 }

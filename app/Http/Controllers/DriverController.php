@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Mail\RegisterDriver;
 use App\Mail\ResetPassword;
+use App\Mail\ConfirmMailDriver;
 use App\Driver;
 use App\Image;
 use File;
@@ -79,7 +80,7 @@ class DriverController extends Controller
     public function accept($id){
         $driver = Driver::where('id', $id)->first();
         Mail::to($driver->email)->send(new RegisterDriver($driver));
-        
+
         $driver->update([
             'role' => 2
         ]);
@@ -92,6 +93,13 @@ class DriverController extends Controller
         Driver::destroy($id);
 
         return redirect('/driver');
+    }
+
+    public function validateDriver(Request $request){
+        $driver = Driver::where('email', $request->email)->first();
+        $driver->update([ 'role' => 4 ]);
+
+        return view('ValidationSuccess')->with(compact('driver'));
     }
 
 
@@ -110,6 +118,9 @@ class DriverController extends Controller
             'error'   => 'Email telah didaftarkan'
             ]);
         } else {
+            $driver = $request;
+            Mail::to($request->email)->send(new ConfirmMailDriver($driver));
+
             $driver = new Driver;
             $driver->name = $request->name;
             $driver->email = $request->email;
@@ -184,11 +195,11 @@ class DriverController extends Controller
     public function updateProfile(Request $request){
         $driver = Driver::find($request->driverId);
 
-        $imagePath = 'img/driver/' . $driver->avatar;
-        if(File::exists($imagePath)) File::delete($imagePath);
-
-        $fileName = $driver->id.sha1(time()) . "." . $request->file('avatar')->getClientOriginalExtension();
-        $request->file('avatar')->move('img/driver', $fileName);
+        // $imagePath = 'img/driver/' . $driver->avatar;
+        // if(File::exists($imagePath)) File::delete($imagePath);
+        //
+        // $fileName = $driver->id.sha1(time()) . "." . $request->file('avatar')->getClientOriginalExtension();
+        // $request->file('avatar')->move('img/driver', $fileName);
 
         $driver->update([
             'phone'  => $request->phone,
@@ -196,7 +207,7 @@ class DriverController extends Controller
             'gender_penumpang' => $request->gender_penumpang,
             'alamat' => $request->alamat,
             'tujuan' => $request->tujuan,
-            'avatar' => $fileName
+            // 'avatar' => $fileName
         ]);
 
         return response()->json([

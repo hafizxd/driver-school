@@ -15,9 +15,12 @@
                   {!! Form::open(['url' => '/change-password/edit', 'method' => 'POST']) !!}
                   {{ Form::token() }}
                     <input type="hidden" name="email" value="{{ $user->email }}">
-                    <label for="password">Ganti Password</label>
-                    <input type="password" name="password" placeholder="isikan password..." id="password">
-                    <button class="btn btn-primary" type="submit" name="button">Simpan</button>
+                    <div class="form-group">
+                        <input name="password" type="password" class="form-control" placeholder="Isikan password baru">
+                    </div>
+                    <center>
+                        <button class="btn btn-primary" type="submit" name="button">Simpan</button>
+                    </center>
                   {!! Form::close() !!}
 
 

@@ -14,13 +14,13 @@
         <div class="card-body">
           <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link active" id="user-tab" data-toggle="pill" href="#supir-tab" role="tab" aria-controls="supir-tab" aria-selected="true" @if(getRole() != 3)) style="display: none;" @endif >Supir</a>
+                <a class="nav-link active" id="supirNav-tab" data-toggle="pill" href="#supir-tab" role="tab" aria-controls="supir-tab" aria-selected="true" @if(getRole() != 3)) style="display: none;" @endif onclick="localStorage.setItem('supir', 1);">Supir</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="booking-tab" data-toggle="pill" href="#blokirSupir-tab" role="tab" aria-controls="bookings-tab" aria-selected="false" @if(getRole() != 3)) style="display: none;" @endif >Blokir</a>
+                <a class="nav-link" id="blokirSupirNav-tab" data-toggle="pill" href="#blokirSupir-tab" role="tab" aria-controls="bookings-tab" aria-selected="false" @if(getRole() != 3)) style="display: none;" @endif onclick="localStorage.setItem('supir', 2);">Blokir</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pendingSupir-tab" role="tab" aria-controls="pending-tab" aria-selected="false" @if(getRole() != 3)) style="display: none;" @endif >Pending</a>
+                <a class="nav-link" id="pendingSupirNav-tab" data-toggle="pill" href="#pendingSupir-tab" role="tab" aria-controls="pending-tab" aria-selected="false" @if(getRole() != 3)) style="display: none;" @endif onclick="localStorage.setItem('supir', 3);">Pending</a>
             </li>
           </ul>
           <br>
@@ -58,7 +58,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $Drivers->links() }}                    
+                    {{ $Drivers->links() }}
                 </div>
 
                 {{-- Blokir --}}
@@ -137,4 +137,27 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+    var v = localStorage.getItem("supir");
+    if (v == 2){
+        document.getElementById("blokirSupirNav-tab").classList.add('active');
+        document.getElementById("blokirSupir-tab").classList.add('show', 'active');
+        document.getElementById("supirNav-tab").classList.remove('active');
+        document.getElementById("supir-tab").classList.remove('show', 'active');
+        document.getElementById("pendingSupirNav-tab").classList.remove('active');
+        document.getElementById("pendingSupir-tab").classList.remove('show', 'active');
+    }
+
+    if (v == 3){
+        document.getElementById("pendingSupirNav-tab").classList.add('active');
+        document.getElementById("pendingSupir-tab").classList.add('show', 'active');
+        document.getElementById("blokirSupirNav-tab").classList.remove('active');
+        document.getElementById("blokirSupir-tab").classList.remove('show', 'active');
+        document.getElementById("supirNav-tab").classList.remove('active');
+        document.getElementById("supir-tab").classList.remove('show', 'active');
+    }
+</script>
 @endsection

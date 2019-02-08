@@ -18,7 +18,7 @@ class CreateDriversTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->tinyInteger('role')->default(4);
+            $table->tinyInteger('role')->default(5);
             $table->string('avatar')->nullable();
             $table->string('nopol')->nullable();
             $table->string('tipe_mobil')->nullable();

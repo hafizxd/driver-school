@@ -108,7 +108,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->password = bcrypt($request->password);
         $user->save();
-        Mail::to($request->email)->send(new ConfirmMailUser($user));
+        
         return response()->json([
           'message' => 'success',
           'user_id' => $user->id

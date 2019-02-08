@@ -83,7 +83,7 @@
                     <div class="form-group">
                       <?php setlocale(LC_ALL, 'id_ID.UTF8', 'id_ID.UTF-8', 'id_ID.8859-1', 'id_ID', 'IND.UTF8', 'IND.UTF-8', 'IND.8859-1', 'IND', 'Indonesian.UTF8', 'Indonesian.UTF-8', 'Indonesian.8859-1', 'Indonesian', 'Indonesia', 'id', 'ID'); ?>
                       <label>Mulai Tanggal</label>
-                      <input name="start_date" type="text" class="form-control" value="{{ strftime("%A, %B %d %Y", strtotime($Order->date)) }}" readonly>
+                      <input name="start_date" type="text" class="form-control" value="{{ utf8_encode(strftime("%A, %B, %d %Y", strtotime($Order->start_date))) }}" readonly>
                     </div>
 
                     <div class="form-group">

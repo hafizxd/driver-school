@@ -29,6 +29,6 @@ class RegisterDriver extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.Register')->text('mails.Register_plain');
+        return $this->view('mails.Register');
     }
 }
