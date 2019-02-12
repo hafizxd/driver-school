@@ -41,3 +41,5 @@ Route::get('/driver/order/pending/{id}', 'OrderController@pendingView');
 
 Route::get('/order/{id}', 'OrderController@searchByOrderId');
 Route::post('/order/validate', 'OrderController@validateOrder');
+
+Route::post('/changePassword', 'PasswordController@updateApi');

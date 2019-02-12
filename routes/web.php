@@ -44,6 +44,6 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 Route::get('/change-password', 'PasswordController@reset');
-Route::post('/change-password/edit', 'PasswordController@update');
+Route::post('/change-password/edit', 'PasswordController@updateWeb');
 
 Route::get('/validate/driver', 'DriverController@validateDriver');
