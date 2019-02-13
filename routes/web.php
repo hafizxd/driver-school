@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/order/{id}', 'OrderController@show');
     Route::post('/order/update', 'OrderController@update');
     Route::get('/order/search/{name}', 'OrderController@orderSearch');
+    Route::get('/order/searchPending/{name}', 'OrderController@orderSearchPending');
 });
 
 Route::get('/change-password', 'PasswordController@reset');

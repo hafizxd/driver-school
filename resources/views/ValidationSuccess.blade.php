@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') Validation | DriverSchool @endsection
+@section('title') Validasi | DriverSchool @endsection
 
 @section('content')
 <div class="container">
