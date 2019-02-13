@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') User Info | DriverSchool @endsection
+@section('title') Info Pengguna | DriverSchool @endsection
 
 @section('content')
 <div class="container">

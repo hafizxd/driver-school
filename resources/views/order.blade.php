@@ -12,7 +12,7 @@
                     <h1> Order </h1>
                 </div>
                 <div class="card-body">
-                    <ul class="nav nav-pills" style="margin-bottom: 30px;">
+                    <ul class="nav nav-pills" id="nav" style="margin-bottom: 30px;">
                       <li class="nav-item">
                           <a class="nav-link active" id="user-tab" data-toggle="pill" href="#berlaku-tab" role="tab" aria-controls="berlaku-tab" aria-selected="true">Berlaku</a>
                       </li>
@@ -77,6 +77,7 @@
                                         <th scope="col" width="10%">#</th>
                                         <th scope="col" width="30%">Pelanggan</th>
                                         <th scope="col" width="30%">Supir</th>
+                                        <th scope="col" width="35%">Tujuan</th>
                                         <th scope="col" width="15%">Action</th>
                                     </tr>
                                 </thead>
@@ -87,6 +88,7 @@
                                                 <th scope="row">{{ ++$Key }}</th>
                                                 <td>{{ $order->user->name }}</td>
                                                 <td>{{ $order->driver->name }}</td>
+                                                <td>{{ $order->destination }}</td>
                                                 <td>
                                                     <a href="order/{{ $order->id }}" class="btn btn-dark" style="width: 100px;">Info</a>
                                                 </td>
@@ -113,13 +115,16 @@ function searchUser(e){
     if(key === 13){
         var tableSearch = document.getElementById("tableSearch");
         var tableOri = document.getElementById("tableOri");
+        var nav = document.getElementById("nav");
         $( "#search-tbody" ).empty();
         if(document.getElementById("nameSearch").value.length == 0){
             tableOri.style.display = "";
+            nav.style.display = "";
             tableSearch.style.display = "none";
             $('.pagination').css('display','');
         }else{
             tableOri.style.display = "none";
+            nav.style.display = "none";
             tableSearch.style.display = "";
             $('.pagination').css('display','none');
             var someUrl = "/order/search/"+document.getElementById("nameSearch").value;
