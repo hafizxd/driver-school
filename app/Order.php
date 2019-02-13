@@ -16,8 +16,12 @@ class Order extends Model
         return $this->belongsTo('App\Driver');
     }
 
+    // public function childs(){
+    //     return $this->user->hasMany('App\Child');
+    // }
+
     public function childs(){
-        return $this->user->hasMany('App\Child');
+        return $this->hasMany('App\Child');
     }
 
 }

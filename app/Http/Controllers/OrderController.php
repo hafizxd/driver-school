@@ -80,8 +80,9 @@ class OrderController extends Controller
 
         foreach($request->namaAnak as $key => $child){
             Child::create([
-                'name'    => $child,
-                'user_id' => $order->user->id
+                'name'     => $child,
+                'user_id'  => $order->user->id,
+                'order_id' => $order->id
             ]);
         }
 
@@ -101,7 +102,7 @@ class OrderController extends Controller
         } else {
                  foreach ($order->childs as $key => $child) {
                      $children[$key] = $child->name;
-                 
+
                 }
 
 
