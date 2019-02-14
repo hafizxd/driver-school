@@ -11,6 +11,17 @@ use App\Child;
 class OrderController extends Controller
 {
 
+    public function __construct(){
+        $ordersPending = Order::where('status', 0)->get();
+
+        foreach ($ordersPending as $key => $order) {
+            $currentDate = Carbon::now();
+            if($order->start_date > $currentDate){
+                Order::destroy($order->id);
+            }
+        }
+    }
+
     public function index(){
         $orders = Order::where('status', 1)->orderBy('created_at', 'DESC')->get();
         $ordersBelum = Order::where('status', 0)->orderBy('created_at', 'DESC')->get();
