@@ -32,4 +32,9 @@ class User extends Authenticatable
     public function childs(){
       return $this->hasMany('App\Child');
     }
+
+    public function isAdmin(){
+        if($this->role == 3) return true;
+        return false;
+    }
 }

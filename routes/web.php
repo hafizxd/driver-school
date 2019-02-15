@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth', 'admin']], function(){
     App::setLocale("id");
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -41,7 +41,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/order/{id}', 'OrderController@show');
     Route::post('/order/update', 'OrderController@update');
     Route::get('/order/search/{name}', 'OrderController@orderSearch');
-    Route::get('/order/searchPending/{name}', 'OrderController@orderSearchPending');
 });
 
 Route::get('/change-password', 'PasswordController@reset');
