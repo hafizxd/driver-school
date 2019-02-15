@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title') Langganan | DriverSchool @endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
