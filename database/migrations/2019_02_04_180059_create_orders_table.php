@@ -25,6 +25,8 @@ class CreateOrdersTable extends Migration
             $table->text('reason')->nullable();
             $table->string('destination')->nullable();
             $table->string('pickup_point')->nullable();
+            $table->string('pickup_coordinate');
+            $table->string('destination_coordinate');
             $table->text('start_date');
             $table->text('end_date');
             $table->timestamps();

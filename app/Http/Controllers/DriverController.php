@@ -278,19 +278,24 @@ class DriverController extends Controller
     public function allDriver(){
         $drivers = Driver::get();
 
-        foreach($drivers as $driver){
-            $variable['name'] = $driver->name;
-            $variable['phone'] = $driver->phone;
-            $variable['nopol'] = $driver->nopol;
-            $variable['tipe_mobil'] = $driver->tipe_mobil;
-            $variable['max_penumpang'] = $driver->max_penumpang;
-            $variable['tujuan'] = $driver->tujuan;
-            $variable['alamat'] = $driver->name;
-            $variable['gender_penumpang'] = $driver->name;
-            $variable['avatar'] = "img/user/".$driver->avatar;
-            $variable['foto_mobil'] = "img/mobil/".$driver->image->images;
-            $result[] = $variable;
+        if(count($drivers) >= 0){
+            abort(404);
+        } else {
+            foreach($drivers as $driver){
+                $variable['name'] = $driver->name;
+                $variable['phone'] = $driver->phone;
+                $variable['nopol'] = $driver->nopol;
+                $variable['tipe_mobil'] = $driver->tipe_mobil;
+                $variable['max_penumpang'] = $driver->max_penumpang;
+                $variable['tujuan'] = $driver->tujuan;
+                $variable['alamat'] = $driver->name;
+                $variable['gender_penumpang'] = $driver->name;
+                $variable['avatar'] = "img/user/".$driver->avatar;
+                $variable['foto_mobil'] = "img/mobil/".$driver->image->images;
+                $result[] = $variable;
+            }
         }
+
         return response()->json(
             $result
         );

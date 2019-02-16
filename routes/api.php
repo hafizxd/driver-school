@@ -22,7 +22,7 @@ Route::post('/user/register', 'UserController@store');
 Route::post('/user/login', 'UserController@login');
 Route::post('/user/complete', 'UserController@complete');
 Route::post('/user/reset', 'UserController@resetpassword');
-Route::post('/user/edit', 'UserController@updateUser');
+Route::post('/user/update', 'UserController@updateUser');
 Route::post('/user', 'UserController@info');
 Route::post('/user/order', 'OrderController@userOrder');
 Route::get('/user/subs/{id}', 'OrderController@cekLangganan');

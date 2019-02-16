@@ -180,11 +180,22 @@ class UserController extends Controller
     }
 
     public function updateUser(Request $request){
-        $user = User::find($request->userId);
-        $user->update([
-            'address' => $request->address,
-            'phone'   => $request->phone
-        ]);
+        $user = User::where('id',$request->userId);
+
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+
+        if(!empty($request->file('image'))){
+
+          $file     = $request->file('avatar');
+          $filename = $user->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+          $request->file('avatar')->move("img/user", $filename);
+          $user->avatar = $filename; 
+        }else if(!empty($request->avatar)){
+            $user->avatar = $request->avatar;
+        }
+
+        $user->save();
 
         return response()->json([
             'message' => 'success'

@@ -20,7 +20,7 @@ class UserMiddleware
         if($user && $user->isAdmin()){
             return $next($request);
         } else {
-            abort(404);
+            abort(401);
         }
     }
 }

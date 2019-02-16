@@ -83,6 +83,8 @@ class OrderController extends Controller
         $order->driver_id = $request->driverId;
         $order->destination = $request->destination;
         $order->pickup_point = $request->pickupPoint;
+        $order->pickup_coordinate = $request->pickupPointCoordinates;
+        $order->destination_coordinate = $request->destinationCoordinates;
         $order->plan = $request->longContract;
         $order->note = $request->note;
         $order->start_date = $request->start_date;
