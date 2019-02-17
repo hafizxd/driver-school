@@ -301,5 +301,14 @@ class OrderController extends Controller
         ]);
     }
 
+    public function pickArea(){
+        $areas = array("JAKARTA", "BOGOR", "DEPOK", "TANGERANG", "BEKASI", "BANDUNG", "BALI", "SURABAYA", "MAKASSAR", "PALEMBANG", "MEDAN", "BALIKPAPAN", "YOGYAKARTA", "SEMARANG", "MANADO", "SOLO", "SAMARINDA", "MALANG", "BATAM", "SIDOARJO", "PADANG", "PONTIANAK", "BANJARMASIN", "PEKANBARU", "JAMBI", "BANDAR LAMPUNG", "GRESIK", "MATARAM", "SUKABUMI", "PEMATANGSIANTAR", "TASIKMALAYA", "SERANG", "CIREBON", "TEGAL", "SALATIGA", "MAGELANG", "PURWOKERTO", "KEDIRI", "MADIUN", "KARAWANG", "JEMBER", "PASURUAN", "MOJOKERTO", "BANDA ACEH", "PEKALONGAN", "BUKIT TINGGI", "CILACAP", "SUMEDANG", "GARUT", "BELITUNG", "MADURA", "PROBOLINGGO", "PURWAKARTA", "BANYUWANGI", "SUBANG", "PADANGSIDEMPUAN", "METRO", "PANGKAL PINANG", "TANJUNG PINANG", "DURI", "SABANG", "KUDUS", "KEBUMEN", "UNGARAN", "TOMOHON", "BITUNG", "GORONTALO", "PALU", "GIANYAR", "TABANAN", "JOMBANG", "MERAUKE", "KENDARI", "PALOPO");
+        foreach($areas as $area){
+            $result[] = $area;
+        }
+        return response()->json(
+            $result
+        );
+    }
 
 }

@@ -27,6 +27,8 @@ Route::post('/user', 'UserController@info');
 Route::post('/user/order', 'OrderController@userOrder');
 Route::get('/user/subs/{id}', 'OrderController@cekLangganan');
 
+Route::get('/pickup_area', 'OrderController@pickArea');
+
 //Driver
 Route::post('/driver/register', 'DriverController@store');
 Route::post('/driver/login', 'DriverController@login');
