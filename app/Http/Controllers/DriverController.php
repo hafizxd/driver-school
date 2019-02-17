@@ -152,9 +152,13 @@ class DriverController extends Controller
                         'message' => 'success',
                         'driver_id' => $driver->id
                     ], 200);
-                } else {
+                } else if($driver->role==4) {
                     return response()->json([
                         'message' => 'pending'
+                    ]);
+                } else {
+                    return response()->json([
+                        'message' => 'error'
                     ]);
                 }
             } else {
