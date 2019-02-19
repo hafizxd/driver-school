@@ -108,7 +108,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->password = bcrypt($request->password);
         $user->save();
-        
+
         return response()->json([
           'message' => 'success',
           'user_id' => $user->id
@@ -190,7 +190,7 @@ class UserController extends Controller
           $file     = $request->file('avatar');
           $filename = $user->name.sha1(time()) . "." . $file->getClientOriginalExtension();
           $request->file('avatar')->move("img/user", $filename);
-          $user->avatar = $filename; 
+          $user->avatar = $filename;
         }else if(!empty($request->avatar)){
             $user->avatar = $request->avatar;
         }
@@ -200,6 +200,10 @@ class UserController extends Controller
         return response()->json([
             'message' => 'success'
         ], 200);
+    }
+
+    public function resetController(Request $request){
+
     }
 
 }

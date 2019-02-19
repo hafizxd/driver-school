@@ -295,8 +295,8 @@ class DriverController extends Controller
                 $variable['alamat'] = $driver->name;
                 $variable['gender_penumpang'] = $driver->name;
                 $variable['avatar'] = "img/user/".$driver->avatar;
-                if(!empty($driver->image))
-                    $variable['foto_mobil'] = "img/mobil/".$driver->image->images;
+                ( !empty($driver->image) ? $variable['foto_mobil'] = "img/mobil/".$driver->image->images : $variable['foto_mobil'] = null );
+
                 $result[] = $variable;
             }
         }
