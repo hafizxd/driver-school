@@ -107,6 +107,7 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->phone = $request->phone;
         $user->password = bcrypt($request->password);
+        $user->fcm_token = $request->fcm_token;
         $user->save();
 
         return response()->json([
@@ -120,6 +121,7 @@ class UserController extends Controller
     public function login(Request $request){
         $user = User::where('email', $request->email)->where('role', 1)->first();
         if(Hash::check($request->password, $user->password)){
+            $user->update(['fcm_token' => $request->fcm_token]);
             return response()->json([
                 'message' => 'success',
                 'user_id' => $user->id
@@ -202,8 +204,19 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function resetController(Request $request){
-
+    public function logout(Request $request){
+        $user = User::where('id', id)->first();
+        if(!empty($user)){
+            return response([
+                'message' => 'success'
+            ]);
+        } else {
+            return response([
+                'message' => 'error'
+            ]);
+        }
     }
+
+
 
 }

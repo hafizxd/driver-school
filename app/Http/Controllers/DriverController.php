@@ -127,6 +127,7 @@ class DriverController extends Controller
             $driver->nopol = $request->nopol;
             $driver->phone = $request->phone;
             $driver->tipe_mobil = $request->tipe_mobil;
+            $driver->fcm_token = $request->fcm_token;
 
             $file     = $request->file('avatar');
             $filename = $driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
@@ -147,6 +148,7 @@ class DriverController extends Controller
         $driver = Driver::where('email', $request->email)->first();
         if(!empty($driver)){
             if(Hash::check($request->password, $driver->password)){
+                $driver->update([ 'fcm_token' => $request->fcm_token ]);
                 if($driver->role == 2){
                     return response()->json([
                         'message' => 'success',
@@ -158,7 +160,7 @@ class DriverController extends Controller
                     ]);
                 } else {
                     return response()->json([
-                        'message' => 'error'
+                        'message' => 'false'
                     ]);
                 }
             } else {
@@ -292,8 +294,8 @@ class DriverController extends Controller
                 $variable['tipe_mobil'] = $driver->tipe_mobil;
                 $variable['max_penumpang'] = $driver->max_penumpang;
                 $variable['tujuan'] = $driver->tujuan;
-                $variable['alamat'] = $driver->name;
-                $variable['gender_penumpang'] = $driver->name;
+                $variable['alamat'] = $driver->alamat;
+                $variable['gender_penumpang'] = $driver->gender_penumpang;
                 $variable['avatar'] = "img/user/".$driver->avatar;
                 ( !empty($driver->image) ? $variable['foto_mobil'] = "img/mobil/".$driver->image->images : $variable['foto_mobil'] = null );
 
