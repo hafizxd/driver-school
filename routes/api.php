@@ -26,6 +26,7 @@ Route::post('/user/update', 'UserController@updateUser');
 Route::post('/user', 'UserController@info');
 Route::post('/user/order', 'OrderController@userOrder');
 Route::get('/user/subs/{id}', 'OrderController@cekLangganan');
+Route::post('/user/resetToken', 'UserController@resetToken');
 
 Route::get('/pickup_area', 'OrderController@pickArea');
 

@@ -280,9 +280,9 @@ class DriverController extends Controller
     }
 
     public function allDriver(){
-        $drivers = Driver::get();
+        $drivers = Driver::all();
 
-        if(count($drivers) >= 0){
+        if(empty($drivers)){
             abort(404);
         } else {
             foreach($drivers as $driver){
@@ -295,7 +295,8 @@ class DriverController extends Controller
                 $variable['alamat'] = $driver->name;
                 $variable['gender_penumpang'] = $driver->name;
                 $variable['avatar'] = "img/user/".$driver->avatar;
-                $variable['foto_mobil'] = "img/mobil/".$driver->image->images;
+                if(!empty($driver->image))
+                    $variable['foto_mobil'] = "img/mobil/".$driver->image->images;
                 $result[] = $variable;
             }
         }
