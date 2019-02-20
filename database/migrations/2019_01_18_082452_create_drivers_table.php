@@ -26,6 +26,8 @@ class CreateDriversTable extends Migration
             $table->tinyInteger('gender_penumpang')->nullable(); //0=campur, 1=laki 2=Perempuan
             $table->string('tujuan')->nullable();
             $table->string('alamat')->nullable();
+            $table->string('city')->nullable();
+            $table->string('pickupTime')->nullable();
             $table->string('password');
             $table->text('fcm_token')->nullable();
             $table->timestamps();

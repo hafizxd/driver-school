@@ -108,6 +108,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->password = bcrypt($request->password);
         $user->fcm_token = $request->fcm_token;
+        $user->city = $request->city;
         $user->save();
 
         return response()->json([
@@ -157,7 +158,8 @@ class UserController extends Controller
               'email' => $user->email,
               'phone' => $user->phone,
               'address' => $user->address,
-              'avatar' => "img/user/" . $user->avatar
+              'avatar' => "img/user/" . $user->avatar,
+              'city' => $user->city
             ]);
         } else {
             return response()->json([
@@ -182,19 +184,17 @@ class UserController extends Controller
     }
 
     public function updateUser(Request $request){
-        $user = User::where('id',$request->userId);
+        $user = User::where('id',$request->userId)->first();
 
         $user->address = $request->address;
         $user->phone = $request->phone;
+        $user->city = $request->city;
 
-        if(!empty($request->file('image'))){
-
-          $file     = $request->file('avatar');
-          $filename = $user->name.sha1(time()) . "." . $file->getClientOriginalExtension();
-          $request->file('avatar')->move("img/user", $filename);
-          $user->avatar = $filename;
-        }else if(!empty($request->avatar)){
-            $user->avatar = $request->avatar;
+        if(!empty($request->file('avatar'))){
+            $file     = $request->file('avatar');
+            $filename = $user->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+            $request->file('avatar')->move("img/user", $filename);
+            $user->avatar = $filename;
         }
 
         $user->save();

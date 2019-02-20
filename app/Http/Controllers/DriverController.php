@@ -148,15 +148,21 @@ class DriverController extends Controller
         $driver = Driver::where('email', $request->email)->first();
         if(!empty($driver)){
             if(Hash::check($request->password, $driver->password)){
+                (!empty($driver->max_penumpang) ? $isComplete = true : $isComplete = false);
+
                 $driver->update([ 'fcm_token' => $request->fcm_token ]);
+
                 if($driver->role == 2){
                     return response()->json([
                         'message' => 'success',
-                        'driver_id' => $driver->id
+                        'driver_id' => $driver->id,
+                        'isComplete' => $isComplete
                     ], 200);
                 } else if($driver->role==4) {
                     return response()->json([
-                        'message' => 'pending'
+                        'message' => 'pending',
+                        'driver_id' => $driver->id,
+                        'isComplete' => $isComplete
                     ]);
                 } else {
                     return response()->json([
@@ -182,7 +188,7 @@ class DriverController extends Controller
         $driver->max_penumpang = $request->max_penumpang;
         $driver->gender_penumpang = $request->gender_penumpang;
         $driver->alamat = $request->alamat;
-        $driver->tujuan = $request->tujuan;
+        $driver->city = $request->city;
 
         $file     = $request->file('mobil');
         $filename = $driver->id.sha1(time()) . "." . $file->getClientOriginalExtension();
@@ -201,19 +207,13 @@ class DriverController extends Controller
     public function updateProfile(Request $request){
         $driver = Driver::find($request->driverId);
 
-        // $imagePath = 'img/driver/' . $driver->avatar;
-        // if(File::exists($imagePath)) File::delete($imagePath);
-        //
-        // $fileName = $driver->id.sha1(time()) . "." . $request->file('avatar')->getClientOriginalExtension();
-        // $request->file('avatar')->move('img/driver', $fileName);
-
         $driver->update([
             'phone'  => $request->phone,
             'max_penumpang' => $request->max_penumpang,
             'gender_penumpang' => $request->gender_penumpang,
             'alamat' => $request->alamat,
             'tujuan' => $request->tujuan,
-            // 'avatar' => $fileName
+            'city' => $request->city
         ]);
 
         return response()->json([
@@ -271,6 +271,7 @@ class DriverController extends Controller
               'tujuan' => $driver->tujuan,
               'alamat' => $driver->alamat,
               'gender_penumpang' => $driver->gender_penumpang,
+              'city' => $driver->city,
               'avatar' => "img/user/" . $driver->avatar,
               'foto_mobil' => "img/mobil/" . $driver->image->images
             ]);
@@ -296,6 +297,7 @@ class DriverController extends Controller
                 $variable['tujuan'] = $driver->tujuan;
                 $variable['alamat'] = $driver->alamat;
                 $variable['gender_penumpang'] = $driver->gender_penumpang;
+                $variable['city'] = $driver->city;
                 $variable['avatar'] = "img/user/".$driver->avatar;
                 ( !empty($driver->image) ? $variable['foto_mobil'] = "img/mobil/".$driver->image->images : $variable['foto_mobil'] = null );
 
