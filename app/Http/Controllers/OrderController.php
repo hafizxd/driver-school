@@ -311,4 +311,40 @@ class OrderController extends Controller
         );
     }
 
+    public function kirimWoe($token, $title, $message){
+
+        define( 'API_ACCESS_KEY', 'AAAA-qBl5vM:APA91bFC7xt4sPPm9hiIEoVO2eNWFvK6CmYhbjpAslrmG_9CmQ-cpsS_lWGBHd0soaSdc0Pj4zO6psrJW7UnYlL0ekvqrsj4k6hrzWIJgy4bmLfa3R1kjAjkDMUJ42WXX0LjPj6OBnCw' );
+
+        $msg = array
+        (
+            "message" 	=> $message,
+            "title"		=> $title
+        );
+
+        $fields = array
+        (
+            'registration_ids' 	=> $token,
+            'data'			=> $msg
+        );
+
+        $headers = array
+        (
+            'Authorization: key=' . API_ACCESS_KEY,
+            'Content-Type: application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        $result = curl_exec($ch );
+        curl_close( $ch );
+        echo $result;
+
+        return response()->json( $result );
+    }
+
 }
