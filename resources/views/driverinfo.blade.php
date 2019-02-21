@@ -95,9 +95,9 @@
                                 <div class="form-group">
                                     <label>Gender Penumpang</label>
                                     <select class="form-control" name="gender_penumpang">
-                                        <option @if($Driver->gender_penumpang == 0) selected @endif value=0>Campur</option>
-                                        <option @if($Driver->gender_penumpang == 1) selected @endif value=1>Laki-Laki</option>
-                                        <option @if($Driver->gender_penumpang == 2) selected @endif value=2>Perempuan</option>
+                                        <option @if($Driver->gender_penumpang == "Campur") selected @endif value="Campur">Campur</option>
+                                        <option @if($Driver->gender_penumpang == "Laki-Laki") selected @endif value="Laki-Laki">Laki-Laki</option>
+                                        <option @if($Driver->gender_penumpang == "Perempuan") selected @endif value="Perempuan">Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
