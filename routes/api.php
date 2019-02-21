@@ -43,7 +43,7 @@ Route::post('/driver', 'DriverController@info');
 Route::get('/driver', 'DriverController@allDriver');
 Route::post('/driver/order', 'OrderController@order');
 Route::get('/driver/order/pending/{id}', 'OrderController@pendingView');
-Route::get('/driver/notifications/{id}', 'DriverController@notifications');
+Route::get('/driver/notifications', 'DriverController@notifications');
 
 Route::get('/order/{id}', 'OrderController@searchByOrderId');
 Route::post('/order/validate', 'OrderController@validateOrder');

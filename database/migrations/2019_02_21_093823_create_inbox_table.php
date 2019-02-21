@@ -15,12 +15,12 @@ class CreateInboxTable extends Migration
     {
         Schema::create('inbox', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('order_id')->unsigned();
             $table->text('description');
-            $table->string('images');            
+            $table->text('images');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

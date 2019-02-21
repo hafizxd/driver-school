@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['plan', 'start_date', 'end_date'];
+    protected $fillable = ['plan', 'start_date', 'end_date', 'isAlreadyNotified'];
 
     public function user(){
         return $this->belongsTo('App\User');
