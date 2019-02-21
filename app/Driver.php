@@ -8,7 +8,7 @@ class Driver extends Model
 {
 
     protected $fillable = [
-      'name', 'email', 'role', 'avatar', 'tipe_mobil', 'max_penumpang', 'gender_penumpang', 'tujuan', 'alamat', 'phone'
+      'name', 'email', 'role', 'avatar', 'tipe_mobil', 'max_penumpang', 'gender_penumpang', 'tujuan', 'alamat', 'phone', 'city'
     ];
 
 

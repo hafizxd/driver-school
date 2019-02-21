@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Inbox;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,6 +27,13 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->call(function () {
+            $order = Order::where('status', 1)->where('active', 1)->get();
+            foreach ($inboxes as $key => $inbox) {
+                $inbox->update([ 'isAlreadyNotified' => 'false' ]);
+            }
+          })->everyMinute();
     }
 
     /**

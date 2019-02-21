@@ -27,7 +27,7 @@ Route::post('/user/logout', 'UserController@logout');
 Route::post('/user', 'UserController@info');
 Route::post('/user/order', 'OrderController@userOrder');
 Route::get('/user/subs/{id}', 'OrderController@cekLangganan');
-Route::get('/user/notifications/{id}', 'UserController@notifications');
+Route::get('/user/notifications', 'UserController@notifications');
 
 Route::get('/pickup_area', 'OrderController@pickArea');
 
@@ -50,4 +50,4 @@ Route::post('/order/validate', 'OrderController@validateOrder');
 
 Route::post('/changePassword', 'PasswordController@updateApi');
 
-Route::post('/tellmeplease', 'UserController@tellParent');
+Route::post('/tellmeplease', 'DriverController@tellParent');

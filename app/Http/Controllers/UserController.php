@@ -7,6 +7,7 @@ use App\Mail\ResetPassword;
 use App\User;
 use App\Child;
 use App\Inbox;
+use App\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
@@ -221,25 +222,25 @@ class UserController extends Controller
         }
     }
 
-    public function tellParent (Request $request){
-      $order = Order::where('id', $request->orderId)->first();
-
-      $file     = $request->file('img');
-      $filename = $order->driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
-      $request->file('img')->move("img/inbox", $filename);
-
-      $inbox = new  Inbox;
-      $inbox->order_id = $request->orderId;
-      $inbox->description = $request->description;
-      $inbox->images = $fileName;
-      $inbox->save();
-      return response()->json([
-        'message' => 'success'
-      ]);
-    }
-
     public function notifications(Request $request){
+        $notifications = Notification::where('role', 1)->where('foreign_id', $request->id)->get();
 
+        foreach ($notifications as $key => $notification) {
+            $inbox = Inbox::where('id', $notification->second_id)->first();
+            
+            $variable['created_at']  = $notification->created_at;
+            $variable['message']     = $notification->message;
+            $variable['type']        = $notification->type;
+            $variable['id']          = $inbox->id;
+            $variable['order_id']    = $inbox->order_id;
+            $variable['description'] = $inbox->description;
+            $variable['img']         = 'img/inbox/' . $inbox->img;
+            $result[] = $variable;
+        }
+
+        return response()->json([
+            $result;
+        ]);
     }
 
 }

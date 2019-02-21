@@ -89,7 +89,7 @@ class OrderController extends Controller
         $order->end_date = $request->end_date;
         $order->save();
 
-        foreach($request->namaAnak as $key => $child){
+        foreach($request->children as $key => $child){
             Child::create([
                 'name'     => $child,
                 'user_id'  => $order->user->id,
@@ -217,6 +217,7 @@ class OrderController extends Controller
             $varUser['avatar'] = "/img/user/". $orderInfo->user->avatar;
             $users[] = $varUser;
 
+            $varOrder['orderId'] = $orderInfo->id;
             $varOrder['driverId'] =  $orderInfo->driver_id;
             $varOrder['userId'] =  $orderInfo->user_id;
             $varOrder['price'] =  $orderInfo->price;

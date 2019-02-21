@@ -8,6 +8,8 @@ class Inbox extends Model
 {
     protected $table = "inbox";
 
+    protected $fillable= ['isAlreadyNotified'];
+
     public function order(){
         return $this->belongsTo('App\Order');
     }

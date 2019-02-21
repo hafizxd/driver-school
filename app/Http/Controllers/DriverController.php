@@ -13,6 +13,7 @@ use App\Image;
 use App\Inbox;
 use App\Notification;
 use File;
+use Carbon;
 
 class DriverController extends Controller
 {
@@ -309,7 +310,7 @@ class DriverController extends Controller
             abort(404);
         } else {
             foreach($drivers as $driver){
-                $variable['id'] = $driver->id,
+                $variable['id'] = $driver->id;
                 $variable['name'] = $driver->name;
                 $variable['email'] = $driver->email;
                 $variable['phone'] = $driver->phone;
@@ -348,7 +349,7 @@ class DriverController extends Controller
     }
 
     public function notification(Request $request){
-        $notifications = Notification::where('role', 2)->get();
+        $notifications = Notification::where('role', 2)->where('foreign_id', $request->driverId)->get();
 
         foreach ($notifications as $key => $notification) {
            $variable['created_at'] = $notification->created_at;
@@ -360,6 +361,23 @@ class DriverController extends Controller
 
         return response()->json([
             $result
+        ]);
+    }
+
+    public function tellParent (Request $request){
+        $order = Order::where('id', $request->orderId)->first();
+
+        $file     = $request->file('img');
+        $filename = $order->driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+        $request->file('img')->move("img/inbox", $filename);
+
+        $inbox = new  Inbox;
+        $inbox->order_id = $request->orderId;
+        $inbox->description = $request->description;
+        $inbox->images = $fileName;
+        $inbox->save();
+        return response()->json([
+          'message' => 'success'
         ]);
     }
 

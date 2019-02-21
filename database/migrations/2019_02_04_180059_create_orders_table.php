@@ -28,7 +28,7 @@ class CreateOrdersTable extends Migration
             $table->text('pickupTime')->nullable();
             $table->text('start_date');
             $table->text('end_date');
-            $table->boolean('isAlreadyNotified')->nullable();
+            $table->text('isAlreadyNotified')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
