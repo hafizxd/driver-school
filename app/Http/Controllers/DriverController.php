@@ -10,6 +10,8 @@ use App\Mail\ResetPassword;
 use App\Mail\ConfirmMailDriver;
 use App\Driver;
 use App\Image;
+use App\Inbox;
+use App\Notification;
 use File;
 
 class DriverController extends Controller
@@ -263,6 +265,7 @@ class DriverController extends Controller
         if(!empty($driver)){
             if(!empty($driver->image)){
                 return response()->json([
+              'id' => $driver->id,
               'name' => $driver->name,
               'email' => $driver->email,
               'phone' => $driver->phone,
@@ -278,6 +281,7 @@ class DriverController extends Controller
             ]);
             } else {
                 return response()->json([
+                  'id' => $driver->id,
                   'name' => $driver->name,
                   'email' => $driver->email,
                   'phone' => $driver->phone,
@@ -305,7 +309,9 @@ class DriverController extends Controller
             abort(404);
         } else {
             foreach($drivers as $driver){
+                $variable['id'] = $driver->id,
                 $variable['name'] = $driver->name;
+                $variable['email'] = $driver->email;
                 $variable['phone'] = $driver->phone;
                 $variable['nopol'] = $driver->nopol;
                 $variable['tipe_mobil'] = $driver->tipe_mobil;
@@ -342,7 +348,19 @@ class DriverController extends Controller
     }
 
     public function notification(Request $request){
-        
+        $notifications = Notification::where('role', 2)->get();
+
+        foreach ($notifications as $key => $notification) {
+           $variable['created_at'] = $notification->created_at;
+           $variable['message']    = $notification->message;
+           $variable['type']       = $notification->type;
+           $variable['id']         = $notification->second_id;
+           $result[] = $variable;
+        }
+
+        return response()->json([
+            $result
+        ]);
     }
 
 }

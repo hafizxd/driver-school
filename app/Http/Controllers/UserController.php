@@ -155,6 +155,7 @@ class UserController extends Controller
         $user = User::where('id', $request->id)->first();
         if(!empty($user)){
             return response()->json([
+              'id' => $user->id,
               'name' => $user->name,
               'email' => $user->email,
               'phone' => $user->phone,
@@ -221,10 +222,16 @@ class UserController extends Controller
     }
 
     public function tellParent (Request $request){
+      $order = Order::where('id', $request->orderId)->first();
+
+      $file     = $request->file('img');
+      $filename = $order->driver->name.sha1(time()) . "." . $file->getClientOriginalExtension();
+      $request->file('img')->move("img/inbox", $filename);
+
       $inbox = new  Inbox;
-      $inbox->user_id = $request->userId;
+      $inbox->order_id = $request->orderId;
       $inbox->description = $request->description;
-      $inbox->images = $request->images;
+      $inbox->images = $fileName;
       $inbox->save();
       return response()->json([
         'message' => 'success'
@@ -232,7 +239,7 @@ class UserController extends Controller
     }
 
     public function notifications(Request $request){
-      
+
     }
 
 }
