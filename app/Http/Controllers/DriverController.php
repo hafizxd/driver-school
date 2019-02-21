@@ -261,7 +261,8 @@ class DriverController extends Controller
     public function info(Request $request){
         $driver = Driver::where('id', $request->id)->first();
         if(!empty($driver)){
-            return response()->json([
+            if(!empty($driver->image)){
+                return response()->json([
               'name' => $driver->name,
               'email' => $driver->email,
               'phone' => $driver->phone,
@@ -275,6 +276,21 @@ class DriverController extends Controller
               'avatar' => "img/user/" . $driver->avatar,
               'foto_mobil' => "img/mobil/" . $driver->image->images
             ]);
+            } else {
+                return response()->json([
+                  'name' => $driver->name,
+                  'email' => $driver->email,
+                  'phone' => $driver->phone,
+                  'nopol' => $driver->nopol,
+                  'tipe_mobil' => $driver->tipe_mobil,
+                  'max_penumpang' => $driver->max_penumpang,
+                  'tujuan' => $driver->tujuan,
+                  'alamat' => $driver->alamat,
+                  'gender_penumpang' => $driver->gender_penumpang,
+                  'city' => $driver->city,
+                  'avatar' => "img/user/" . $driver->avatar
+                ]);
+                }
         } else {
             return response()->json([
                 'message' => 'fails'
