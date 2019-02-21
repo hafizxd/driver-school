@@ -27,6 +27,7 @@ Route::post('/user/logout', 'UserController@logout');
 Route::post('/user', 'UserController@info');
 Route::post('/user/order', 'OrderController@userOrder');
 Route::get('/user/subs/{id}', 'OrderController@cekLangganan');
+Route::get('/user/notifications/{id}', 'UserController@notifications');
 
 Route::get('/pickup_area', 'OrderController@pickArea');
 
@@ -42,8 +43,11 @@ Route::post('/driver', 'DriverController@info');
 Route::get('/driver', 'DriverController@allDriver');
 Route::post('/driver/order', 'OrderController@order');
 Route::get('/driver/order/pending/{id}', 'OrderController@pendingView');
+Route::get('/driver/notifications/{id}', 'DriverController@notifications');
 
 Route::get('/order/{id}', 'OrderController@searchByOrderId');
 Route::post('/order/validate', 'OrderController@validateOrder');
 
 Route::post('/changePassword', 'PasswordController@updateApi');
+
+Route::post('/tellmeplease', 'UserController@tellParent');

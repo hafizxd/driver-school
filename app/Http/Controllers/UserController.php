@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Mail\ResetPassword;
 use App\User;
 use App\Child;
+use App\Inbox;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
@@ -130,7 +131,7 @@ class UserController extends Controller
         } else {
             return response()->json([
                 'message' => 'false'
-            ], 401);
+            ], 200);
         }
     }
 
@@ -173,7 +174,7 @@ class UserController extends Controller
         if(empty($user)){
             return response()->json([
                 'message' => 'Email belum terdaftar'
-            ], 401);
+            ], 200);
         } else {
             Mail::to($request->email)->send(new ResetPassword($user));
             return response()->json([
@@ -205,18 +206,33 @@ class UserController extends Controller
     }
 
     public function logout(Request $request){
-        $user = User::where('id', id)->first();
+        $user = User::where('id', $request->id)->first();
         if(!empty($user)){
-            return response([
-                'message' => 'success'
-            ]);
+            $user->fcm_token = "";
+            $user->save();
+            return response()->json([
+              'message' => 'success'
+            ], 200);
         } else {
-            return response([
+            return response()->json([
                 'message' => 'error'
             ]);
         }
     }
 
+    public function tellParent (Request $request){
+      $inbox = new  Inbox;
+      $inbox->user_id = $request->userId;
+      $inbox->description = $request->description;
+      $inbox->images = $request->images;
+      $inbox->save();
+      return response()->json([
+        'message' => 'success'
+      ]);
+    }
 
+    public function notifications(Request $request){
+      
+    }
 
 }

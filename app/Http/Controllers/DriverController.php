@@ -172,7 +172,7 @@ class DriverController extends Controller
             } else {
                 return response()->json([
                     'message' => 'false',
-                ], 401);
+                ], 200);
             }
         } else {
             return response()->json([
@@ -248,7 +248,7 @@ class DriverController extends Controller
         if(empty($user)){
             return response()->json([
                 'message' => 'Email tidak terdaftar'
-            ], 401);
+            ], 200);
         } else {
             Mail::to($request->email)->send(new ResetPassword($user));
 
@@ -308,6 +308,25 @@ class DriverController extends Controller
         return response()->json(
             $result
         );
+    }
+
+    public function logout(Request $request){
+        $driver = Driver::where('id', $request->id)->first();
+        if(!empty($driver)){
+            $driver->fcm_token = "";
+            $driver->save();
+            return response()->json([
+                'message' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'error'
+            ]);
+        }
+    }
+
+    public function notification(Request $request){
+        
     }
 
 }
