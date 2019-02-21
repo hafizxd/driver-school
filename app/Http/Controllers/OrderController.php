@@ -217,6 +217,7 @@ class OrderController extends Controller
             $varUser['avatar'] = "/img/user/". $orderInfo->user->avatar;
             $users[] = $varUser;
 
+            $varOrder['orderId'] = $orderInfo->id;
             $varOrder['driverId'] =  $orderInfo->driver_id;
             $varOrder['userId'] =  $orderInfo->user_id;
             $varOrder['price'] =  $orderInfo->price;

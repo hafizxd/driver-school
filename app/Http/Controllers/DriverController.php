@@ -309,7 +309,7 @@ class DriverController extends Controller
             abort(404);
         } else {
             foreach($drivers as $driver){
-                $variable['id'] = $driver->id,
+                $variable['id'] = $driver->id;
                 $variable['name'] = $driver->name;
                 $variable['email'] = $driver->email;
                 $variable['phone'] = $driver->phone;
