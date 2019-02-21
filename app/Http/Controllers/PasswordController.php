@@ -33,23 +33,43 @@ class PasswordController extends Controller
 
 
      public function updateApi(Request $request){
-        $user = User::where('email', $request->email)->first();
-        if (empty($user)) $user = Driver::where('email', $request->email)->first();
+        $var = User::where('email', $request->email)->first();
+        if (empty($var)) 
+            $var = Driver::where('email', $request->email)->first();
 
-        if (empty($user)){
+        if (empty($var)){
             return response()->json([
                 'message' => 'error'
             ]);
         }
 
-        if(Hash::check($request->old_password, $user->password)){
-            $user->update([ 'password' => bcrypt($request->new_password) ]);
+        if(Hash::check($request->old_password, $var->password)){
+            $var->password = bcrypt($request->new_password);
+            $var->save();
             return response()->json([
                 'message' => 'success'
             ]);
         } else {
             return response()->json([
                 'message' => 'error'
+            ]);
+        }
+     }
+
+     public function refreshToken(Request $request){
+        $var = User::where('id', $request->id)->first();
+        if (empty($var)) 
+            $var = Driver::where('id', $request->id)->first();
+        
+        if(empty($var)){
+            return response()->json([
+                'message' => 'error'
+            ]);
+        } else {
+            $var->fcm_token = $request->new_token;
+            $var->save();
+            return response()->json([
+                'message' => 'true'
             ]);
         }
      }

@@ -51,3 +51,5 @@ Route::post('/order/validate', 'OrderController@validateOrder');
 Route::post('/changePassword', 'PasswordController@updateApi');
 
 Route::post('/tellmeplease', 'DriverController@tellParent');
+
+Route::post('/refresh', 'PasswordController@refreshToken');

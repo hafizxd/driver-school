@@ -277,7 +277,7 @@ class DriverController extends Controller
               'alamat' => $driver->alamat,
               'gender_penumpang' => $driver->gender_penumpang,
               'city' => $driver->city,
-              'avatar' => "img/user/" . $driver->avatar,
+              'avatar' => "img/driver/" . $driver->avatar,
               'foto_mobil' => "img/mobil/" . $driver->image->images
             ]);
             } else {
@@ -293,7 +293,7 @@ class DriverController extends Controller
                   'alamat' => $driver->alamat,
                   'gender_penumpang' => $driver->gender_penumpang,
                   'city' => $driver->city,
-                  'avatar' => "img/user/" . $driver->avatar
+                  'avatar' => "img/driver/" . $driver->avatar
                 ]);
                 }
         } else {
@@ -321,7 +321,7 @@ class DriverController extends Controller
                 $variable['alamat'] = $driver->alamat;
                 $variable['gender_penumpang'] = $driver->gender_penumpang;
                 $variable['city'] = $driver->city;
-                $variable['avatar'] = "img/user/".$driver->avatar;
+                $variable['avatar'] = "img/driver/".$driver->avatar;
                 ( !empty($driver->image) ? $variable['foto_mobil'] = "img/mobil/".$driver->image->images : $variable['foto_mobil'] = null );
 
                 $result[] = $variable;
@@ -379,6 +379,21 @@ class DriverController extends Controller
         return response()->json([
           'message' => 'success'
         ]);
+      }
+
+    public function updatePassword(Request $request){
+        $driver = Driver::where('email', $request->email)->first();
+        if(Hash::check($request->old_password, $driver->password)){
+            $driver->password = bcrypt($request->new_password);
+            $driver->save();
+            return response()->json([
+                'message' => 'true'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'error'
+            ]);
+        }
     }
 
 }

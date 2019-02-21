@@ -7,12 +7,13 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Order;
 use App\Child;
+use App\Notification;
 
 class OrderController extends Controller
 {
 
     public function __construct(){
-        $ordersPending = Order::where('status', 0)->get();
+        $ordersPending = Order::where('status', !=, 1)->get();
 
         foreach ($ordersPending as $key => $order) {
             $currentDate = Carbon::now();
@@ -246,12 +247,33 @@ class OrderController extends Controller
 
     public function validateOrder(Request $request){
         $order = Order::where('id', $request->orderId)->first();
-        $order->status = $request->isAccept;
-        $order->reason = $request->reason;
-        $order->price  = $request->price;
-        $order->pickupTime = $request->pickupTime;
 
-        $order->save();
+        if($request->isAccept == 0){
+            NotificationControl::notif(
+                ' ',
+                'Pesanan anda kepada driver ' . $order->driver->name . ' telah ditolak oleh driver.',
+                $order->user->fcm_token,
+                'biasa',
+                $order->id
+              );
+
+            Notification::create([
+                'foreign_id'  => $order->user->id,
+                'message'     => 'Pesanan anda kepada driver ' . $order->driver->name . ' telah ditolak oleh driver.',
+                'type'        => 'biasa',
+                'role'        => 1,
+                'second_id'   => $order->id
+            ]);
+
+            $order->reason = $request->reason;
+            $order->save();
+        } else {
+            $order->price  = $request->price;
+            $order->pickupTime = $request->pickupTime;
+
+            $order->save();
+        }
+
         return response()->json([
             'message' => 'success'
         ]);
