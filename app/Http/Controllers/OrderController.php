@@ -249,13 +249,11 @@ class OrderController extends Controller
         $order = Order::where('id', $request->orderId)->first();
 
         if($request->isAccept == 0){
-            NotificationControl::notif(
-                ' ',
+            $this->notif(' ',
                 'Pesanan anda kepada driver ' . $order->driver->name . ' telah ditolak oleh driver.',
                 $order->user->fcm_token,
                 'biasa',
-                $order->id
-              );
+                $order->id);
 
             Notification::create([
                 'foreign_id'  => $order->user->id,
@@ -277,6 +275,39 @@ class OrderController extends Controller
         return response()->json([
             'message' => 'success'
         ]);
+    }
+    
+    public function notif($title, $message, $token, $type, $orderId){
+            define( 'API_ACCESS_KEY', 'AAAAmsazadk:APA91bGJWNJeVIzrzKTbcXUMHzNT3bT5KyVq8Q_aO0_Cb97N59cjkPE9N3wPOvwJI_uD63AhcWJz1ScyVkBz12TKDUDzpUqSEohZU5Xsw6Ag6rIg_3xkcVwAEttZcNh9J9WNPwNZF0xO' );
+        $msg = array
+        (
+            "message" 	=> $message,
+            "title"		=> $title
+        );
+
+        $fields = array
+        (
+            'registration_ids' 	=> $token,
+            'data'			=> $msg
+        );
+
+        $headers = array
+        (
+            'Authorization: key=' . API_ACCESS_KEY,
+            'Content-Type: application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        $result = curl_exec($ch );
+        curl_close( $ch );
+
+        return response()->json( $result );
     }
 
     public function order(Request $request){

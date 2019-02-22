@@ -374,7 +374,7 @@ class DriverController extends Controller
         $inbox = new  Inbox;
         $inbox->order_id = $request->orderId;
         $inbox->description = $request->description;
-        $inbox->images = $fileName;
+        $inbox->images = $filename;
         $inbox->save();
         return response()->json([
           'message' => 'success'
