@@ -293,12 +293,15 @@ class OrderController extends Controller
             $seatUsed = 0;
             $orders = $order->driver->orders;
             foreach ($orders as $key => $order) {
-                foreach ($order->childs as $key => $childs) {
-                    $seatUsed += 1;
+                if($order->status == 1){
+                    foreach ($order->childs as $key => $childs) {
+                        $seatUsed += 1;
+                    }
                 }
             }
 
             $availableSeat = $order->driver->max_penumpang - $seatUsed;
+            dd($availableSeat);
             if($availableSeat < $order->childs){
                 return reaponse()->json([
                     'message' => 'sudah penuh'
