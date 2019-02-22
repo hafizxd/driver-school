@@ -401,7 +401,7 @@ class DriverController extends Controller
            $variable['created_at'] = $notification->created_at;
            $variable['message']    = $notification->message;
            $variable['type']       = $notification->type;
-           $variable['id']         = $notification->second_id;
+           $variable['orderId']    = $notification->second_id;
            $result[] = $variable;
         }
 
