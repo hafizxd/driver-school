@@ -301,7 +301,6 @@ class OrderController extends Controller
             }
 
             $availableSeat = $order->driver->max_penumpang - $seatUsed;
-            dd($availableSeat);
             if($availableSeat < $order->childs){
                 return reaponse()->json([
                     'message' => 'sudah penuh'
