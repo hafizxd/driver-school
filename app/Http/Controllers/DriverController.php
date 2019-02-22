@@ -432,7 +432,7 @@ class DriverController extends Controller
             $inbox->id;
 
         Notification::create([
-            'foreign_id'  => $order->id,
+            'foreign_id'  => $order->user->id,
             'message'     => 'Driver ' . $order->driver->name . ' telah mengantarkan anak anda sampai sekolah.',
             'type'        => 'telltheirparent',
             'role'        => 1,
