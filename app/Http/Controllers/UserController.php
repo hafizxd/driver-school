@@ -226,16 +226,23 @@ class UserController extends Controller
         $notifications = Notification::where('role', 1)->where('foreign_id', $request->id)->get();
 
         foreach ($notifications as $key => $notification) {
-            $inbox = Inbox::where('id', $notification->second_id)->first();
-            
-            $variable['created_at']  = $notification->created_at;
-            $variable['message']     = $notification->message;
-            $variable['type']        = $notification->type;
-            $variable['id']          = $inbox->id;
-            $variable['order_id']    = $inbox->order_id;
-            $variable['description'] = $inbox->description;
-            $variable['img']         = 'img/inbox/' . $inbox->img;
-            $result[] = $variable;
+
+            if($notification->type == 'telltheirparent'){
+                $inbox = Inbox::where('id', $notification->second_id)->first();
+
+                $variable['created_at']         = $notification->created_at;
+                $variable['message']            = $notification->message;
+                $variable['type']               = $notification->type;
+                $variable['orderId']            = $inbox->order->id;
+                $variable['tellTheirParentId']  = $inbox->id;
+                $result[] = $variable;
+            } else {
+                $variable['created_at']       = $notification->created_at;
+                $variable['message']          = $notification->message;
+                $variable['type']             = $notification->type;
+                $variable['orderId']          = $notification->second_id;
+                $result[] = $variable;
+            }
         }
 
         return response()->json([

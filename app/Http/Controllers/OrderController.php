@@ -13,12 +13,19 @@ class OrderController extends Controller
 {
 
     public function __construct(){
-        $ordersPending = Order::where('status', !=, 1)->get();
+        $ordersPending = Order::where('status', '!=', 1)->get();
+        $ordersActive  = Order::where('status', 1)->get();
 
         foreach ($ordersPending as $key => $order) {
             $currentDate = Carbon::now();
             if($order->start_date > $currentDate){
                 Order::destroy($order->id);
+            }
+        }
+        foreach ($ordersActive as $key => $order) {
+            $currentDate = Carbon::now();
+            if($order->start_date > $currentDate){
+                $order->update([ 'active', 1 ]);
             }
         }
     }
@@ -97,6 +104,22 @@ class OrderController extends Controller
                 'order_id' => $order->id
             ]);
         }
+
+        $order = Order::where('user_id', $request->userId)->where('driver_id', $request->driverId)->where('plan', $request->longContract)->first();
+
+        $this->notif(' ',
+            'Ada pesanan masuk dari user ' . $order->user->name,
+            array($order->driver->fcm_token),
+            'biasa',
+            $order->id);
+
+        Notification::create([
+            'foreign_id'  => $order->driver->id,
+            'message'     => 'Ada pesanan masuk dari user ' . $order->user->name,
+            'type'        => 'biasa',
+            'role'        => 2,
+            'second_id'   => $order->id
+        ]);
 
         return response()->json([
             'message' => 'success'
@@ -251,7 +274,7 @@ class OrderController extends Controller
         if($request->isAccept == 0){
             $this->notif(' ',
                 'Pesanan anda kepada driver ' . $order->driver->name . ' telah ditolak oleh driver.',
-                $order->user->fcm_token,
+                array($order->user->fcm_token),
                 'biasa',
                 $order->id);
 
@@ -263,9 +286,24 @@ class OrderController extends Controller
                 'second_id'   => $order->id
             ]);
 
+            $order->status = 2;
             $order->reason = $request->reason;
             $order->save();
         } else {
+            $this->notif(' ',
+                'Pesanan anda kepada driver ' . $order->driver->name . ' telah diterima oleh driver.',
+                array($order->user->fcm_token),
+                'accepted_order_by_driver',
+                $order->id);
+
+            Notification::create([
+                'foreign_id'  => $order->user->id,
+                'message'     => 'Pesanan anda kepada driver ' . $order->driver->name . ' telah diterima oleh driver.',
+                'type'        => 'accepted_order_by_driver',
+                'role'        => 1,
+                'second_id'   => $order->id
+            ]);
+
             $order->price  = $request->price;
             $order->pickupTime = $request->pickupTime;
 
@@ -276,7 +314,116 @@ class OrderController extends Controller
             'message' => 'success'
         ]);
     }
-    
+
+    public function userValidateOrder(Request $request){
+        $order = Order::where('id', $request->orderId)->first();
+
+        if($request->isAccept == 0){
+            $this->notif(' ',
+                'Pesanan user ' . $order->user->name . ' kepada anda telah dibatalkan.',
+                array($order->driver->fcm_token),
+                'biasa',
+                $order->id);
+
+            Notification::create([
+                'foreign_id'  => $order->driver->id,
+                'message'     => 'Pesanan user ' . $order->user->name . ' kepada anda telah dibatalkan.',
+                'type'        => 'biasa',
+                'role'        => 2,
+                'second_id'   => $order->id
+            ]);
+
+            Order::destroy($order->id);
+        } else {
+            $startDate = $order->start_date;
+            $endDate   = $order->end_date;
+
+            $this->notif(' ',
+                'Pesanan user ' . $order->user->name . ' kepada anda telah diterima oleh user. Sekarang kontrak anda akan berjalan mulai tanggal ' . $startDate->toFormattedDateString . ' sampai tanggal ' . $endDate->toFormattedDateString '.',
+                array($order->driver->fcm_token),
+                'biasa',
+                $order->id);
+
+            Notification::create([
+                'foreign_id'  => $order->driver->id,
+                'message'     => 'Pesanan user ' . $order->user->name . ' kepada anda telah diterima oleh user. Sekarang kontrak anda akan berjalan mulai tanggal ' . $startDate->toFormattedDateString . ' sampai tanggal ' . $endDate->toFormattedDateString '.',
+                'type'        => 'biasa',
+                'role'        => 2,
+                'second_id'   => $order->id
+            ]);
+
+            $order->update([ 'status' => 1 ]);
+        }
+
+        return response()->json([
+            'message' => 'success'
+        ]);
+    }
+
+    public function userCancelOrder(Request $request){
+        $order = Order::where('id', $orderId)->first();
+
+        $this->notif(' ',
+            'User ' . $order->user->name . ' meminta pemberhentian kontrak dengan anda.',
+            array($order->driver->fcm_token),
+            'request_cancel_order',
+            $order->id);
+
+        Notification::create([
+            'foreign_id'  => $order->driver->id,
+            'message'     => 'User ' . $order->user->name . ' meminta pemberhentian kontrak dengan anda.',
+            'type'        => 'request_cancel_order',
+            'role'        => 2,
+            'second_id'   => $order->id
+        ]);
+
+        $order->update([ 'reason', $request->reason ]);
+
+        return response()->json([
+            'message' => 'success'
+        ]);
+    }
+
+    public function driverCancelOrder(Request $request){
+        $order = Order::where('id', $request->orderId)->first();
+
+        if ($request->isAccept == 0){
+            $this->notif(' ',
+                'Driver ' . $order->driver->name . ' menolak permintaan pemberhentian kontrak anda.',
+                array($order->user->fcm_token),
+                'biasa',
+                $order->id);
+
+            Notification::create([
+                'foreign_id'  => $order->user->id,
+                'message'     => 'Driver ' . $order->driver->name . ' menolak permintaan pemberhentian kontrak anda.',
+                'type'        => 'biasa',
+                'role'        => 1,
+                'second_id'   => $order->id
+            ]);
+        } else {
+            $this->notif(' ',
+                'Driver ' . $order->driver->name . ' telah menerima permintaan pemberhentian kontrak anda. Sekarang kontrak anda dengan driver ' . $order->driver->name . ' telah berhenti.',
+                array($order->user->fcm_token),
+                'biasa',
+                $order->id);
+
+            Notification::create([
+                'foreign_id'  => $order->user->id,
+                'message'     => 'Driver ' . $order->driver->name . ' telah menerima permintaan pemberhentian kontrak anda. Sekarang kontrak anda dengan driver ' . $order->driver->name . ' telah berhenti.',
+                'type'        => 'biasa',
+                'role'        => 1,
+                'second_id'   => $order->id
+            ]);
+
+            Order::destroy($order->id);
+        }
+
+        return response()->json([
+            'message' => 'success'
+        ]);
+    }
+
     public function notif($title, $message, $token, $type, $orderId){
             define( 'API_ACCESS_KEY', 'AAAAmsazadk:APA91bGJWNJeVIzrzKTbcXUMHzNT3bT5KyVq8Q_aO0_Cb97N59cjkPE9N3wPOvwJI_uD63AhcWJz1ScyVkBz12TKDUDzpUqSEohZU5Xsw6Ag6rIg_3xkcVwAEttZcNh9J9WNPwNZF0xO' );
         $msg = array

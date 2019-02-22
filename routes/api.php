@@ -47,6 +47,9 @@ Route::get('/driver/notifications', 'DriverController@notifications');
 
 Route::get('/order/{id}', 'OrderController@searchByOrderId');
 Route::post('/order/validate', 'OrderController@validateOrder');
+Route::post('/order/user/validate', 'OrderController@userVaildateOrder');
+Route::post('/order/user/cancel', 'OrderController@userCancelOrder');
+Route::post('/order/driver/cancel', 'OrderController@driverCancelOrder');
 
 Route::post('/changePassword', 'PasswordController@updateApi');
 

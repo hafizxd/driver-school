@@ -82,7 +82,20 @@ class DriverController extends Controller
 
     public function accept($id){
         $driver = Driver::where('id', $id)->first();
-        Mail::to($driver->email)->send(new RegisterDriver($driver));
+        //Mail::to($driver->email)->send(new RegisterDriver($driver));
+        $this->notif('',
+            'Selamat, akun driver anda: ' . $order->driver->name . ', telah diverifikasi oleh admin. Sekarang anda bisa mulai bekerja di DriveSchool sebagai Driver',
+            array($driver->fcm_token),
+            'biasa',
+            '';
+
+        Notification::create([
+            'foreign_id'  => $driver->id,
+            'message'     => 'Selamat, akun driver anda: ' . $order->driver->name . ', telah diverifikasi oleh admin. Sekarang anda bisa mulai bekerja di DriveSchool sebagai Driver',
+            'type'        => 'biasa',
+            'role'        => 2,
+            'second_id'   => ''
+        ]);
 
         $driver->update([
             'role' => 2
@@ -103,6 +116,39 @@ class DriverController extends Controller
         $driver->update([ 'role' => 4 ]);
 
         return view('ValidationSuccess')->with(compact('driver'));
+    }
+
+    public function notif($title, $message, $token, $type, $orderId){
+            define( 'API_ACCESS_KEY', 'AAAAmsazadk:APA91bGJWNJeVIzrzKTbcXUMHzNT3bT5KyVq8Q_aO0_Cb97N59cjkPE9N3wPOvwJI_uD63AhcWJz1ScyVkBz12TKDUDzpUqSEohZU5Xsw6Ag6rIg_3xkcVwAEttZcNh9J9WNPwNZF0xO' );
+        $msg = array
+        (
+            "message" 	=> $message,
+            "title"		=> $title
+        );
+
+        $fields = array
+        (
+            'registration_ids' 	=> $token,
+            'data'			=> $msg
+        );
+
+        $headers = array
+        (
+            'Authorization: key=' . API_ACCESS_KEY,
+            'Content-Type: application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        $result = curl_exec($ch );
+        curl_close( $ch );
+
+        return response()->json( $result );
     }
 
 
@@ -376,6 +422,23 @@ class DriverController extends Controller
         $inbox->description = $request->description;
         $inbox->images = $filename;
         $inbox->save();
+
+        $inbox = Inbox::where('images', $fileName)->first();
+
+        $this->notif('',
+            'Driver ' . $order->driver->name . ' telah mengantarkan anak anda sampai sekolah.',
+            array($order->user->fcm_token),
+            'telltheirparent',
+            $inbox->id;
+
+        Notification::create([
+            'foreign_id'  => $order->id,
+            'message'     => 'Driver ' . $order->driver->name . ' telah mengantarkan anak anda sampai sekolah.',
+            'type'        => 'telltheirparent',
+            'role'        => 1,
+            'second_id'   => $inbox->id
+        ]);
+
         return response()->json([
           'message' => 'success'
         ]);
