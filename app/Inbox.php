@@ -8,7 +8,7 @@ class Inbox extends Model
 {
     protected $table = "inbox";
 
-    protected $fillable= ['isAlreadyNotified'];
+    protected $fillable= ['isAlreadyNotified', 'description', 'images', 'order_id'];
 
     public function order(){
         return $this->belongsTo('App\Order');

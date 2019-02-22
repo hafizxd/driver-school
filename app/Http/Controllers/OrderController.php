@@ -290,6 +290,13 @@ class OrderController extends Controller
             $order->reason = $request->reason;
             $order->save();
         } else {
+
+            // $orders = $order->driver->orders;
+            // foreach ($orders as $key => $order) {
+            //
+            // }
+            // $availableSeat = $order->driver->max_penumpang - 5;
+
             $this->notif(' ',
                 'Pesanan anda kepada driver ' . $order->driver->name . ' telah diterima oleh driver.',
                 array($order->user->fcm_token),
@@ -339,14 +346,14 @@ class OrderController extends Controller
             $endDate   = $order->end_date;
 
             $this->notif(' ',
-                'Pesanan user ' . $order->user->name . ' kepada anda telah diterima oleh user. Sekarang kontrak anda akan berjalan mulai tanggal ' . $startDate->toFormattedDateString . ' sampai tanggal ' . $endDate->toFormattedDateString '.',
+                'Pesanan user ' . $order->user->name . ' kepada anda telah diterima oleh user. Sekarang kontrak anda akan berjalan mulai tanggal ' . $startDate->toFormattedDateString . ' sampai tanggal ' . $endDate->toFormattedDateString . '.',
                 array($order->driver->fcm_token),
                 'biasa',
                 $order->id);
 
             Notification::create([
                 'foreign_id'  => $order->driver->id,
-                'message'     => 'Pesanan user ' . $order->user->name . ' kepada anda telah diterima oleh user. Sekarang kontrak anda akan berjalan mulai tanggal ' . $startDate->toFormattedDateString . ' sampai tanggal ' . $endDate->toFormattedDateString '.',
+                'message'     => 'Pesanan user ' . $order->user->name . ' kepada anda telah diterima oleh user. Sekarang kontrak anda akan berjalan mulai tanggal ' . $startDate->toFormattedDateString . ' sampai tanggal ' . $endDate->toFormattedDateString . '.',
                 'type'        => 'biasa',
                 'role'        => 2,
                 'second_id'   => $order->id
