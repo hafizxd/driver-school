@@ -290,12 +290,20 @@ class OrderController extends Controller
             $order->reason = $request->reason;
             $order->save();
         } else {
+            $seatUsed = 0;
+            $orders = $order->driver->orders;
+            foreach ($orders as $key => $order) {
+                foreach ($order->childs as $key => $childs) {
+                    $seatUsed += 1;
+                }
+            }
 
-            // $orders = $order->driver->orders;
-            // foreach ($orders as $key => $order) {
-            //
-            // }
-            // $availableSeat = $order->driver->max_penumpang - 5;
+            $availableSeat = $order->driver->max_penumpang - $seatUsed;
+            if($availableSeat < $order->childs){
+                return reaponse()->json([
+                    'message' => 'sudah penuh'
+                ]);
+            }
 
             $this->notif(' ',
                 'Pesanan anda kepada driver ' . $order->driver->name . ' telah diterima oleh driver.',
