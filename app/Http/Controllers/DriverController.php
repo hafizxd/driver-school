@@ -87,7 +87,7 @@ class DriverController extends Controller
             'Selamat, akun driver anda: ' . $order->driver->name . ', telah diverifikasi oleh admin. Sekarang anda bisa mulai bekerja di DriveSchool sebagai Driver',
             array($driver->fcm_token),
             'biasa',
-            '';
+            '');
 
         Notification::create([
             'foreign_id'  => $driver->id,
@@ -429,7 +429,7 @@ class DriverController extends Controller
             'Driver ' . $order->driver->name . ' telah mengantarkan anak anda sampai sekolah.',
             array($order->user->fcm_token),
             'telltheirparent',
-            $inbox->id;
+            $inbox->id);
 
         Notification::create([
             'foreign_id'  => $order->user->id,
